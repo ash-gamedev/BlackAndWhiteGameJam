@@ -117,4 +117,12 @@ public class TileManager : MonoBehaviour
 
         return new Tuple<EnumTileDirection, Vector3Int>(tileDirection, neighborPos);
     }
+
+    public EnumNeighbour GetTileNeighbour(Vector3Int gridposition, Vector3Int previousPosition)
+    {
+        if (gridposition + Vector3Int.up == previousPosition) return EnumNeighbour.Top;
+        else if (gridposition + Vector3Int.down == previousPosition) return EnumNeighbour.Bottom;
+        else if (gridposition + Vector3Int.right == previousPosition) return EnumNeighbour.Right;
+        else return EnumNeighbour.Left;
+    }
 }

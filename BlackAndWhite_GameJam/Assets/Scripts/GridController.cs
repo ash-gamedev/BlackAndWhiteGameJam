@@ -23,64 +23,77 @@ public class GridController : MonoBehaviour
     TileManager tileManager;
 
     //
-    bool mousePressedDown = false;
     bool isDrawingPath = false;
-    Tile startOriginalTile = null;
-    Vector3Int startTilePosition;
-    Vector3Int previousTilePosition;
-    Tile lastTile = null;
+    List<ConveyerTilePath> paths = new List<ConveyerTilePath>();
+
+    ConveyerTilePath currentPath;
+    ConveyerTilePath CurrentPath
+    {
+        get
+        {
+            return this.currentPath;
+        }
+        set
+        {
+            Debug.Log("Setting current path to " + value);
+            this.currentPath = value;
+        }
+    }
 
     // Start is called before the first frame update
     void Start()
     {
         grid = gameObject.GetComponent<Grid>();
         tileManager = FindObjectOfType<TileManager>();
+
+        interactiveMap.CompressBounds();
     }
 
     // Update is called once per frame
     void Update()
     {
-        interactiveMap.CompressBounds();
-
         // Mouse over -> highlight tile
         Vector3Int mousePos = GetMousePosition();
         if (!mousePos.Equals(previousMousePos) && interactiveMap.cellBounds.Contains(mousePos))
         {
-            interactiveMap.SetTile(previousMousePos, null); // Remove old hoverTile
+            interactiveMap.SetTile(previousMousePos, defaultTile); // Remove old hoverTile
             interactiveMap.SetTile(mousePos, hoverTile);
             previousMousePos = mousePos;
         }
 
-        // Left mouse click -> add path tile (if within bounds)
-        if (Input.GetMouseButton(0) && interactiveMap.cellBounds.Contains(mousePos))
+        // Left mouse click -> add path tile (if within bounds and on a valid path) && pathMap.GetTile<Tile>(mousePos) == defaultTile
+        if (Input.GetMouseButton(0) && interactiveMap.cellBounds.Contains(mousePos) )
         {
             // if starting to draw a path, save the starting path details and set bool
-            if (isDrawingPath == false)
+            if (isDrawingPath == false && CurrentPath == null)
             {
-                ResetTilesToDefault();
-
-                isDrawingPath = true;
+                
                 Vector3Int? closestNeighbourPos = GetStartingNeighbour(mousePos);
                 if (closestNeighbourPos != null)
                 {
-                    
-                    startTilePosition = (Vector3Int)closestNeighbourPos;
-                    startOriginalTile = pathMap.GetTile<Tile>((Vector3Int)closestNeighbourPos);
-                    previousTilePosition = startTilePosition;
-                    
-                }
-                else
-                {
-                    previousTilePosition = mousePos;
-                    lastTile = upTile;
+                    isDrawingPath = true;
+
+                    Vector3Int startTilePosition = (Vector3Int)closestNeighbourPos;
+                    Tile startOriginalTile = pathMap.GetTile<Tile>(startTilePosition);
+
+                    CurrentPath = new ConveyerTilePath(defaultTile, startOriginalTile, pathMap);
+                    ConveyerTile startTile = new ConveyerTile(startTilePosition, startOriginalTile);
+                    CurrentPath.AddTileToPath(startTile);
                 }
             }
-
-            SetTiles(mousePos);
+            else if (isDrawingPath && CurrentPath != null)
+            {
+                SetTiles(mousePos);
+            }
         }
         else
         {
-            isDrawingPath = false;
+            if (isDrawingPath)
+            {
+                paths.Add(CurrentPath);
+                CurrentPath = null;
+                isDrawingPath = false;
+            }
         }
 
         // Right mouse click -> remove path tile (if within bounds)
@@ -107,6 +120,8 @@ public class GridController : MonoBehaviour
 
             if (neighbourTileDirection != EnumTileDirection.None)
             {
+                Debug.Log(CurrentPath);
+                Debug.Log("IsDrawing: " + isDrawingPath + " Found closest neighbour " + neighbourPosition.ToString());
                 return neighbourPosition;
             }
         }
@@ -115,6 +130,9 @@ public class GridController : MonoBehaviour
     }
     private void SetTiles(Vector3Int gridPosition)
     {
+        ConveyerTile lastConveyerTile = CurrentPath.GetLastTile();
+        Vector3Int previousTilePosition = lastConveyerTile.Position;
+
         if(gridPosition != previousTilePosition)
         {
             Tile setTile = null;
@@ -125,32 +143,13 @@ public class GridController : MonoBehaviour
             else if (gridPosition - Vector3Int.left == previousTilePosition) setTile = leftTile;
             else setTile = rightTile;
 
-            // update tiles
-            Debug.Log("Setting tiles: " + gridPosition + " & " + previousTilePosition + " to " + setTile.name);
-            pathMap.SetTile(gridPosition, setTile);
-            pathMap.SetTile(previousTilePosition, setTile);
+            // Add new tile to path
 
-            // update previous tile to current tile
-            previousTilePosition = gridPosition;
-            lastTile = setTile;
-        }
-        else
-        {
-            pathMap.SetTile(gridPosition, lastTile);
+            ConveyerTile conveyerTile = new ConveyerTile(gridPosition, setTile);
+            CurrentPath.AddTileToPath(conveyerTile);
+
+            Debug.Log(CurrentPath.ConveyerTiles.Count);
         }
     }
 
-    private void ResetTilesToDefault()
-    {
-        // Reset start tile
-        if(startOriginalTile != null)
-        {
-            pathMap.SetTile(startTilePosition, startOriginalTile);
-            startOriginalTile = null;
-        }
-        foreach(Vector3Int cellPos in interactiveMap.cellBounds.allPositionsWithin)
-        {
-            pathMap.SetTile(cellPos, defaultTile);
-        }
-    }
 }
