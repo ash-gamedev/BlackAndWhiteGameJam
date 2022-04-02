@@ -24,14 +24,18 @@ public class MovingObject : MonoBehaviour
     {
         Vector3 position = transform.position;
 
-        // only want to change directions when object is centered (x position and y position divisible by 0.5)
-        if (Math.Round(position.x, 4) % 0.5 == 0 && Math.Round(position.y, 4) % 0.5 == 0)
-        {
-            Debug.Log(Math.Round(position.x, 4) + " " + Math.Round(position.y, 4));
-            direction = tileConveyerManager.GetTileDirection(transform.position);
-        }
-            
+        if (direction == Vector2.right)
+            position = new Vector3(position.x - 0.5f, position.y, position.z);
+        else if (direction == Vector2.left)
+            position = new Vector3(position.x + 0.5f, position.y, position.z);
+        else if (direction == Vector2.up)
+            position = new Vector3(position.x, position.y - 0.5f, position.z);
+        else if (direction == Vector2.down)
+            position = new Vector3(position.x, position.y + 0.5f, position.z);
 
-        transform.position += new Vector3(direction.x, direction.y, 0) * Time.deltaTime * speed;
+        direction = tileConveyerManager.GetTileDirection(position);
+
+        Vector2 moveVector = direction * Time.deltaTime * speed;
+        transform.position += new Vector3(moveVector.x, moveVector.y, 0);
     }
 }
