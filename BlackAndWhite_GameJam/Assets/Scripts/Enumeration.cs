@@ -5,7 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 public enum EnumTags
 {
-    Order
+    Order,
+    Chair
 }
 
 public enum EnumOrder
