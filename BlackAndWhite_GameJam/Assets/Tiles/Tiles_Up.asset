@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 13312, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: Tiles_0
+  m_Name: Tiles_Up
   m_EditorClassIdentifier: 
   m_Sprite: {fileID: 802149679, guid: 337cac35f8c34fe42a886d4467391cee, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

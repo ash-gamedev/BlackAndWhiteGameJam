@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -36,13 +37,21 @@ public class TileConveyerManager : MonoBehaviour
 
         TileBase tile = map.GetTile(gridPosition);
 
-        if (tile != null)
+        try
         {
-            TileConveyer tileConveyer = tileConveyerFromTileBase[tile];
-            if (tileConveyer != null)
-                direction = tileConveyerFromTileBase[tile].direction;
+            if (tile != null)
+            {
+                TileConveyer tileConveyer = tileConveyerFromTileBase[tile];
+                if (tileConveyer != null)
+                    direction = tileConveyerFromTileBase[tile].direction;
+            }
         }
-        
+        catch (Exception e)
+        {
+            Debug.Log(e.Message);
+            Debug.Log(worldPosition + " " + gridPosition);
+        }
+                
         return direction;
     }
 }
