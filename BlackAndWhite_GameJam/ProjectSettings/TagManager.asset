@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Item
   - Belt
+  - Order
+  - Customer
   layers:
   - Default
   - TransparentFX
@@ -13,9 +15,9 @@ TagManager:
   - 
   - Water
   - UI
-  - Item
+  - Order
   - Background
-  - 
+  - Customer
   - 
   - 
   - 
@@ -52,6 +54,15 @@ TagManager:
   - name: InteractableConveyerBelt
     uniqueID: 3956377319
     locked: 0
+  - name: Customer
+    uniqueID: 4180741417
+    locked: 0
   - name: Item
     uniqueID: 2789533995
+    locked: 0
+  - name: CustomerOder
+    uniqueID: 930770413
+    locked: 0
+  - name: Highlight
+    uniqueID: 1169837387
     locked: 0
