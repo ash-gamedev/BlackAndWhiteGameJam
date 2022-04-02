@@ -10,7 +10,6 @@ public class GridController : MonoBehaviour
     [SerializeField] private Tilemap interactiveMap = null;
     [SerializeField] private Tilemap pathMap = null;
     [SerializeField] private Tile hoverTile = null;
-    [SerializeField] private RuleTile pathTile = null;
 
     [SerializeField] private Tile defaultTile = null;
     [SerializeField] private Tile upTile = null;
@@ -20,10 +19,13 @@ public class GridController : MonoBehaviour
 
     private Vector3Int previousMousePos = new Vector3Int();
 
+    TileManager tileManager;
+
     // Start is called before the first frame update
     void Start()
     {
         grid = gameObject.GetComponent<Grid>();
+        tileManager = FindObjectOfType<TileManager>();
     }
 
     // Update is called once per frame

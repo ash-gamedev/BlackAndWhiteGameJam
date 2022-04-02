@@ -3,17 +3,31 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-public class Enumeration
+public enum EnumTags
 {
-    public enum Tags
-    {
-        Order
-    }
+    Order
+}
 
-    public enum Order
-    {
-        Pear,
-        Burger,
-        Hotdog
-    }
+public enum EnumOrder
+{
+    Pear,
+    Burger,
+    Hotdog
+}
+
+public enum EnumTileDirection
+{
+    Up,
+    Down,
+    Left,
+    Right,
+    None
+}
+
+public enum EnumNeighbour
+{
+    Top,
+    Bottom,
+    Left,
+    Right
 }

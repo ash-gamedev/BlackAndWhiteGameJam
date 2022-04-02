@@ -5,13 +5,13 @@ using UnityEngine;
 
 public class MovingObject : MonoBehaviour
 {
-    private TileConveyerManager tileConveyerManager;
+    private TileManager tileConveyerManager;
     private float speed = 0;
-    private Vector2 direction;
+    private Vector3 direction;
 
     private void Awake()
     {
-        tileConveyerManager = FindObjectOfType<TileConveyerManager>();
+        tileConveyerManager = FindObjectOfType<TileManager>();
         speed = tileConveyerManager.ConveyerSpeed;
     }
 
@@ -24,18 +24,18 @@ public class MovingObject : MonoBehaviour
     {
         Vector3 position = transform.position;
 
-        if (direction == Vector2.right)
+        if (direction == Vector3.right)
             position = new Vector3(position.x - 0.5f, position.y, position.z);
-        else if (direction == Vector2.left)
+        else if (direction == Vector3.left)
             position = new Vector3(position.x + 0.5f, position.y, position.z);
-        else if (direction == Vector2.up)
+        else if (direction == Vector3.up)
             position = new Vector3(position.x, position.y - 0.5f, position.z);
-        else if (direction == Vector2.down)
+        else if (direction == Vector3.down)
             position = new Vector3(position.x, position.y + 0.5f, position.z);
 
         direction = tileConveyerManager.GetTileDirection(position);
 
-        Vector2 moveVector = direction * Time.deltaTime * speed;
-        transform.position += new Vector3(moveVector.x, moveVector.y, 0);
+        Vector3 moveVector = direction * Time.deltaTime * speed;
+        transform.position += moveVector;
     }
 }

@@ -4,22 +4,22 @@ using UnityEngine;
 public class Customer : MonoBehaviour
 {
     //private CustomerOrder customerOrder;
-    [SerializeField] Enumeration.Order customerOrder;
+    [SerializeField] EnumOrder customerOrder;
     [SerializeField] GameObject orderBubble;
 
     GameObject orderBubbleInstance;
 
     private void Start()
     {
-        SetOrder(Enumeration.Order.Hotdog);
+        SetOrder(EnumOrder.Hotdog);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         Debug.Log(collision.tag);
-        if (collision.CompareTag(Enumeration.Tags.Order.ToString()))
+        if (collision.CompareTag(EnumTags.Order.ToString()))
         {
-            Enumeration.Order order = collision.GetComponent<Order>().order;
+            EnumOrder order = collision.GetComponent<Order>().order;
 
             if (order == customerOrder)
             {
@@ -35,7 +35,7 @@ public class Customer : MonoBehaviour
         }
     }
 
-    public void SetOrder(Enumeration.Order order)
+    public void SetOrder(EnumOrder order)
     {
         customerOrder = order;
 

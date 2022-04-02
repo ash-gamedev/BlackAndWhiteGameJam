@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class Order : MonoBehaviour
 {
-    public Enumeration.Order order;
+    public EnumOrder order;
     [SerializeField] SpriteRenderer foodSpriteRenderer;
 
     private void Start()

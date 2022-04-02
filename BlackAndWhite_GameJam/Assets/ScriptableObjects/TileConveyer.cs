@@ -8,5 +8,6 @@ public class TileConveyer : ScriptableObject
 {
     public TileBase[] tiles;
 
-    public Vector2 direction;
+    public EnumTileDirection TileDirection;
+
 }

@@ -15,5 +15,4 @@ MonoBehaviour:
   tiles:
   - {fileID: 11400000, guid: c1e05a589d22e8747b0d4b52df018596, type: 2}
   - {fileID: 11400000, guid: 3abf8c971b3a28c40bd020c1ea06c899, type: 2}
-  speed: 2
-  direction: {x: 0, y: -1}
+  TileDirection: 1

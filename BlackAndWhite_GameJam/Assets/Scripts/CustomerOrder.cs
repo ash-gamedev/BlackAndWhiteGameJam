@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class CustomerOrder : MonoBehaviour
 {
-    public Enumeration.Order order;
+    public EnumOrder order;
     [SerializeField] SpriteRenderer bubbleSpriteRenderer;
 
     private void Start()
@@ -12,7 +12,7 @@ public class CustomerOrder : MonoBehaviour
         bubbleSpriteRenderer.sprite = orderManager.OrderSprites[order];
     }
 
-    public Enumeration.Order GetOrder()
+    public EnumOrder GetOrder()
     {
         return order;
     }

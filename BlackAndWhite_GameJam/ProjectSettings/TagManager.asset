@@ -8,6 +8,7 @@ TagManager:
   - Belt
   - Order
   - Customer
+  - Chair
   layers:
   - Default
   - TransparentFX
@@ -56,6 +57,9 @@ TagManager:
     locked: 0
   - name: Highlight
     uniqueID: 1169837387
+    locked: 0
+  - name: Chair
+    uniqueID: 4264461475
     locked: 0
   - name: Customer
     uniqueID: 4180741417
