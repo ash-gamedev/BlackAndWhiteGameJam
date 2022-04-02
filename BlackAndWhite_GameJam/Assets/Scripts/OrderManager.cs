@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class OrderManager : MonoBehaviour
 {
-    public Dictionary<Enumeration.Order, Sprite> OrderSprites { get; set; }
+    public Dictionary<EnumOrder, Sprite> OrderSprites { get; set; }
 
     [Header("Order Sprites")]
     [SerializeField] Sprite pearSprite;
@@ -18,17 +18,17 @@ public class OrderManager : MonoBehaviour
     // Use this for initialization
     void Awake()
     {
-        OrderSprites = new Dictionary<Enumeration.Order, Sprite>()
+        OrderSprites = new Dictionary<EnumOrder, Sprite>()
             {
-                { Enumeration.Order.Pear, pearSprite },
-                { Enumeration.Order.Burger, burgerSprite },
-                { Enumeration.Order.Hotdog, hotdogSprite }
+                { EnumOrder.Pear, pearSprite },
+                { EnumOrder.Burger, burgerSprite },
+                { EnumOrder.Hotdog, hotdogSprite }
             };
     }
 
 
     void PlateOrder()
     {
-
+        
     }
 }

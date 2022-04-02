@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -45,7 +46,7 @@ public class GridController : MonoBehaviour
         // Left mouse click -> add path tile (if within bounds)
         if (Input.GetMouseButton(0) && interactiveMap.cellBounds.Contains(mousePos))
         {
-            pathMap.SetTile(mousePos, upTile);
+            SetTiles(mousePos);
         }
 
         // Right mouse click -> remove path tile (if within bounds)
@@ -61,8 +62,46 @@ public class GridController : MonoBehaviour
         return grid.WorldToCell(mouseWorldPos);
     }
 
-    void PlaceTile()
+    private void SetTiles(Vector3Int gridPosition)
     {
-        //Vector3 
+        Dictionary<EnumNeighbour, Tuple<EnumTileDirection, Vector3Int>> neighbourTiles = tileManager.GetAllNeighborTiles(gridPosition);
+        
+        foreach(KeyValuePair<EnumNeighbour, Tuple<EnumTileDirection, Vector3Int>> neighbourTile in neighbourTiles)
+        {
+            EnumNeighbour neighbour = neighbourTile.Key;
+            EnumTileDirection neighbourTileDirection = neighbourTile.Value.Item1;
+            Vector3Int neighbourPosition = neighbourTile.Value.Item2;
+
+            Debug.Log(neighbour.ToString() + " direction: " + neighbourTileDirection.ToString());
+            if(neighbourTileDirection != EnumTileDirection.None)
+            {
+                if(neighbour == EnumNeighbour.Right)
+                {
+                    pathMap.SetTile(gridPosition, leftTile);
+                    pathMap.SetTile(neighbourPosition, leftTile);
+                    break;
+                }
+                else if(neighbour == EnumNeighbour.Left)
+                {
+                    pathMap.SetTile(gridPosition, rightTile);
+                    pathMap.SetTile(neighbourPosition, rightTile);
+                    break;
+                }
+                else if (neighbour == EnumNeighbour.Top)
+                {
+                    pathMap.SetTile(gridPosition, downTile);
+                    pathMap.SetTile(neighbourPosition, downTile);
+                    break;
+                }
+                else if (neighbour == EnumNeighbour.Bottom)
+                {
+                    pathMap.SetTile(gridPosition, upTile);
+                    pathMap.SetTile(neighbourPosition, upTile);
+                    break;
+                }
+            }
+        }
+
     }
+
 }

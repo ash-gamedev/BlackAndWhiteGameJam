@@ -20,4 +20,9 @@ public class Seat : MonoBehaviour
     {
         this.hasCustomer = hasCustomer;
     }
+
+    private void FindClosestConveyerTile()
+    {
+
+    }
 }
