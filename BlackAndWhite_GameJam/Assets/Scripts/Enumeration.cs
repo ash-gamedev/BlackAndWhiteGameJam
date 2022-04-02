@@ -13,6 +13,7 @@ public class Enumeration
     public enum Order
     {
         Pear,
-        Apple
+        Burger,
+        Hotdog
     }
 }

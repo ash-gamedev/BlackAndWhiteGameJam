@@ -3,11 +3,13 @@ using UnityEngine;
 
 public class CustomerOrder : MonoBehaviour
 {
-    private Enumeration.Order order;
+    public Enumeration.Order order;
+    [SerializeField] SpriteRenderer bubbleSpriteRenderer;
 
     private void Start()
     {
-        // select order
+        OrderManager orderManager = FindObjectOfType<OrderManager>();
+        bubbleSpriteRenderer.sprite = orderManager.OrderSprites[order];
     }
 
     public Enumeration.Order GetOrder()
