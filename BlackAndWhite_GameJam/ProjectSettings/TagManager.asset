@@ -14,7 +14,7 @@ TagManager:
   - Water
   - UI
   - Item
-  - 
+  - Background
   - 
   - 
   - 
@@ -42,6 +42,15 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Background
+    uniqueID: 3952709681
+    locked: 0
+  - name: ConveyerBelt
+    uniqueID: 2710750109
+    locked: 0
+  - name: InteractableConveyerBelt
+    uniqueID: 3956377319
     locked: 0
   - name: Item
     uniqueID: 2789533995
