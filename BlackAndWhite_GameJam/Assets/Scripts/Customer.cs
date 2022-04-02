@@ -41,7 +41,7 @@ public class Customer : MonoBehaviour
 
         // instantiate order bubble
         orderBubble.GetComponent<CustomerOrder>().order = order; // set order
-        Vector3 orderBubbleSpawn = transform.position + new Vector3(0, 1f, 0);
+        Vector3 orderBubbleSpawn = transform.position + new Vector3(0, 1.75f, 0);
         orderBubbleInstance = 
             Instantiate(orderBubble,  // what object to instantiate
                         orderBubbleSpawn, // where to spawn the object

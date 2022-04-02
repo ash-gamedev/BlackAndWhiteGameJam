@@ -35,7 +35,6 @@ public class GridController : MonoBehaviour
         }
         set
         {
-            Debug.Log("Setting current path to " + value);
             this.currentPath = value;
         }
     }
@@ -99,7 +98,7 @@ public class GridController : MonoBehaviour
         // Right mouse click -> remove path tile (if within bounds)
         if (Input.GetMouseButton(1) && interactiveMap.cellBounds.Contains(mousePos))
         {
-            pathMap.SetTile(mousePos, defaultTile);
+            RemoveTiles(mousePos);
         }
     }
 
@@ -120,8 +119,6 @@ public class GridController : MonoBehaviour
 
             if (neighbourTileDirection != EnumTileDirection.None)
             {
-                Debug.Log(CurrentPath);
-                Debug.Log("IsDrawing: " + isDrawingPath + " Found closest neighbour " + neighbourPosition.ToString());
                 return neighbourPosition;
             }
         }
@@ -147,8 +144,14 @@ public class GridController : MonoBehaviour
 
             ConveyerTile conveyerTile = new ConveyerTile(gridPosition, setTile);
             CurrentPath.AddTileToPath(conveyerTile);
+        }
+    }
 
-            Debug.Log(CurrentPath.ConveyerTiles.Count);
+    private void RemoveTiles(Vector3Int gridPosition)
+    {
+        foreach(var path in paths)
+        {
+            path.RemoveTileFromPath(gridPosition);
         }
     }
 

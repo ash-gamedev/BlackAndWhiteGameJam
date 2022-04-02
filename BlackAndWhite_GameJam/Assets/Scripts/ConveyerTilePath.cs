@@ -38,6 +38,28 @@ public class ConveyerTilePath
         TileMap.SetTile(conveyerTile.Position, conveyerTile.Tile);
     }
 
+    public void RemoveTileFromPath(Vector3Int position)
+    {
+        ConveyerTile removeTile = ConveyerTiles.FirstOrDefault(x => x.Position == position);
+        if (removeTile != null)
+        {
+            // beside start
+            if (ConveyerTiles.IndexOf(removeTile) == 1)
+                ResetStartingTile();
+            TileMap.SetTile(position, DefaultTile);
+            ConveyerTiles.Remove(removeTile);
+        }
+    }
+
+    public void ResetStartingTile()
+    {
+        if (ConveyerTiles?.Count > 0)
+        {
+            ConveyerTile startingTileConveyer = ConveyerTiles.First();
+            TileMap.SetTile(startingTileConveyer.Position, StartingTileOriginal);
+        }
+    }
+
     public void ResetTilesToDefault()
     {
         if (ConveyerTiles?.Count > 0)
