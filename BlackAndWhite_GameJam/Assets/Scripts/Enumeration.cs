@@ -40,3 +40,8 @@ public enum EnumSeatPosition
     Left,
     Right
 }
+
+public enum EnumAnimationName
+{
+
+}

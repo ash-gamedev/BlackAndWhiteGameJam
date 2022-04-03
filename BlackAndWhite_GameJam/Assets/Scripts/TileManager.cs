@@ -17,6 +17,7 @@ public class TileManager : MonoBehaviour
 
     private Dictionary<TileBase, TileConveyer> tileConveyerFromTileBase;
     private Dictionary<EnumTileDirection, Vector3> vectorByDirection;
+    private List<Vector3Int> borderTileConveyers;
 
     private void Awake()
     {
@@ -39,6 +40,16 @@ public class TileManager : MonoBehaviour
             { EnumTileDirection.Right, Vector3.right },
             { EnumTileDirection.None, Vector3.zero }
         };
+
+        borderTileConveyers = new List<Vector3Int>();
+        foreach (Vector3Int cellPos in tileConveyerMap.cellBounds.allPositionsWithin)
+        {
+            TileBase tile = tileConveyerMap.GetTile(cellPos);
+            if (tile != null && tileConveyerFromTileBase.ContainsKey(tile))
+            {
+                borderTileConveyers.Add(cellPos);
+            }
+        }
     }
 
     public Vector3 GetTileDirection(Vector2 worldPosition)
