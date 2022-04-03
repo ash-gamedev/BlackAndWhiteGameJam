@@ -75,6 +75,9 @@ public class Customer : MonoBehaviour
             Instantiate(orderBubble,  // what object to instantiate
                         orderBubbleSpawn, // where to spawn the object
                         Quaternion.identity); // need to specify rotation
+
+        // spawn order
+        FindObjectOfType<OrderManager>().SpawnOrder(customerOrder);
     }
 
     public void SetTarget(Vector3 target)

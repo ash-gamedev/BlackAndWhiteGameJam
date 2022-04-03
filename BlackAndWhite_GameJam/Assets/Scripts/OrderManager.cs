@@ -11,9 +11,7 @@ public class OrderManager : MonoBehaviour
     [SerializeField] Sprite burgerSprite;
     [SerializeField] Sprite hotdogSprite;
 
-    [Header("Other Sprites")]
-    [SerializeField] Sprite plateSprite;
-    [SerializeField] Sprite orderBubbleSprite;
+    [SerializeField] GameObject platedOrderPrefab;
 
     // Use this for initialization
     void Awake()
@@ -27,8 +25,12 @@ public class OrderManager : MonoBehaviour
     }
 
 
-    void PlateOrder()
+    public void SpawnOrder(EnumOrder order)
     {
-        
+        GameObject platedOrderInstance = platedOrderPrefab;
+        platedOrderInstance.GetComponent<Order>().order = order;
+        Instantiate(platedOrderInstance,  // what object to instantiate
+                        transform.position, // where to spawn the object
+                        Quaternion.identity); // need to specify rotation
     }
 }
