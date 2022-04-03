@@ -1,13 +1,14 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using UnityEngine;
 
 public class Customer : MonoBehaviour
 {
+    [SerializeField] GameObject orderBubble;
     [SerializeField] public float timeToEatInSeconds = 2f;
     [SerializeField] public float timeBeforeLeaving = 100f;
 
-    [SerializeField] EnumOrder customerOrder;
-    [SerializeField] GameObject orderBubble;
+    EnumOrder customerOrder;
 
     GameObject orderBubbleInstance;
     bool setOrder = false;
@@ -15,7 +16,10 @@ public class Customer : MonoBehaviour
 
     private void Start()
     {
-        customerOrder = EnumOrder.Hotdog;
+        Array orders = Enum.GetValues(typeof(EnumOrder));
+        System.Random random = new System.Random();
+
+        customerOrder = (EnumOrder)orders.GetValue(random.Next(orders.Length));
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

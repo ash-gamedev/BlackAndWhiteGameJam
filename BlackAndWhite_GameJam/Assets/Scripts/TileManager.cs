@@ -81,6 +81,11 @@ public class TileManager : MonoBehaviour
         return direction;
     }
 
+    public Vector3Int GetTileGridPosition(Vector2 worldPosition)
+    {
+        return tileConveyerMap.WorldToCell(worldPosition);
+    }
+
     public Dictionary<EnumNeighbour, Tuple<EnumTileDirection, Vector3Int>> GetAllNeighborTiles(Vector3Int gridPosition)
     {
         Dictionary<EnumNeighbour, Tuple<EnumTileDirection, Vector3Int>> neighbourTiles = new Dictionary<EnumNeighbour, Tuple<EnumTileDirection, Vector3Int>>();
