@@ -8070,7 +8070,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   customer: {fileID: 1612893580135824664, guid: 0b757db065f4ae94e99a75480b0df770, type: 3}
-  timeBetweenCustomerSpawns: 2
+  timeBetweenCustomerSpawns: 10
   customerTimeVariance: 1
 --- !u!4 &1782802561
 Transform:

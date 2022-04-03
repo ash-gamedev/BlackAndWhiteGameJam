@@ -11,6 +11,7 @@ public class Customer : MonoBehaviour
 
     EnumOrder customerOrder;
 
+    Seat seatInstance;
     GameObject orderBubbleInstance;
     bool setOrder = false;
     bool wasOrderCorrect = false;
@@ -22,6 +23,8 @@ public class Customer : MonoBehaviour
         System.Random random = new System.Random();
 
         customerOrder = (EnumOrder)orders.GetValue(random.Next(orders.Length));
+
+        seatInstance = transform.parent.gameObject.GetComponent<Seat>();
     }
 
     private void Update()
@@ -62,6 +65,9 @@ public class Customer : MonoBehaviour
             //Set plate order as child
             collision.transform.parent = this.transform;
 
+            // Reset conveyer to original position
+            seatInstance.ResetTileConveyerToOriginalPath();
+
             StartCoroutine(FinishEating());
         }
     }
@@ -75,6 +81,9 @@ public class Customer : MonoBehaviour
             Instantiate(orderBubble,  // what object to instantiate
                         orderBubbleSpawn, // where to spawn the object
                         Quaternion.identity); // need to specify rotation
+
+        // set conveyer to face customer after order is placed
+        seatInstance.SetConveyerTileToFaceCustomer();
 
         // spawn order
         FindObjectOfType<OrderManager>().SpawnOrder(customerOrder);

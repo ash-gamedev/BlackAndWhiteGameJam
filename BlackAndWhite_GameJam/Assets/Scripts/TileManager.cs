@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -17,7 +18,7 @@ public class TileManager : MonoBehaviour
 
     private Dictionary<TileBase, TileConveyer> tileConveyerFromTileBase;
     private Dictionary<EnumTileDirection, Vector3> vectorByDirection;
-    private List<Vector3Int> borderTileConveyers;
+    private Dictionary<Vector3Int, TileBase> defaultBorderTileConveyers;
 
     private void Awake()
     {
@@ -41,13 +42,13 @@ public class TileManager : MonoBehaviour
             { EnumTileDirection.None, Vector3.zero }
         };
 
-        borderTileConveyers = new List<Vector3Int>();
+        defaultBorderTileConveyers = new Dictionary<Vector3Int, TileBase>();
         foreach (Vector3Int cellPos in tileConveyerMap.cellBounds.allPositionsWithin)
         {
             TileBase tile = tileConveyerMap.GetTile(cellPos);
             if (tile != null && tileConveyerFromTileBase.ContainsKey(tile))
             {
-                borderTileConveyers.Add(cellPos);
+                defaultBorderTileConveyers[cellPos] = tile;
             }
         }
     }
@@ -140,5 +141,24 @@ public class TileManager : MonoBehaviour
         else if (gridposition + Vector3Int.down == previousPosition) return EnumNeighbour.Bottom;
         else if (gridposition + Vector3Int.right == previousPosition) return EnumNeighbour.Right;
         else return EnumNeighbour.Left;
+    }
+
+    public void SetTileOnConveyer(Vector3Int gridPosition, EnumTileDirection tileDirection)
+    {
+        if (defaultBorderTileConveyers.ContainsKey(gridPosition))
+        {
+            TileConveyer tileConveyer = tileConveyers.FirstOrDefault(x => x.TileDirection == tileDirection);
+            TileBase tile = tileConveyerFromTileBase.FirstOrDefault(x => x.Value == tileConveyer).Key;
+            tileConveyerMap.SetTile(gridPosition, tile);
+        }
+    }
+
+    public void ResetTileOnConveyer(Vector3Int gridPosition)
+    {
+        if (defaultBorderTileConveyers.ContainsKey(gridPosition))
+        {
+            TileBase tile = defaultBorderTileConveyers[gridPosition];
+            tileConveyerMap.SetTile(gridPosition, tile);
+        }
     }
 }

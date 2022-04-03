@@ -7,15 +7,14 @@ public class Seat : MonoBehaviour
 
     private TileManager tileManager;
     private Vector3Int seatGridPosition;
-    public Vector3Int tileConveyerPosition;
 
     private void Start()
     {
         tileManager = FindObjectOfType<TileManager>();
         seatGridPosition = tileManager.GetTileGridPosition(transform.position);
-        tileConveyerPosition = GetClosestConveyerTilePosition();
     }
 
+    #region public functions
     public bool GetCustomer()
     {
         Customer customer = GetComponentInChildren<Customer>();
@@ -29,7 +28,7 @@ public class Seat : MonoBehaviour
     public void SetCustomer(GameObject customer)
     {
         // if no customer is sitting in chair, instantiate customer
-        if(GetCustomer() == false)
+        if (GetCustomer() == false)
         {
             Vector3 spawnPosition = GetCustomerSpawnPosition();
             GameObject customerInstance =
@@ -44,6 +43,24 @@ public class Seat : MonoBehaviour
         }
     }
 
+    public void SetConveyerTileToFaceCustomer()
+    {
+        EnumTileDirection conveyerTileDirection = GetConveyerTileDirection();
+        Vector3Int conveyerTilePosition = GetClosestConveyerTilePosition();
+
+        tileManager.SetTileOnConveyer(conveyerTilePosition, conveyerTileDirection);
+    }
+
+    public void ResetTileConveyerToOriginalPath()
+    {
+        Vector3Int conveyerTilePosition = GetClosestConveyerTilePosition();
+
+        tileManager.ResetTileOnConveyer(conveyerTilePosition);
+    }
+    #endregion
+
+    #region private functions
+    
     private Vector3Int GetClosestConveyerTilePosition()
     {
         if (seatPosition == EnumSeatPosition.Top) return seatGridPosition + (Vector3Int.down * 2);
@@ -59,4 +76,14 @@ public class Seat : MonoBehaviour
         else if (seatPosition == EnumSeatPosition.Right) return transform.position + (Vector3Int.right * 4);
         else return transform.position + (Vector3Int.left * 4);
     }
+
+    private EnumTileDirection GetConveyerTileDirection()
+    {
+        if (seatPosition == EnumSeatPosition.Top) return EnumTileDirection.Up;
+        else if (seatPosition == EnumSeatPosition.Bottom) return EnumTileDirection.Down;
+        else if (seatPosition == EnumSeatPosition.Right) return EnumTileDirection.Right;
+        else return EnumTileDirection.Left;
+    }
+    #endregion
+
 }
