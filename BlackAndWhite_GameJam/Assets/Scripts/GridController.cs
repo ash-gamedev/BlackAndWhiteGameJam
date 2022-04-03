@@ -55,7 +55,7 @@ public class GridController : MonoBehaviour
         Vector3Int mousePos = GetMousePosition();
         if (!mousePos.Equals(previousMousePos) && interactiveMap.cellBounds.Contains(mousePos))
         {
-            interactiveMap.SetTile(previousMousePos, defaultTile); // Remove old hoverTile
+            interactiveMap.SetTile(previousMousePos, null); // Remove old hoverTile
             interactiveMap.SetTile(mousePos, hoverTile);
             previousMousePos = mousePos;
         }

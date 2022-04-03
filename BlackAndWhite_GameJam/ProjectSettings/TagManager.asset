@@ -49,11 +49,11 @@ TagManager:
   - name: Background
     uniqueID: 3952709681
     locked: 0
-  - name: InteractableConveyerBelt
-    uniqueID: 3956377319
-    locked: 0
   - name: ConveyerBelt
     uniqueID: 2710750109
+    locked: 0
+  - name: InteractableConveyerBelt
+    uniqueID: 3956377319
     locked: 0
   - name: Highlight
     uniqueID: 1169837387
@@ -69,4 +69,7 @@ TagManager:
     locked: 0
   - name: CustomerOder
     uniqueID: 930770413
+    locked: 0
+  - name: UI
+    uniqueID: 3182383907
     locked: 0
