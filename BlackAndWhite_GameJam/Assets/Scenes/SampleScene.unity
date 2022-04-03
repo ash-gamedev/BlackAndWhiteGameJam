@@ -2088,7 +2088,7 @@ AudioSource:
   m_Volume: 1
   m_Pitch: 1
   Loop: 1
-  Mute: 0
+  Mute: 1
   Spatialize: 0
   SpatializePostEffects: 0
   Priority: 128
@@ -8198,7 +8198,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   customer: {fileID: 1612893580135824664, guid: 0b757db065f4ae94e99a75480b0df770, type: 3}
-  timeBetweenCustomerSpawns: 10
+  timeBetweenCustomerSpawns: 2
   customerTimeVariance: 1
 --- !u!4 &1782802561
 Transform:

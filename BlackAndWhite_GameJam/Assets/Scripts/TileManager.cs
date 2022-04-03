@@ -161,4 +161,18 @@ public class TileManager : MonoBehaviour
             tileConveyerMap.SetTile(gridPosition, tile);
         }
     }
+
+    public bool IsOnConveyerTile(Vector2 worldPosition)
+    {
+        Vector3Int gridPosition = tileConveyerMap.WorldToCell(worldPosition);
+
+        TileBase tile = tileConveyerMap.GetTile(gridPosition);
+
+        if (tile != null && tileConveyerFromTileBase.ContainsKey(tile))
+        {
+            return true;
+        }
+
+        return false;
+    }
 }

@@ -28,8 +28,11 @@ public class CustomerSpawner : MonoBehaviour
     {
         while (true)
         {
-            // find seat with no customer
-            Seat seat = seats.FirstOrDefault(x => x.GetCustomer() == false);
+            // find random seat with no customer
+            System.Random rnd = new System.Random();
+            Seat seat = seats.Where(x => x.GetCustomer() == false)
+                        .OrderBy(c => rnd.Next())
+                        .FirstOrDefault();
 
             // if available seat, assign customer to chair
             if(seat != null)

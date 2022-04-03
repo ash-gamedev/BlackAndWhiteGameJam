@@ -59,16 +59,7 @@ public class Customer : MonoBehaviour
                 Debug.Log("Customer Order: " + customerOrder.ToString() + " Actual Order: " + order.ToString());
             }
 
-            //Remove order
-            Destroy(orderBubbleInstance);
-
-            //Set plate order as child
-            collision.transform.parent = this.transform;
-
-            // Reset conveyer to original position
-            seatInstance.ResetTileConveyerToOriginalPath();
-
-            StartCoroutine(FinishEating());
+            StartCoroutine(CompleteOrder(collision.gameObject));
         }
     }
 
@@ -89,15 +80,26 @@ public class Customer : MonoBehaviour
         FindObjectOfType<OrderManager>().SpawnOrder(customerOrder);
     }
 
+    public IEnumerator CompleteOrder(GameObject order)
+    {
+        //Remove order
+        Destroy(orderBubbleInstance);
+
+        //Set plate order as child
+        order.transform.parent = this.transform;
+
+        MovingObject movingPlate = order.GetComponent<MovingObject>();
+        movingPlate.canMove = false;
+
+        seatInstance.ResetTileConveyerToOriginalPath();
+
+        yield return new WaitForSeconds(timeToEatInSeconds);
+        Leave();
+    }
+
     public void SetTarget(Vector3 target)
     {
         targetSeat = target;
-    }
-
-    public IEnumerator FinishEating()
-    {
-        yield return new WaitForSeconds(timeToEatInSeconds);
-        Leave();
     }
 
     public void Leave()
