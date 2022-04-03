@@ -34,6 +34,6 @@ public class Order : MonoBehaviour
 
     private void OnPlateAnimationComplete()
     {
-        movingObject.canMove = true;
+        movingObject.canChangeDirection = true;
     }
 }

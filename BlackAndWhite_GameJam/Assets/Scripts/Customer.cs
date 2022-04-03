@@ -89,7 +89,7 @@ public class Customer : MonoBehaviour
         order.transform.parent = this.transform;
 
         MovingObject movingPlate = order.GetComponent<MovingObject>();
-        movingPlate.canMove = false;
+        movingPlate.canChangeDirection = false;
 
         seatInstance.ResetTileConveyerToOriginalPath();
 

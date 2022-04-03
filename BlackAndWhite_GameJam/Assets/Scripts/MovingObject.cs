@@ -9,7 +9,7 @@ public class MovingObject : MonoBehaviour
     private TileManager tileConveyerManager;
     private float speed = 0;
     private Vector3 direction;
-    public bool canMove = false; 
+    public bool canChangeDirection = false; 
 
     private void Awake()
     {
@@ -27,6 +27,7 @@ public class MovingObject : MonoBehaviour
     {
         Vector3 position = transform.position;
 
+        // Use position 0.5 away from current position (to keep tile in center of conveyor on loop)
         if (direction == Vector3.right)
             position = new Vector3(position.x - 0.5f, position.y, position.z);
         else if (direction == Vector3.left)
@@ -38,7 +39,8 @@ public class MovingObject : MonoBehaviour
 
         Vector3 newDirection = tileConveyerManager.GetTileDirection(position);
 
-        if (canMove || newDirection == Vector3.zero)
+        // if can move, set direction as new direction
+        if (canChangeDirection || newDirection == Vector3.zero)
             direction = newDirection;
         
         Vector3 moveVelocity = direction * speed;
