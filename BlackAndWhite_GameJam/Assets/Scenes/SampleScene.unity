@@ -2066,6 +2066,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1621698222}
   - component: {fileID: 1621698221}
+  - component: {fileID: 1621698223}
   m_Layer: 0
   m_Name: Audio Source
   m_TagString: Untagged
@@ -2085,10 +2086,10 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: d50d6b726fe6be34b9f3b8c9e9ab0462, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.5
   m_Pitch: 1
   Loop: 1
-  Mute: 1
+  Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
   Priority: 128
@@ -2184,6 +2185,23 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1621698223
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1621698220}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 242dc50189bdf0b47a8f68d365bf47ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  plateShatter: {fileID: 8300000, guid: 201203fa615a9b044a0923b1c402e292, type: 3}
+  plateShatterVolume: 1
+  customerOrder: {fileID: 0}
+  customerOrderVolume: 0
+  audioSource: {fileID: 0}
 --- !u!4 &1686614333 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3168642515195356398, guid: 9f0310b0f3dbb194aa5677556d77df46, type: 3}
@@ -8198,7 +8216,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   customer: {fileID: 1612893580135824664, guid: 0b757db065f4ae94e99a75480b0df770, type: 3}
-  timeBetweenCustomerSpawns: 2
+  timeBetweenCustomerSpawns: 8
   customerTimeVariance: 1
 --- !u!4 &1782802561
 Transform:

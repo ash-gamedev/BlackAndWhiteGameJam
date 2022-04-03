@@ -47,7 +47,17 @@ public enum EnumSeatPosition
     Right
 }
 
-public enum EnumAnimationName
+public enum EnumAnimationState
 {
+    Idle,
+    PlateBreak
+}
 
+public enum EnumSoundEffects
+{
+    PlateShatter,
+    CustomerOrder,
+    OrderCorrect,
+    OrderIncorrect,
+    CustomerPays
 }

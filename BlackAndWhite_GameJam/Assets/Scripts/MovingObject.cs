@@ -5,14 +5,20 @@ using UnityEngine;
 
 public class MovingObject : MonoBehaviour
 {
+    [SerializeField] float timeBeforeDissappearOnBreak = 1f;
     private Rigidbody2D rigidbody;
     private TileManager tileConveyerManager;
     private float speed = 0;
     private Vector3 direction;
-    public bool canChangeDirection = false; 
+    public bool canChangeDirection = true;
+    private bool plateBroken = false;
+
+    private Animator animator;
+    private EnumAnimationState animationState;
 
     private void Awake()
     {
+        animator = GetComponent<Animator>();
         rigidbody = GetComponent<Rigidbody2D>();
         tileConveyerManager = FindObjectOfType<TileManager>();
         speed = tileConveyerManager.ConveyerSpeed;
@@ -47,9 +53,11 @@ public class MovingObject : MonoBehaviour
         rigidbody.velocity = moveVelocity;
 
         // if plate falls of the conveyer (and not eaten)
-        if (!tileConveyerManager.IsOnConveyerTile(transform.position) && gameObject.transform.parent == null)
+        if (!tileConveyerManager.IsOnConveyerTile(transform.position) && gameObject.transform.parent == null && plateBroken == false)
         {
-            Destroy(gameObject);
+            plateBroken = true;
+            canChangeDirection = false;
+            StartCoroutine(BreakPlate());            
         }
     }
 
@@ -60,5 +68,31 @@ public class MovingObject : MonoBehaviour
         return true;
     }
 
+    private IEnumerator BreakPlate()
+    {
+        // todo change sort order for sprite: InteractableConveyerBelt
+        yield return new WaitUntil(() => direction == Vector3.zero);
 
+        // sound effect
+        AudioPlayer.PlaySoundEffect(EnumSoundEffects.PlateShatter);
+
+        // animation
+        ChangeAnimationState(EnumAnimationState.PlateBreak);
+
+        // wait & destroy
+        yield return new WaitForSeconds(timeBeforeDissappearOnBreak);
+        Destroy(gameObject);
+    }
+
+    void ChangeAnimationState(EnumAnimationState newState)
+    {
+        //stop the same animation from interuptting itself
+        if (animationState == newState) return;
+
+        //play the animation
+        animator.Play(newState.ToString());
+
+        //reassign current state
+        animationState = newState;
+    }
 }
