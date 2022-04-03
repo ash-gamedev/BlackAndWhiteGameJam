@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 4667470682040111425}
   - component: {fileID: 4667470682040111452}
   - component: {fileID: 4667470682040111427}
-  - component: {fileID: 5261228755623666119}
+  - component: {fileID: -1693985570203970887}
   m_Layer: 6
   m_Name: PlatedOrder
   m_TagString: Order
@@ -136,7 +136,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!114 &4667470682040111452
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -149,7 +149,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad98a6ae0dcb5be49b37bcd258ec685f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  order: 0
+  order: 1
   foodSpriteRenderer: {fileID: 4667470682770758704}
 --- !u!114 &4667470682040111427
 MonoBehaviour:
@@ -163,7 +163,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bce88ff968d514646ad8573060bfef27, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!95 &5261228755623666119
+  canMove: 0
+--- !u!95 &-1693985570203970887
 Animator:
   serializedVersion: 4
   m_ObjectHideFlags: 0

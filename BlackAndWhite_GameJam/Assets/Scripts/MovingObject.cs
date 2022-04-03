@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class MovingObject : MonoBehaviour
 {
+    private Rigidbody2D rigidbody;
     private TileManager tileConveyerManager;
     private float speed = 0;
     private Vector3 direction;
@@ -12,6 +13,7 @@ public class MovingObject : MonoBehaviour
 
     private void Awake()
     {
+        rigidbody = GetComponent<Rigidbody2D>();
         tileConveyerManager = FindObjectOfType<TileManager>();
         speed = tileConveyerManager.ConveyerSpeed;
     }
@@ -38,8 +40,10 @@ public class MovingObject : MonoBehaviour
 
             direction = tileConveyerManager.GetTileDirection(position);
 
-            Vector3 moveVector = direction * Time.deltaTime * speed;
-            transform.position += moveVector;
+            Vector3 moveVelocity = direction * speed;
+            rigidbody.velocity = moveVelocity;
         }
     }
+
+
 }
