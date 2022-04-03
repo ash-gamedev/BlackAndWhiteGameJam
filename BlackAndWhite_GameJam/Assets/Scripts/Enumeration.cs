@@ -32,3 +32,11 @@ public enum EnumNeighbour
     Left,
     Right
 }
+
+public enum EnumSeatPosition
+{
+    Top,
+    Bottom,
+    Left,
+    Right
+}

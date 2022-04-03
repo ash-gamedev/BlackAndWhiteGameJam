@@ -608,7 +608,7 @@ Tilemap:
     second:
       serializedVersion: 2
       m_TileIndex: 0
-      m_TileSpriteIndex: 12
+      m_TileSpriteIndex: 13
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -1445,10 +1445,10 @@ Tilemap:
     m_Data: {fileID: 0}
   - m_RefCount: 0
     m_Data: {fileID: 0}
-  - m_RefCount: 1
-    m_Data: {fileID: -158387202, guid: c0e1d6a54757d244ab1d047f548ac947, type: 3}
   - m_RefCount: 0
     m_Data: {fileID: 0}
+  - m_RefCount: 1
+    m_Data: {fileID: -158387202, guid: c0e1d6a54757d244ab1d047f548ac947, type: 3}
   - m_RefCount: 1
     m_Data: {fileID: -1447287479, guid: c0e1d6a54757d244ab1d047f548ac947, type: 3}
   - m_RefCount: 1
@@ -1659,6 +1659,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f9f774fcd83f17144b8c333b1dbc7b63, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  timeToEatInSeconds: 2
+  timeBeforeLeaving: 100
   customerOrder: 0
   orderBubble: {fileID: 8067099914722586975, guid: 192630010d209de46b2d4ee3af29ca64, type: 3}
 --- !u!61 &1059386814
@@ -8672,10 +8674,6 @@ PrefabInstance:
     - target: {fileID: 4667470682040111453, guid: db3b744b5188fb14a8db35019ed57f77, type: 3}
       propertyPath: m_Name
       value: PlatedOrder
-      objectReference: {fileID: 0}
-    - target: {fileID: 4667470682040111453, guid: db3b744b5188fb14a8db35019ed57f77, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4667470682040111454, guid: db3b744b5188fb14a8db35019ed57f77, type: 3}
       propertyPath: m_RootOrder
