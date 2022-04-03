@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 4667470682040111425}
   - component: {fileID: 4667470682040111452}
   - component: {fileID: 4667470682040111427}
+  - component: {fileID: 5261228755623666119}
   m_Layer: 6
   m_Name: PlatedOrder
   m_TagString: Order
@@ -76,7 +77,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1505433301
-  m_SortingLayer: 6
+  m_SortingLayer: 7
   m_SortingOrder: 0
   m_Sprite: {fileID: 1046959356, guid: d2ad41e7746d0b940b8baf2de5ef366f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -162,6 +163,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bce88ff968d514646ad8573060bfef27, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!95 &5261228755623666119
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4667470682040111453}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 19cd6ff7d193a6043b8ddb994a827bf7, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &4667470682770758705
 GameObject:
   m_ObjectHideFlags: 0
@@ -233,7 +254,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1505433301
-  m_SortingLayer: 6
+  m_SortingLayer: 7
   m_SortingOrder: 1
   m_Sprite: {fileID: -204412310, guid: d2ad41e7746d0b940b8baf2de5ef366f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
