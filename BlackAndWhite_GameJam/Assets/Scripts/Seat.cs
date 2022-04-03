@@ -44,8 +44,9 @@ public class Seat : MonoBehaviour
                         Quaternion.identity, // need to specify rotation
                         transform); // create child under
 
-            // rotate to face seat
+            // rotate to face seat + set seat target
             customerInstance.transform.right = transform.position - new Vector3(customerInstance.transform.position.x, customerInstance.transform.position.y, 0);
+            customerInstance.GetComponent<Customer>().SetTarget(transform.position);
         }
     }
 

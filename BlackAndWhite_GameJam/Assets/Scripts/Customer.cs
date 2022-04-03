@@ -5,6 +5,7 @@ using UnityEngine;
 public class Customer : MonoBehaviour
 {
     [SerializeField] GameObject orderBubble;
+    [SerializeField] float moveSpeed = 2f;
     [SerializeField] public float timeToEatInSeconds = 2f;
     [SerializeField] public float timeBeforeLeaving = 100f;
 
@@ -13,6 +14,7 @@ public class Customer : MonoBehaviour
     GameObject orderBubbleInstance;
     bool setOrder = false;
     bool wasOrderCorrect = false;
+    Vector3? targetSeat;
 
     private void Start()
     {
@@ -20,6 +22,14 @@ public class Customer : MonoBehaviour
         System.Random random = new System.Random();
 
         customerOrder = (EnumOrder)orders.GetValue(random.Next(orders.Length));
+    }
+
+    private void Update()
+    {
+        if(transform.position != targetSeat)
+        {
+            MoveTowards(targetSeat);
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -65,6 +75,11 @@ public class Customer : MonoBehaviour
                         Quaternion.identity); // need to specify rotation
     }
 
+    public void SetTarget(Vector3 target)
+    {
+        targetSeat = target;
+    }
+
     public IEnumerator FinishEating()
     {
         yield return new WaitForSeconds(timeToEatInSeconds);
@@ -75,5 +90,13 @@ public class Customer : MonoBehaviour
     {
         // if orderWasCorrect give tip
         Destroy(gameObject);
+    }
+
+    private void MoveTowards(Vector3? target)
+    {
+        if(target != null)
+        {
+            transform.position = Vector2.MoveTowards(transform.position, (Vector2)target, moveSpeed * Time.deltaTime);
+        }
     }
 }
