@@ -26,15 +26,22 @@ public class Customer : MonoBehaviour
 
     private void Update()
     {
+        // move towards seat
         if(transform.position != targetSeat)
         {
             MoveTowards(targetSeat);
+        }
+
+        // if seated and order hasn't been placed
+        if(transform.position == targetSeat && !setOrder)
+        {
+            setOrder = true;
+            SetOrder();
         }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log(collision.tag);
         if (collision.CompareTag(EnumTags.Order.ToString()))
         {
             EnumOrder order = collision.GetComponent<Order>().order;
@@ -57,18 +64,13 @@ public class Customer : MonoBehaviour
 
             StartCoroutine(FinishEating());
         }
-        else if (collision.CompareTag(EnumTags.Chair.ToString()) && setOrder == false)
-        {
-            setOrder = true;
-            SetOrder(collision.gameObject.transform);
-        }
     }
 
-    public void SetOrder(Transform chairTransform)
+    public void SetOrder()
     {
         // instantiate order bubble
         orderBubble.GetComponent<CustomerOrder>().order = customerOrder; // set order
-        Vector3 orderBubbleSpawn = chairTransform.position + new Vector3(0, 1.25f, 0);
+        Vector3 orderBubbleSpawn = transform.position + new Vector3(0, 1f, 0);
         orderBubbleInstance = 
             Instantiate(orderBubble,  // what object to instantiate
                         orderBubbleSpawn, // where to spawn the object

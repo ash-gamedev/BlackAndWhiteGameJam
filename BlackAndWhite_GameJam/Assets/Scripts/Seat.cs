@@ -3,7 +3,6 @@ using UnityEngine;
 
 public class Seat : MonoBehaviour
 {
-    [SerializeField] private Transform CustomerPosition;
     [SerializeField] EnumSeatPosition seatPosition = EnumSeatPosition.Bottom;
 
     private TileManager tileManager;
@@ -15,11 +14,6 @@ public class Seat : MonoBehaviour
         tileManager = FindObjectOfType<TileManager>();
         seatGridPosition = tileManager.GetTileGridPosition(transform.position);
         tileConveyerPosition = GetClosestConveyerTilePosition();
-    }
-
-    public Transform GetCustomerPosition()
-    {
-        return CustomerPosition;
     }
 
     public bool GetCustomer()
@@ -41,8 +35,8 @@ public class Seat : MonoBehaviour
             GameObject customerInstance =
                     Instantiate(customer,  // what object to instantiate
                         spawnPosition, // where to spawn the object
-                        Quaternion.identity, // need to specify rotation
-                        transform); // create child under
+                        Quaternion.identity,
+                        transform); //, // need to specify rotation
 
             // rotate to face seat + set seat target
             customerInstance.transform.right = transform.position - new Vector3(customerInstance.transform.position.x, customerInstance.transform.position.y, 0);

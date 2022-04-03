@@ -3,6 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+
+public enum EnumLayer
+{
+    Customer
+}
+
 public enum EnumTags
 {
     Order,
