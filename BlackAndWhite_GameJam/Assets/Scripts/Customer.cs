@@ -89,14 +89,21 @@ public class Customer : MonoBehaviour
         //sound effect
         AudioPlayer.PlaySoundEffect(EnumSoundEffects.CustomerOrder);
 
-        // instantiate order bubble
+        //first you need the RectTransform component of your canvas
+        Canvas uiCanvas = FindObjectOfType<Canvas>();
+        RectTransform CanvasRect = uiCanvas.GetComponent<RectTransform>();
+
+        //then you calculate the position of the UI element
+        //0,0 for the canvas is at the center of the screen, whereas WorldToViewPortPoint treats the lower left corner as 0,0. Because of this, you need to subtract the height / width of the canvas * 0.5 to get the correct position.
+
+        Vector2 ViewportPosition = Camera.main.WorldToViewportPoint(transform.position + new Vector3(0, 2, 0));
+        Vector2 WorldObject_ScreenPosition = new Vector2(
+        ((ViewportPosition.x * CanvasRect.sizeDelta.x)),
+        ((ViewportPosition.y * CanvasRect.sizeDelta.y)));
+
         orderBubble.GetComponent<CustomerOrder>().order = customerOrder; // set order
         Vector3 orderBubbleSpawn = transform.position + new Vector3(0, 1f, 0);
-        orderBubbleInstance = 
-            Instantiate(orderBubble,  // what object to instantiate
-                        orderBubbleSpawn, // where to spawn the object
-                        Quaternion.identity,
-                        transform); // need to specify rotation
+        orderBubbleInstance = Instantiate(orderBubble, WorldObject_ScreenPosition, Quaternion.identity, uiCanvas.transform);
 
         // set conveyer to face customer after order is placed
         seatInstance.SetConveyerTileToFaceCustomer();

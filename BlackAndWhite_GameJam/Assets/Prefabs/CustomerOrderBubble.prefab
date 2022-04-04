@@ -100,7 +100,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c129d0baf2b1dd4428836c76ce210706, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  order: 2
+  order: 1
   bubbleSpriteRenderer: {fileID: 8067099915162252170}
 --- !u!95 &981313017116791307
 Animator:
@@ -134,9 +134,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6606916bf8ed9241be6e06543065abc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timerStartTime: 100
-  uiCanvas: {fileID: 0}
-  timerSliderPrefab: {fileID: 7173319817902192045, guid: 39cac805822b13646874042185a97559, type: 3}
+  timerStartTime: 30
+  timerSliderPrefab: {fileID: 3612672645734851798, guid: 39cac805822b13646874042185a97559, type: 3}
 --- !u!1 &8067099915162252173
 GameObject:
   m_ObjectHideFlags: 0

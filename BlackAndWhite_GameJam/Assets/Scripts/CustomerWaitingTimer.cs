@@ -5,20 +5,23 @@ using UnityEngine.UI;
 
 public class CustomerWaitingTimer : MonoBehaviour
 {
-    [SerializeField] float timerStartTime = 100f;
-    //[SerializeField] TextMeshProUGUI timerText;
-    [SerializeField] Slider timerSliderPrefab;
+    [SerializeField] float timerStartTime = 10f;
+    [SerializeField] Slider timerSlider;
 
-    Canvas uiCanvas;
-    Slider timerSlider;
-    private bool stopTimer;
+    //[SerializeField] TextMeshProUGUI timerText;
+
+    private bool stopTimer = false;
     private float currentTime;
 
     // Use this for initialization
     void Start()
     {
-        uiCanvas = FindObjectOfType<Canvas>();
-        AddTimerSliderToUI();
+        // set values
+        timerSlider.maxValue = timerStartTime;
+        timerSlider.value = timerSlider.maxValue;
+        currentTime = timerStartTime;
+
+        Debug.Log(timerSlider.maxValue);
     }
 
     // Update is called once per frame
@@ -43,28 +46,7 @@ public class CustomerWaitingTimer : MonoBehaviour
         }
     }
 
-    private void AddTimerSliderToUI()
-    {
-        //first you need the RectTransform component of your canvas
-        RectTransform CanvasRect = uiCanvas.GetComponent<RectTransform>();
 
-        //then you calculate the position of the UI element
-        //0,0 for the canvas is at the center of the screen, whereas WorldToViewPortPoint treats the lower left corner as 0,0. Because of this, you need to subtract the height / width of the canvas * 0.5 to get the correct position.
-
-        Vector2 ViewportPosition = Camera.main.WorldToViewportPoint(transform.position);
-        Vector2 WorldObject_ScreenPosition = new Vector2(
-        ((ViewportPosition.x * CanvasRect.sizeDelta.x)),
-        ((ViewportPosition.y * CanvasRect.sizeDelta.y)));
-
-        Debug.Log(ViewportPosition + ", " + WorldObject_ScreenPosition);
-
-        // instantiate slider
-        timerSlider = Instantiate(timerSliderPrefab, WorldObject_ScreenPosition, Quaternion.identity, uiCanvas.transform);
-
-        // set values
-        timerSlider.maxValue = timerStartTime;
-        timerSlider.value = 0;
-    }
 
     private string GetFormattedTime(float time)
     {
