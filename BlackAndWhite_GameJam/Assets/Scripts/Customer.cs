@@ -15,13 +15,23 @@ public class Customer : MonoBehaviour
     GameObject orderBubbleInstance;
     bool setOrder = false;
     bool wasOrderCorrect = false;
-    Vector3? targetSeat;
+    bool orderReceived = false;
+    bool isLeaving = false;
+    Vector3 startPosition;
+    Vector3? walkingTarget;
+
+    GameObject orderInstance;
 
     private void Start()
     {
+        // set start position
+        startPosition = transform.position;
+
+        // create random order
         Array orders = Enum.GetValues(typeof(EnumOrder));
         System.Random random = new System.Random();
 
+        // spawn order
         customerOrder = (EnumOrder)orders.GetValue(random.Next(orders.Length));
 
         seatInstance = transform.parent.gameObject.GetComponent<Seat>();
@@ -30,25 +40,34 @@ public class Customer : MonoBehaviour
     private void Update()
     {
         // move towards seat
-        if(transform.position != targetSeat)
+        if(transform.position != walkingTarget)
         {
-            MoveTowards(targetSeat);
+            MoveTowards(walkingTarget);
         }
 
         // if seated and order hasn't been placed
-        if(transform.position == targetSeat && !setOrder)
+        if(transform.position == walkingTarget && !setOrder)
         {
             setOrder = true;
             SetOrder();
+        }
+
+        // if leaving (order already set)
+        else if(transform.position == walkingTarget && isLeaving)
+        {
+            // remove
+            Destroy(gameObject);
         }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag(EnumTags.Order.ToString()))
+        if (collision.CompareTag(EnumTags.Order.ToString()) && !orderReceived)
         {
+            orderReceived = true;
+            orderInstance = collision.gameObject;
             EnumOrder order = collision.GetComponent<Order>().order;
-
+            
             if (order == customerOrder)
             {
                 AudioPlayer.PlaySoundEffect(EnumSoundEffects.OrderCorrect);
@@ -74,7 +93,8 @@ public class Customer : MonoBehaviour
         orderBubbleInstance = 
             Instantiate(orderBubble,  // what object to instantiate
                         orderBubbleSpawn, // where to spawn the object
-                        Quaternion.identity); // need to specify rotation
+                        Quaternion.identity,
+                        transform); // need to specify rotation
 
         // set conveyer to face customer after order is placed
         seatInstance.SetConveyerTileToFaceCustomer();
@@ -102,15 +122,24 @@ public class Customer : MonoBehaviour
 
     public void SetTarget(Vector3 target)
     {
-        targetSeat = target;
+        walkingTarget = target;
     }
 
     public void Leave()
     {
-        if (wasOrderCorrect) AudioPlayer.PlaySoundEffect(EnumSoundEffects.CustomerPays);
+        if (wasOrderCorrect)
+        {
+            ScoreKeeper.AddToScore(10);
+            AudioPlayer.PlaySoundEffect(EnumSoundEffects.CustomerPays);
+        }
 
-        // if orderWasCorrect give tip
-        Destroy(gameObject);
+        // destroy plate
+        Destroy(orderInstance);
+
+        // walk away from seat
+        transform.right = startPosition - new Vector3(transform.position.x, transform.position.y, 0);
+        walkingTarget = startPosition;
+        isLeaving = true;
     }
 
     private void MoveTowards(Vector3? target)
