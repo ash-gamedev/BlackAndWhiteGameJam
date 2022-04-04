@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 8067099914722586972}
   - component: {fileID: 8067099914722586970}
   - component: {fileID: 981313017116791307}
+  - component: {fileID: 1203642790672157963}
   m_Layer: 0
   m_Name: CustomerOrderBubble
   m_TagString: Untagged
@@ -121,6 +122,21 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &1203642790672157963
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8067099914722586975}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c6606916bf8ed9241be6e06543065abc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timerStartTime: 100
+  uiCanvas: {fileID: 0}
+  timerSliderPrefab: {fileID: 7173319817902192045, guid: 39cac805822b13646874042185a97559, type: 3}
 --- !u!1 &8067099915162252173
 GameObject:
   m_ObjectHideFlags: 0

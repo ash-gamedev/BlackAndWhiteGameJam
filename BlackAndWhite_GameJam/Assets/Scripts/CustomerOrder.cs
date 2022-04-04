@@ -5,6 +5,7 @@ public class CustomerOrder : MonoBehaviour
 {
     public EnumOrder order;
     [SerializeField] SpriteRenderer bubbleSpriteRenderer;
+    [SerializeField]
 
     private void Start()
     {
