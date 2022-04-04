@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -12,6 +13,9 @@ public class OrderManager : MonoBehaviour
     [SerializeField] Sprite hotdogSprite;
 
     [SerializeField] GameObject platedOrderPrefab;
+    [SerializeField] float timeBetweenOrderSpawns = 5f;
+
+    System.Random random;
 
     // Use this for initialization
     void Awake()
@@ -24,6 +28,26 @@ public class OrderManager : MonoBehaviour
             };
     }
 
+    private void Start()
+    {
+        //StartCoroutine(OrderSpawning());
+    }
+
+    private IEnumerator OrderSpawning()
+    {
+        while (true)
+        {
+            // create random order
+            Array orders = Enum.GetValues(typeof(EnumOrder));
+            random = new System.Random();
+            EnumOrder order = (EnumOrder)orders.GetValue(random.Next(orders.Length));
+
+            // spawn order
+            SpawnOrder(order);
+
+            yield return new WaitForSeconds(timeBetweenOrderSpawns);
+        }
+    }
 
     public void SpawnOrder(EnumOrder order)
     {

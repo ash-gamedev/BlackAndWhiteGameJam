@@ -30,8 +30,6 @@ public class Customer : MonoBehaviour
         // create random order
         Array orders = Enum.GetValues(typeof(EnumOrder));
         System.Random random = new System.Random();
-
-        // spawn order
         customerOrder = (EnumOrder)orders.GetValue(random.Next(orders.Length));
 
         seatInstance = transform.parent.gameObject.GetComponent<Seat>();
@@ -66,6 +64,10 @@ public class Customer : MonoBehaviour
         {
             orderReceived = true;
             orderInstance = collision.gameObject;
+
+            // replace layer to not collide with others
+            orderInstance.layer = gameObject.layer;
+
             EnumOrder order = collision.GetComponent<Order>().order;
             
             if (order == customerOrder)

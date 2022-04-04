@@ -15,7 +15,7 @@ public class UIManager : MonoBehaviour
 
     public void UpdateScoreText()
     {
-        scoreText.text = "$" + (ScoreKeeper.GetScore()).ToString();
+        scoreText.text = (ScoreKeeper.GetScore()).ToString();
     }
 
 }
