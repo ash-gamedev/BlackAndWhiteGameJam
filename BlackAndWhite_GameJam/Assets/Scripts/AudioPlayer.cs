@@ -8,6 +8,12 @@ public class AudioPlayer : MonoBehaviour
     [SerializeField] float plateShatterVolume;
     [SerializeField] AudioClip customerOrder;
     [SerializeField] float customerOrderVolume;
+    [SerializeField] AudioClip correctCustomerOrder;
+    [SerializeField] float correctCustomerOrderVolume;
+    [SerializeField] AudioClip incorrectCustomerOrder;
+    [SerializeField] float incorrectCustomerOrderVolume;
+    [SerializeField] AudioClip correctPay;
+    [SerializeField] float correctPayVolume;
 
     // disctionary
     public static Dictionary<EnumSoundEffects, (AudioClip, float)> soundEffects;
@@ -23,7 +29,10 @@ public class AudioPlayer : MonoBehaviour
         soundEffects = new Dictionary<EnumSoundEffects, (AudioClip, float)>
             {
                 { EnumSoundEffects.PlateShatter, (plateShatter, plateShatterVolume) },
-                { EnumSoundEffects.CustomerOrder, (customerOrder, customerOrderVolume) }
+                { EnumSoundEffects.CustomerOrder, (customerOrder, customerOrderVolume) },
+                { EnumSoundEffects.OrderCorrect, (correctCustomerOrder, correctCustomerOrderVolume) },
+                { EnumSoundEffects.OrderIncorrect, (incorrectCustomerOrder, incorrectCustomerOrderVolume) },
+                { EnumSoundEffects.CustomerPays, (correctPay, correctPayVolume) }
             };
     }
     void ManageSingleton()

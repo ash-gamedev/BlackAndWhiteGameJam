@@ -51,12 +51,12 @@ public class Customer : MonoBehaviour
 
             if (order == customerOrder)
             {
-                Debug.Log("Correct Order!");
+                AudioPlayer.PlaySoundEffect(EnumSoundEffects.OrderCorrect);
+                wasOrderCorrect = true;
             }
             else
             {
-                Debug.Log("Incorrect Order!");
-                Debug.Log("Customer Order: " + customerOrder.ToString() + " Actual Order: " + order.ToString());
+                AudioPlayer.PlaySoundEffect(EnumSoundEffects.OrderIncorrect);
             }
 
             StartCoroutine(CompleteOrder(collision.gameObject));
@@ -65,6 +65,9 @@ public class Customer : MonoBehaviour
 
     public void SetOrder()
     {
+        //sound effect
+        AudioPlayer.PlaySoundEffect(EnumSoundEffects.CustomerOrder);
+
         // instantiate order bubble
         orderBubble.GetComponent<CustomerOrder>().order = customerOrder; // set order
         Vector3 orderBubbleSpawn = transform.position + new Vector3(0, 1f, 0);
@@ -104,6 +107,8 @@ public class Customer : MonoBehaviour
 
     public void Leave()
     {
+        if (wasOrderCorrect) AudioPlayer.PlaySoundEffect(EnumSoundEffects.CustomerPays);
+
         // if orderWasCorrect give tip
         Destroy(gameObject);
     }

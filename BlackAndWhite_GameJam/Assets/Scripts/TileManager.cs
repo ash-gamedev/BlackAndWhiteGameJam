@@ -175,4 +175,10 @@ public class TileManager : MonoBehaviour
 
         return false;
     }
+
+    public bool IsBaseConveryTile(Vector3Int gridPosition)
+    {
+        if (defaultBorderTileConveyers.ContainsKey(gridPosition)) return true;
+        else return false;
+    }
 }
