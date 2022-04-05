@@ -55,6 +55,7 @@ public enum EnumAnimationState
 
 public enum EnumSoundEffects
 {
+    TileHover,
     TileSet,
     TileRemoved,
     PlateShatter,

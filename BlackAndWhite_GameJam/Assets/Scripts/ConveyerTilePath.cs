@@ -6,74 +6,54 @@ using UnityEngine.Tilemaps;
 
 public class ConveyerTilePath 
 {
-    public ConveyerTilePath(Tile defaultTile, Tile startingTile, Tilemap tilemap)
+    public Tile StartingTileOriginal { get; private set; }
+    
+    public bool HasStartingTileBeenReset { get; private set; }
+
+    public List<ConveyerTile> ConveyerTiles { get; private set; }
+
+    public ConveyerTilePath(Tile startingTile)
     {
-        DefaultTile = defaultTile;
+        HasStartingTileBeenReset = false;
         StartingTileOriginal = startingTile;
-        TileMap = tilemap;
         ConveyerTiles = new List<ConveyerTile>();
     }
-    Tilemap TileMap { get; set; }
-    Tile DefaultTile { get; set; }
-    Tile StartingTileOriginal { get; set; }
-    public List<ConveyerTile> ConveyerTiles { get; set; }
 
+    public ConveyerTile GetFirstTile()
+    {
+        ConveyerTile neighbourTile = ConveyerTiles.FirstOrDefault();
+
+        return neighbourTile;
+    }
     public ConveyerTile GetLastTile()
     {
-        ConveyerTile neighbourTile = ConveyerTiles.Last();
+        ConveyerTile neighbourTile = ConveyerTiles.LastOrDefault();
 
         return neighbourTile;
     }
 
+    public ConveyerTile GetTileAtPosition(Vector3Int position)
+    {
+        return ConveyerTiles.FirstOrDefault(x => x.Position == position);
+    }
+
+    public void RemoveStartingTile()
+    {
+        if(HasStartingTileBeenReset == false)
+        {
+            HasStartingTileBeenReset = true;
+            ConveyerTile startingTile = ConveyerTiles[0];
+
+            ConveyerTiles.Remove(startingTile);
+        }
+    }
     public void AddTileToPath(ConveyerTile conveyerTile)
     {
-        // if tiles already exist, update last neighbour tile
-        if (ConveyerTiles?.Count != 0)
-        {
-            ConveyerTile neighbourTile = ConveyerTiles.Last();
-            TileMap.SetTile(neighbourTile.Position, conveyerTile.Tile);
-        }
-
         ConveyerTiles.Add(conveyerTile);
-        TileMap.SetTile(conveyerTile.Position, conveyerTile.Tile);
     }
 
-    public void RemoveTileFromPath(Vector3Int position)
+    public void RemoveTileFromPath(ConveyerTile conveyerTile)
     {
-        ConveyerTile removeTile = ConveyerTiles.FirstOrDefault(x => x.Position == position);
-        if (removeTile != null)
-        {
-            // beside start
-            if (ConveyerTiles.IndexOf(removeTile) == 1)
-                ResetStartingTile();
-            TileMap.SetTile(position, DefaultTile);
-            ConveyerTiles.Remove(removeTile);
-        }
-    }
-
-    public void ResetStartingTile()
-    {
-        if (ConveyerTiles?.Count > 0)
-        {
-            ConveyerTile startingTileConveyer = ConveyerTiles.First();
-            TileMap.SetTile(startingTileConveyer.Position, StartingTileOriginal);
-        }
-    }
-
-    public void ResetTilesToDefault()
-    {
-        if (ConveyerTiles?.Count > 0)
-        {
-            ConveyerTile startingTileConveyer = ConveyerTiles.First();
-            TileMap.SetTile(startingTileConveyer.Position, StartingTileOriginal);
-            ConveyerTiles.Remove(startingTileConveyer);
-        }
-
-        foreach (ConveyerTile conveyerTile in ConveyerTiles)
-        {
-            TileMap.SetTile(conveyerTile.Position, DefaultTile);
-        }
-
-        ConveyerTiles.Clear();
+        ConveyerTiles.Remove(conveyerTile);
     }
 }

@@ -51,13 +51,19 @@ public class GridController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // Mouse over -> highlight tile
         Vector3Int mousePos = GetMousePosition();
+
+        // get closest neighbour to mouse position
+        Vector3Int? closestNeighbourPos = GetStartingNeighbour(mousePos);
+
+        // Mouse over -> highlight tile
         if (!mousePos.Equals(previousMousePos) && interactiveMap.cellBounds.Contains(mousePos))
         {
+            SetHoverTile(mousePos);
+        }
+        else if (!interactiveMap.cellBounds.Contains(mousePos) && closestNeighbourPos != null)
+        {
             interactiveMap.SetTile(previousMousePos, null); // Remove old hoverTile
-            interactiveMap.SetTile(mousePos, hoverTile);
-            previousMousePos = mousePos;
         }
 
         // Left mouse click -> add path tile (if within bounds and on a valid path) && pathMap.GetTile<Tile>(mousePos) == defaultTile
@@ -66,8 +72,6 @@ public class GridController : MonoBehaviour
             // if starting to draw a path, save the starting path details and set bool
             if (isDrawingPath == false && CurrentPath == null)
             {
-                
-                Vector3Int? closestNeighbourPos = GetStartingNeighbour(mousePos);
                 if (closestNeighbourPos != null)
                 {
                     isDrawingPath = true;
@@ -75,14 +79,14 @@ public class GridController : MonoBehaviour
                     Vector3Int startTilePosition = (Vector3Int)closestNeighbourPos;
                     Tile startOriginalTile = pathMap.GetTile<Tile>(startTilePosition);
 
-                    CurrentPath = new ConveyerTilePath(defaultTile, startOriginalTile, pathMap);
+                    CurrentPath = new ConveyerTilePath(startOriginalTile);
                     ConveyerTile startTile = new ConveyerTile(startTilePosition, startOriginalTile);
                     CurrentPath.AddTileToPath(startTile);
                 }
             }
             else if (isDrawingPath && CurrentPath != null)
             {
-                SetTiles(mousePos);
+                SetConveyorTiles(mousePos);
             }
         }
         else
@@ -98,9 +102,92 @@ public class GridController : MonoBehaviour
         // Right mouse click -> remove path tile (if within bounds)
         if (Input.GetMouseButton(1) && interactiveMap.cellBounds.Contains(mousePos))
         {
-            RemoveTiles(mousePos);
+            RemoveConveyorTile(mousePos);
         }
     }
+
+    #region Setting/Removing Tiles 
+    void SetConveyorTiles(Vector3Int mousePos)
+    {
+        ConveyerTile lastConveyerTile = CurrentPath.GetLastTile();
+        Vector3Int previousTilePosition = lastConveyerTile.Position;
+
+        if (mousePos != previousTilePosition)
+        {
+            Tile setTile = null;
+
+            // set tile based on direction
+            if (mousePos - Vector3Int.up == previousTilePosition) setTile = upTile;
+            else if (mousePos - Vector3Int.down == previousTilePosition) setTile = downTile;
+            else if (mousePos - Vector3Int.left == previousTilePosition) setTile = leftTile;
+            else setTile = rightTile;
+
+            ConveyerTile newConveyerTile = new ConveyerTile(mousePos, setTile);
+
+            // get last placed tile
+            ConveyerTile lastPlacedTile = currentPath.GetLastTile();
+            if (lastPlacedTile != null)
+            {
+                SetConveyorTile(lastPlacedTile.Position, newConveyerTile.Tile);
+            }
+
+            // add new tile to path
+            CurrentPath.AddTileToPath(newConveyerTile);
+
+            // set tile for new path
+            SetConveyorTile(newConveyerTile.Position, newConveyerTile.Tile);
+
+            // Play sound
+            AudioPlayer.PlaySoundEffect(EnumSoundEffects.TileSet);
+        }
+    }
+
+    void SetConveyorTile(Vector3Int gridPos, Tile conveyorTile)
+    {
+        // Set converyor tile
+        pathMap.SetTile(gridPos, conveyorTile);
+    }
+
+    void SetHoverTile(Vector3Int mousePos)
+    {
+        // Set tile
+        interactiveMap.SetTile(previousMousePos, null); // Remove old hoverTile
+        interactiveMap.SetTile(mousePos, hoverTile);
+        previousMousePos = mousePos;
+    }
+
+    void SetDefaultTile(Vector3Int gridPos)
+    {
+        pathMap.SetTile(gridPos, defaultTile);
+    }
+
+    private void RemoveConveyorTile(Vector3Int mousePosition)
+    {
+        // loop through each path created & search for mousePosition
+        foreach (var path in paths)
+        {
+            ConveyerTile removeTile = path.GetTileAtPosition(mousePosition);
+
+            // if position exists
+            if (removeTile != null)
+            {
+                // if tile is second in the path, & start position hasn't been reset
+                if(path.ConveyerTiles.IndexOf(removeTile) == 1 && path.HasStartingTileBeenReset == false)
+                {
+                    // reset start tile to default state & remove from path
+                    Tile startPositionTile = path.StartingTileOriginal;
+                    pathMap.SetTile(path.ConveyerTiles[0].Position, startPositionTile);
+
+                    path.RemoveStartingTile();
+                }
+
+                SetDefaultTile(mousePosition);
+                path.RemoveTileFromPath(removeTile);
+            }
+        }
+    }
+
+    #endregion
 
     Vector3Int GetMousePosition()
     {
@@ -125,34 +212,7 @@ public class GridController : MonoBehaviour
 
         return null;
     }
-    private void SetTiles(Vector3Int gridPosition)
-    {
-        ConveyerTile lastConveyerTile = CurrentPath.GetLastTile();
-        Vector3Int previousTilePosition = lastConveyerTile.Position;
 
-        if(gridPosition != previousTilePosition)
-        {
-            Tile setTile = null;
-
-            // set tile based on direction
-            if (gridPosition - Vector3Int.up == previousTilePosition) setTile = upTile;
-            else if (gridPosition - Vector3Int.down == previousTilePosition) setTile = downTile;
-            else if (gridPosition - Vector3Int.left == previousTilePosition) setTile = leftTile;
-            else setTile = rightTile;
-
-            // Add new tile to path
-
-            ConveyerTile conveyerTile = new ConveyerTile(gridPosition, setTile);
-            CurrentPath.AddTileToPath(conveyerTile);
-        }
-    }
-
-    private void RemoveTiles(Vector3Int gridPosition)
-    {
-        foreach(var path in paths)
-        {
-            path.RemoveTileFromPath(gridPosition);
-        }
-    }
+    
 
 }

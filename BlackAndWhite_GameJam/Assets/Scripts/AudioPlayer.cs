@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class AudioPlayer : MonoBehaviour
 {
+    [Header("Customer Orders")]
     [SerializeField] AudioClip plateShatter;
     [SerializeField] float plateShatterVolume;
     [SerializeField] AudioClip customerOrder;
@@ -14,6 +15,12 @@ public class AudioPlayer : MonoBehaviour
     [SerializeField] float incorrectCustomerOrderVolume;
     [SerializeField] AudioClip correctPay;
     [SerializeField] float correctPayVolume;
+
+    [Header("Conveyors")]
+    [SerializeField] AudioClip conveyorHover;
+    [SerializeField] float conveyorHoverVolume;
+    [SerializeField] AudioClip conveyorSet;
+    [SerializeField] float conveyorSetVolume;
 
     // disctionary
     public static Dictionary<EnumSoundEffects, (AudioClip, float)> soundEffects;
@@ -32,7 +39,9 @@ public class AudioPlayer : MonoBehaviour
                 { EnumSoundEffects.CustomerOrder, (customerOrder, customerOrderVolume) },
                 { EnumSoundEffects.OrderCorrect, (correctCustomerOrder, correctCustomerOrderVolume) },
                 { EnumSoundEffects.OrderIncorrect, (incorrectCustomerOrder, incorrectCustomerOrderVolume) },
-                { EnumSoundEffects.CustomerPays, (correctPay, correctPayVolume) }
+                { EnumSoundEffects.CustomerPays, (correctPay, correctPayVolume) },
+                { EnumSoundEffects.TileHover, (conveyorHover, conveyorHoverVolume) },
+                { EnumSoundEffects.TileSet, (conveyorSet, conveyorSetVolume) }
             };
     }
     void ManageSingleton()

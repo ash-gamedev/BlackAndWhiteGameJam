@@ -151,4 +151,8 @@ MonoBehaviour:
   incorrectCustomerOrderVolume: 1
   correctPay: {fileID: 8300000, guid: 680b615a314ed4e449d42d7eda182213, type: 3}
   correctPayVolume: 1
+  conveyorHover: {fileID: 8300000, guid: 84201a7adda3484498a3f9372da3c0c4, type: 3}
+  conveyorHoverVolume: 1
+  conveyorSet: {fileID: 8300000, guid: 077e9d866e9c52645b248a2feb94632d, type: 3}
+  conveyorSetVolume: 1
   audioSource: {fileID: 5411830543325923776}
