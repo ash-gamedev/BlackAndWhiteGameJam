@@ -55,6 +55,8 @@ public enum EnumAnimationState
 
 public enum EnumSoundEffects
 {
+    TileSet,
+    TileRemoved,
     PlateShatter,
     CustomerOrder,
     OrderCorrect,

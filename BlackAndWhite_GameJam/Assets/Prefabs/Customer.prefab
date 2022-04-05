@@ -124,7 +124,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f9f774fcd83f17144b8c333b1dbc7b63, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  orderBubble: {fileID: 1908601615183841216, guid: 9e3c18174cc108047a856bd6d0184559, type: 3}
   moveSpeed: 2
-  timeToEatInSeconds: 6
+  timeToEatInSeconds: 4
   timeBeforeLeaving: 100
