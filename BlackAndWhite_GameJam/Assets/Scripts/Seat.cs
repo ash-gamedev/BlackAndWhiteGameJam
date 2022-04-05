@@ -4,6 +4,7 @@ using UnityEngine;
 public class Seat : MonoBehaviour
 {
     [SerializeField] EnumSeatPosition seatPosition = EnumSeatPosition.Bottom;
+    [SerializeField] GameObject customerOrderBubble;
 
     private TileManager tileManager;
     private Vector3Int seatGridPosition;
@@ -39,7 +40,9 @@ public class Seat : MonoBehaviour
 
             // rotate to face seat + set seat target
             customerInstance.transform.right = transform.position - new Vector3(customerInstance.transform.position.x, customerInstance.transform.position.y, 0);
-            customerInstance.GetComponent<Customer>().SetTarget(transform.position);
+            Customer customerClassInstance = customerInstance.GetComponent<Customer>();
+            customerClassInstance.SetTarget(transform.position);
+            customerClassInstance.SetOrderBubble(customerOrderBubble);
         }
     }
 
@@ -69,6 +72,14 @@ public class Seat : MonoBehaviour
         else return seatGridPosition + (Vector3Int.right * 2);
     }
 
+    private EnumTileDirection GetConveyerTileDirection()
+    {
+        if (seatPosition == EnumSeatPosition.Top) return EnumTileDirection.Up;
+        else if (seatPosition == EnumSeatPosition.Bottom) return EnumTileDirection.Down;
+        else if (seatPosition == EnumSeatPosition.Right) return EnumTileDirection.Right;
+        else return EnumTileDirection.Left;
+    }
+
     private Vector3 GetCustomerSpawnPosition()
     {
         if (seatPosition == EnumSeatPosition.Top) return transform.position + (Vector3Int.up * 4);
@@ -77,12 +88,13 @@ public class Seat : MonoBehaviour
         else return transform.position + (Vector3Int.left * 4);
     }
 
-    private EnumTileDirection GetConveyerTileDirection()
+    public Vector3 GetCustomerOrderBubbleSpawnPosition()
     {
-        if (seatPosition == EnumSeatPosition.Top) return EnumTileDirection.Up;
-        else if (seatPosition == EnumSeatPosition.Bottom) return EnumTileDirection.Down;
-        else if (seatPosition == EnumSeatPosition.Right) return EnumTileDirection.Right;
-        else return EnumTileDirection.Left;
+        float spaceAwayFromChair = 1.5f;
+        if (seatPosition == EnumSeatPosition.Top) return transform.position + (Vector3.up * spaceAwayFromChair);
+        else if (seatPosition == EnumSeatPosition.Bottom) return transform.position + (Vector3.down * spaceAwayFromChair);
+        else if (seatPosition == EnumSeatPosition.Right) return transform.position + (Vector3.right * spaceAwayFromChair);
+        else return transform.position + (Vector3.left * spaceAwayFromChair);
     }
     #endregion
 

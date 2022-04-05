@@ -126,5 +126,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   orderBubble: {fileID: 1908601615183841216, guid: 9e3c18174cc108047a856bd6d0184559, type: 3}
   moveSpeed: 2
-  timeToEatInSeconds: 2
+  timeToEatInSeconds: 6
   timeBeforeLeaving: 100

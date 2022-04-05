@@ -1,18 +1,19 @@
 ﻿using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CustomerOrder : MonoBehaviour
 {
     public EnumOrder order;
-    //[SerializeField] SpriteRenderer bubbleSpriteRenderer;
+    [SerializeField] Image spriteImage;
 
     Canvas uiCanvas;
 
     private void Start()
     {
         OrderManager orderManager = FindObjectOfType<OrderManager>();
-        //bubbleSpriteRenderer.sprite = orderManager.OrderSprites[order];
-        uiCanvas = FindObjectOfType<Canvas>();
+        spriteImage.sprite = orderManager.OrderSprites[order];
+        spriteImage.SetNativeSize();
     }
 
     public EnumOrder GetOrder()

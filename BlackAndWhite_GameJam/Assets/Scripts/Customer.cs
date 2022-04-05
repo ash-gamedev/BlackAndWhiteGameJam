@@ -3,8 +3,7 @@ using System.Collections;
 using UnityEngine;
 
 public class Customer : MonoBehaviour
-{
-    [SerializeField] GameObject orderBubble;
+{    
     [SerializeField] float moveSpeed = 2f;
     [SerializeField] public float timeToEatInSeconds = 2f;
     [SerializeField] public float timeBeforeLeaving = 100f;
@@ -21,6 +20,7 @@ public class Customer : MonoBehaviour
     Vector3? walkingTarget;
 
     GameObject orderInstance;
+    GameObject orderBubble;
 
     private void Start()
     {
@@ -96,7 +96,7 @@ public class Customer : MonoBehaviour
         //then you calculate the position of the UI element
         //0,0 for the canvas is at the center of the screen, whereas WorldToViewPortPoint treats the lower left corner as 0,0. Because of this, you need to subtract the height / width of the canvas * 0.5 to get the correct position.
 
-        Vector2 ViewportPosition = Camera.main.WorldToViewportPoint(transform.position + new Vector3(0, 2, 0));
+        Vector2 ViewportPosition = Camera.main.WorldToViewportPoint(seatInstance.GetCustomerOrderBubbleSpawnPosition());
         Vector2 WorldObject_ScreenPosition = new Vector2(
         ((ViewportPosition.x * CanvasRect.sizeDelta.x)),
         ((ViewportPosition.y * CanvasRect.sizeDelta.y)));
@@ -132,6 +132,11 @@ public class Customer : MonoBehaviour
     public void SetTarget(Vector3 target)
     {
         walkingTarget = target;
+    }
+
+    public void SetOrderBubble(GameObject orderBubbleObject)
+    {
+        orderBubble = orderBubbleObject;
     }
 
     public void Leave()
