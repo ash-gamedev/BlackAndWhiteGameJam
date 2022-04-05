@@ -133,7 +133,6 @@ GameObject:
   m_Component:
   - component: {fileID: 443854068}
   - component: {fileID: 443854067}
-  - component: {fileID: 443854069}
   - component: {fileID: 443854070}
   m_Layer: 0
   m_Name: Grid
@@ -172,29 +171,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &443854069
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 443854066}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c6212a81e6475da4390eb50e08eb0de1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  grid: {fileID: 0}
-  interactiveMap: {fileID: 1992213104}
-  tileConveyorMap: {fileID: 0}
-  defaultTile: {fileID: 11400000, guid: 5e2334fe75d81de4d86c4d25fbe5492b, type: 2}
-  upTile: {fileID: 11400000, guid: 052cb83eba2d6f14692dd543ab8fc442, type: 2}
-  downTile: {fileID: 11400000, guid: c1e05a589d22e8747b0d4b52df018596, type: 2}
-  leftTile: {fileID: 11400000, guid: 13ecc502751bb884189f4bb22f8340ff, type: 2}
-  rightTile: {fileID: 11400000, guid: 0f35bf66ea7d60f4e916b8f450ddf31f, type: 2}
-  previousMousePos: {x: 0, y: 0, z: 0}
-  tileManager: {fileID: 0}
-  isDrawingPath: 0
 --- !u!114 &443854070
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9000,14 +8976,6 @@ PrefabInstance:
     - target: {fileID: 5411830543325923777, guid: 1bd944d598233c844ba494f1b20a6d61, type: 3}
       propertyPath: m_Name
       value: Audio Source
-      objectReference: {fileID: 0}
-    - target: {fileID: 5411830543325923778, guid: 1bd944d598233c844ba494f1b20a6d61, type: 3}
-      propertyPath: conveyorSetVolume
-      value: 0.65
-      objectReference: {fileID: 0}
-    - target: {fileID: 5411830543325923778, guid: 1bd944d598233c844ba494f1b20a6d61, type: 3}
-      propertyPath: conveyorHoverVolume
-      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 5411830543325923779, guid: 1bd944d598233c844ba494f1b20a6d61, type: 3}
       propertyPath: m_RootOrder

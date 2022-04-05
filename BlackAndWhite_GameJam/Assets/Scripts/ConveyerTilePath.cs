@@ -6,24 +6,20 @@ using UnityEngine.Tilemaps;
 
 public class ConveyerTilePath 
 {
-    public Tile StartingTileOriginal { get; private set; }
+    public Vector3Int? StartingGridPosition { get; private set; }
     
     public bool HasStartingTileBeenReset { get; private set; }
 
     public List<ConveyerTile> ConveyerTiles { get; private set; }
 
-    public ConveyerTilePath(Tile startingTile)
+    public ConveyerTilePath(Vector3Int? startingGridPosition)
     {
-        if (startingTile != null)
-        {
+        StartingGridPosition = startingGridPosition;
+
+        if (startingGridPosition != null)
             HasStartingTileBeenReset = false;
-            StartingTileOriginal = startingTile;
-        }
         else
-        {
             HasStartingTileBeenReset = true;
-            StartingTileOriginal = null;
-        }
 
         ConveyerTiles = new List<ConveyerTile>();
     }

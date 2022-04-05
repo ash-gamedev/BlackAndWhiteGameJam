@@ -20,8 +20,6 @@ public class CustomerWaitingTimer : MonoBehaviour
         timerSlider.maxValue = timerStartTime;
         timerSlider.value = timerSlider.maxValue;
         currentTime = timerStartTime;
-
-        Debug.Log(timerSlider.maxValue);
     }
 
     // Update is called once per frame

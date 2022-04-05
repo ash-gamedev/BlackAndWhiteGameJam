@@ -17,8 +17,8 @@ public class AudioPlayer : MonoBehaviour
     [SerializeField] float correctPayVolume;
 
     [Header("Conveyors")]
-    [SerializeField] AudioClip conveyorHover;
-    [SerializeField] float conveyorHoverVolume;
+    [SerializeField] AudioClip conveyorRemove;
+    [SerializeField] float conveyorRemoveVolume;
     [SerializeField] AudioClip conveyorSet;
     [SerializeField] float conveyorSetVolume;
 
@@ -40,7 +40,7 @@ public class AudioPlayer : MonoBehaviour
                 { EnumSoundEffects.OrderCorrect, (correctCustomerOrder, correctCustomerOrderVolume) },
                 { EnumSoundEffects.OrderIncorrect, (incorrectCustomerOrder, incorrectCustomerOrderVolume) },
                 { EnumSoundEffects.CustomerPays, (correctPay, correctPayVolume) },
-                { EnumSoundEffects.TileHover, (conveyorHover, conveyorHoverVolume) },
+                { EnumSoundEffects.TileRemove, (conveyorRemove, conveyorRemoveVolume) },
                 { EnumSoundEffects.TileSet, (conveyorSet, conveyorSetVolume) }
             };
     }
