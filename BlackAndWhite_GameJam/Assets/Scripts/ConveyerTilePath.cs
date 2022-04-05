@@ -14,8 +14,17 @@ public class ConveyerTilePath
 
     public ConveyerTilePath(Tile startingTile)
     {
-        HasStartingTileBeenReset = false;
-        StartingTileOriginal = startingTile;
+        if (startingTile != null)
+        {
+            HasStartingTileBeenReset = false;
+            StartingTileOriginal = startingTile;
+        }
+        else
+        {
+            HasStartingTileBeenReset = true;
+            StartingTileOriginal = null;
+        }
+
         ConveyerTiles = new List<ConveyerTile>();
     }
 
