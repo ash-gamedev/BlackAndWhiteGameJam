@@ -17,9 +17,11 @@ public enum EnumTags
 
 public enum EnumOrder
 {
-    Pear,
-    Burger,
-    Hotdog
+    Coffee,
+    Croissant,
+    Donut,
+    Cookie,
+    Sandwich
 }
 
 public enum EnumTileDirection

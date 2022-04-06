@@ -8,9 +8,11 @@ public class OrderManager : MonoBehaviour
     public Dictionary<EnumOrder, Sprite> OrderSprites { get; set; }
 
     [Header("Order Sprites")]
-    [SerializeField] Sprite pearSprite;
-    [SerializeField] Sprite burgerSprite;
-    [SerializeField] Sprite hotdogSprite;
+    [SerializeField] Sprite coffeeSprite;
+    [SerializeField] Sprite croissantSprite;
+    [SerializeField] Sprite donutSprite;
+    [SerializeField] Sprite cookieSprite;
+    [SerializeField] Sprite sandwichSprite;
 
     [SerializeField] GameObject platedOrderPrefab;
     [SerializeField] float timeBetweenOrderSpawns = 5f;
@@ -22,9 +24,11 @@ public class OrderManager : MonoBehaviour
     {
         OrderSprites = new Dictionary<EnumOrder, Sprite>()
             {
-                { EnumOrder.Pear, pearSprite },
-                { EnumOrder.Burger, burgerSprite },
-                { EnumOrder.Hotdog, hotdogSprite }
+                { EnumOrder.Coffee, coffeeSprite },
+                { EnumOrder.Croissant, croissantSprite },
+                { EnumOrder.Donut, donutSprite },
+                { EnumOrder.Cookie, cookieSprite },
+                { EnumOrder.Sandwich, sandwichSprite }
             };
     }
 
