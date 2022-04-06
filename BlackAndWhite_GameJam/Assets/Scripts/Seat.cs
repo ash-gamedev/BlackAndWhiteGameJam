@@ -105,7 +105,7 @@ public class Seat : MonoBehaviour
 
     public Vector3 GetCustomerOrderBubbleSpawnPosition()
     {
-        float spaceAwayFromChair = 1.5f;
+        float spaceAwayFromChair = 1.4f;
         if (seatPosition == EnumSeatPosition.Top) return transform.position + (Vector3.up * spaceAwayFromChair);
         else if (seatPosition == EnumSeatPosition.Bottom) return transform.position + (Vector3.down * spaceAwayFromChair);
         else if (seatPosition == EnumSeatPosition.Right) return transform.position + (Vector3.right * spaceAwayFromChair);

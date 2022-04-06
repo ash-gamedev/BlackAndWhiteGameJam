@@ -105,14 +105,17 @@ public class Customer : MonoBehaviour
         //then you calculate the position of the UI element
         //0,0 for the canvas is at the center of the screen, whereas WorldToViewPortPoint treats the lower left corner as 0,0. Because of this, you need to subtract the height / width of the canvas * 0.5 to get the correct position.
 
-        Vector2 ViewportPosition = Camera.main.WorldToViewportPoint(seatInstance.GetCustomerOrderBubbleSpawnPosition());
-        Vector2 WorldObject_ScreenPosition = new Vector2(
-        ((ViewportPosition.x * CanvasRect.sizeDelta.x)),
-        ((ViewportPosition.y * CanvasRect.sizeDelta.y)));
+        Vector2 ViewportPosition = Camera.main.WorldToScreenPoint(seatInstance.GetCustomerOrderBubbleSpawnPosition());
+        float h = Screen.height;
+        float w = Screen.width;
+        float x = ViewportPosition.x - (w / 2);
+        float y = ViewportPosition.y - (h / 2);
+        float s = uiCanvas.scaleFactor;
+        Vector2 orderBubbleSpawn = new Vector2(x, y) / s;
 
         orderBubble.GetComponent<CustomerOrder>().order = customerOrder; // set order
-        Vector3 orderBubbleSpawn = transform.position + new Vector3(0, 1f, 0);
-        orderBubbleInstance = Instantiate(orderBubble, WorldObject_ScreenPosition, Quaternion.identity, uiCanvas.transform);
+        orderBubbleInstance = Instantiate(orderBubble, orderBubbleSpawn, Quaternion.identity, uiCanvas.transform);
+        orderBubbleInstance.GetComponent<RectTransform>().anchoredPosition = orderBubbleSpawn;
 
         // set conveyer to face customer after order is placed
         seatInstance.SetConveyerTileToFaceCustomer();
