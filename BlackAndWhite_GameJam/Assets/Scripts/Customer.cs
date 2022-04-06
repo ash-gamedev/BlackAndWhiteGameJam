@@ -9,6 +9,7 @@ public class Customer : MonoBehaviour
     [SerializeField] public float timeBeforeLeaving = 100f;
 
     EnumOrder customerOrder;
+    CustomerWaitingTimer customerWaitingTimer;
 
     Seat seatInstance;
     GameObject orderBubbleInstance;
@@ -50,11 +51,20 @@ public class Customer : MonoBehaviour
             SetOrder();
         }
 
-        // if leaving (order already set)
+        // if leaving 
         else if(transform.position == walkingTarget && isLeaving)
         {
             // remove
             Destroy(gameObject);
+        }
+
+        // if customer waiting for too long, leave
+        if (customerWaitingTimer != null && !isLeaving)
+        {
+            if(customerWaitingTimer.timerSlider.value <= 0)
+            {
+                Leave();
+            }
         }
     }
 
@@ -108,6 +118,9 @@ public class Customer : MonoBehaviour
         // set conveyer to face customer after order is placed
         seatInstance.SetConveyerTileToFaceCustomer();
 
+        // get time
+        customerWaitingTimer = orderBubbleInstance.GetComponent<CustomerWaitingTimer>();
+
         // spawn order
         FindObjectOfType<OrderManager>().SpawnOrder(customerOrder);
     }
@@ -141,14 +154,28 @@ public class Customer : MonoBehaviour
 
     public void Leave()
     {
+        Debug.Log("Leaving");
+
+        // correct order
         if (wasOrderCorrect)
         {
             ScoreKeeper.AddToScore(10);
             AudioPlayer.PlaySoundEffect(EnumSoundEffects.CustomerPays);
         }
+        // customer waiting too long [order not received]
+        else if (!orderReceived)
+        {
+            seatInstance.ResetTileConveyerToOriginalPath();
+            AudioPlayer.PlaySoundEffect(EnumSoundEffects.OrderIncorrect);
+        }
 
         // destroy plate
-        Destroy(orderInstance);
+        if(orderInstance != null)
+            Destroy(orderInstance);
+
+        //Remove order
+        if(orderBubbleInstance != null)
+            Destroy(orderBubbleInstance);
 
         // walk away from seat
         transform.right = startPosition - new Vector3(transform.position.x, transform.position.y, 0);

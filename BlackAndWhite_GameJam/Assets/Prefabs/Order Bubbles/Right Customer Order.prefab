@@ -414,6 +414,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   timerStartTime: 20
   timerSlider: {fileID: 3794236546391965574}
+  currentTime: 0
 --- !u!1 &8934085527030469126
 GameObject:
   m_ObjectHideFlags: 0

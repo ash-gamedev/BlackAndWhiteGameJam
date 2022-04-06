@@ -383,7 +383,7 @@ public class TileManager : MonoBehaviour
         }
     }
 
-    public void ResetTileOnConveyer(Vector3Int gridPosition)
+    public void ResetTileOnConveyer(Vector3Int gridPosition, bool lockTile = true)
     {
         if (baseGridPositionsAndTiles.ContainsKey(gridPosition))
         {
@@ -391,7 +391,7 @@ public class TileManager : MonoBehaviour
             tileConveyorMap.SetTile(gridPosition, tile);
 
             // unlock tile so conveyers can change the direction
-            baseGridPositionAndLockStatus[gridPosition] = false;
+            baseGridPositionAndLockStatus[gridPosition] = lockTile;
         }
     }
 

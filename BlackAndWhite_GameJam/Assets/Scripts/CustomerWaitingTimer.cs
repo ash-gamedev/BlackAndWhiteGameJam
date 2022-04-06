@@ -6,12 +6,12 @@ using UnityEngine.UI;
 public class CustomerWaitingTimer : MonoBehaviour
 {
     [SerializeField] float timerStartTime = 10f;
-    [SerializeField] Slider timerSlider;
+    [SerializeField] public Slider timerSlider;
 
     //[SerializeField] TextMeshProUGUI timerText;
 
     private bool stopTimer = false;
-    private float currentTime;
+    public float currentTime;
 
     // Use this for initialization
     void Start()
@@ -37,14 +37,8 @@ public class CustomerWaitingTimer : MonoBehaviour
             stopTimer = true;
         }
 
-        if (stopTimer == false)
-        {
-            //timerText.text = textTime;
-            timerSlider.value = currentTime;
-        }
+        timerSlider.value = currentTime;
     }
-
-
 
     private string GetFormattedTime(float time)
     {

@@ -58,7 +58,8 @@ public class Seat : MonoBehaviour
     {
         Vector3Int conveyerTilePosition = GetClosestConveyerTilePosition();
 
-        tileManager.ResetTileOnConveyer(conveyerTilePosition);
+        // unlock tile
+        tileManager.ResetTileOnConveyer(conveyerTilePosition, lockTile: false);
     }
     #endregion
 

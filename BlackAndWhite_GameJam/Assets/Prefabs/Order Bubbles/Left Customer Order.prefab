@@ -567,3 +567,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   timerStartTime: 20
   timerSlider: {fileID: 348477816948829781}
+  currentTime: 0
