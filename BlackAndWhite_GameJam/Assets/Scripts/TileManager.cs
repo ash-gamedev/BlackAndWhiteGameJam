@@ -90,7 +90,7 @@ public class TileManager : MonoBehaviour
 
 
         // Mouse over -> highlight tile
-        if (!mousePos.Equals(previousMousePos) && interactiveMap.cellBounds.Contains(mousePos))
+        if (!mousePos.Equals(previousMousePos) && interactiveMap.cellBounds.Contains(mousePos) && tileConveyorMap.GetTile<Tile>(mousePos) == defaultTile)
         {
             SetHoverTile(mousePos);
         }
@@ -188,7 +188,7 @@ public class TileManager : MonoBehaviour
     void SetHoverTile(Vector3Int mousePos)
     {
         // Get hover tile
-        Vector3Int? neighbourPos = GetStartingNeighbour(mousePos);
+        Vector3Int ? neighbourPos = GetStartingNeighbour(mousePos);
         Tile hoverTile = GetConveyorTile(mousePos, neighbourPos);
 
         // Set tile

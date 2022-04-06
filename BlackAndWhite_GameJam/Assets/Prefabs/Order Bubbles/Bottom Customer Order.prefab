@@ -398,7 +398,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c129d0baf2b1dd4428836c76ce210706, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  order: 1
+  order: 2
   spriteImage: {fileID: 3541794810538083487}
 --- !u!114 &2465312176463337161
 MonoBehaviour:
@@ -412,7 +412,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6606916bf8ed9241be6e06543065abc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timerStartTime: 30
+  timerStartTime: 20
   timerSlider: {fileID: 1508215879382067643}
 --- !u!1 &6608376195145303099
 GameObject:

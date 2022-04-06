@@ -565,5 +565,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6606916bf8ed9241be6e06543065abc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timerStartTime: 30
+  timerStartTime: 20
   timerSlider: {fileID: 348477816948829781}
