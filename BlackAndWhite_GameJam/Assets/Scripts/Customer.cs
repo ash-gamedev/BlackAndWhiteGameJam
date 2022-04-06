@@ -84,13 +84,12 @@ public class Customer : MonoBehaviour
             {
                 AudioPlayer.PlaySoundEffect(EnumSoundEffects.OrderCorrect);
                 wasOrderCorrect = true;
+                StartCoroutine(CompleteOrder(collision.gameObject));
             }
             else
             {
-                AudioPlayer.PlaySoundEffect(EnumSoundEffects.OrderIncorrect);
+                Leave();
             }
-
-            StartCoroutine(CompleteOrder(collision.gameObject));
         }
     }
 
@@ -154,16 +153,14 @@ public class Customer : MonoBehaviour
 
     public void Leave()
     {
-        Debug.Log("Leaving");
-
         // correct order
         if (wasOrderCorrect)
         {
             ScoreKeeper.AddToScore(10);
             AudioPlayer.PlaySoundEffect(EnumSoundEffects.CustomerPays);
         }
-        // customer waiting too long [order not received]
-        else if (!orderReceived)
+        // customer waiting too long [order not received] OR wrong order
+        else
         {
             seatInstance.ResetTileConveyerToOriginalPath();
             AudioPlayer.PlaySoundEffect(EnumSoundEffects.OrderIncorrect);
