@@ -40,7 +40,7 @@ public class TileManager : MonoBehaviour
     private Vector3Int previousMousePos = new Vector3Int();
     bool isDrawingPath = false;
     ConveyerTilePath currentPath;
-    List<ConveyerTilePath> paths = new List<ConveyerTilePath>();
+    List<ConveyerTilePath> paths = null;
 
     private void Awake()
     {
@@ -81,13 +81,13 @@ public class TileManager : MonoBehaviour
     {
         grid = gameObject.GetComponent<Grid>();
         interactiveMap.CompressBounds();
+
+        paths = new List<ConveyerTilePath>();
     }
 
     void Update()
     {
         Vector3Int mousePos = GetMousePosition();
-
-
 
         // Mouse over -> highlight tile
         if (!mousePos.Equals(previousMousePos) && interactiveMap.cellBounds.Contains(mousePos) && tileConveyorMap.GetTile<Tile>(mousePos) == defaultTile)
@@ -218,36 +218,48 @@ public class TileManager : MonoBehaviour
 
     private void RemoveConveyorTile(Vector3Int mousePosition)
     {
-        // loop through each path created & search for mousePosition
-        foreach (var path in paths)
+        if (paths != null && paths?.Count > 0)
         {
-            ConveyerTile removeTile = path.GetTileAtPosition(mousePosition);
-
-            // if position exists
-            if (removeTile != null)
+            // loop through each path created & search for mousePosition
+            foreach (var path in paths)
             {
-                // if tile is second in the path, & start position hasn't been reset
-                if (path.ConveyerTiles.IndexOf(removeTile) == 1 && path.HasStartingTileBeenReset == false)
+                ConveyerTile removeTile = path.GetTileAtPosition(mousePosition);
+
+                // if position exists
+                if (removeTile != null)
                 {
-                    // reset start tile to default state & remove from path
-                    Vector3Int? startTilePosition = path.StartingGridPosition;
-                    if (startTilePosition != null)
-                        ResetTileOnConveyer((Vector3Int)startTilePosition);
+                    // sound effect
+                    AudioPlayer.PlaySoundEffect(EnumSoundEffects.TileRemove);
 
-                    path.RemoveStartingTile();
+                    // if tile is second in the path, & start position hasn't been reset
+                    if (path.ConveyerTiles.IndexOf(removeTile) == 1 && path.HasStartingTileBeenReset == false)
+                    {
+                        // reset start tile to default state & remove from path
+                        Vector3Int? startTilePosition = path.StartingGridPosition;
+                        if (startTilePosition != null)
+                            SetTileOnConveyerToDefault((Vector3Int)startTilePosition);
+
+                        path.RemoveStartingTile();
+                    }
+
+                    SetDefaultTile(mousePosition);
+                    path.RemoveTileFromPath(removeTile);
                 }
-
-                SetDefaultTile(mousePosition);
-                path.RemoveTileFromPath(removeTile);
-
-                AudioPlayer.PlaySoundEffect(EnumSoundEffects.TileRemove);
             }
+
+            // remove empty paths
+            paths.RemoveAll(x => x.ConveyerTiles?.Count == 0);
         }
     }
 
     #endregion
 
     #region private helpers
+    public Vector3 GetWorldPos(Vector3Int gridPos)
+    {
+        return grid.CellToWorld(gridPos);
+    }
+
     Vector3Int GetMousePosition()
     {
         Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -383,15 +395,24 @@ public class TileManager : MonoBehaviour
         }
     }
 
-    public void ResetTileOnConveyer(Vector3Int gridPosition, bool lockTile = true)
+    public void SetTileOnConveyerToDefault(Vector3Int gridPosition)
     {
-        if (baseGridPositionsAndTiles.ContainsKey(gridPosition))
+        // if key exists and tile is not locked
+        if (baseGridPositionsAndTiles.ContainsKey(gridPosition) && !IsTileOnConveyerLocked(gridPosition))
         {
             TileBase tile = baseGridPositionsAndTiles[gridPosition];
             tileConveyorMap.SetTile(gridPosition, tile);
+        }
+    }
 
+    public void ResetTileOnConveyer(Vector3Int gridPosition)
+    {
+        if (baseGridPositionsAndTiles.ContainsKey(gridPosition))
+        {
             // unlock tile so conveyers can change the direction
-            baseGridPositionAndLockStatus[gridPosition] = lockTile;
+            baseGridPositionAndLockStatus[gridPosition] = false;
+
+            SetTileOnConveyerToDefault(gridPosition);
         }
     }
 

@@ -8,6 +8,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 2412335819902622320, guid: 9f0310b0f3dbb194aa5677556d77df46, type: 3}
+      propertyPath: lockedSpritePrefab
+      value: 
+      objectReference: {fileID: 7666044388078456132, guid: 8873e1553eadd58469e9e47ae3a2adca, type: 3}
+    - target: {fileID: 2412335819902622320, guid: 9f0310b0f3dbb194aa5677556d77df46, type: 3}
       propertyPath: customerOrderBubble
       value: 
       objectReference: {fileID: 4894971246273888083, guid: 83bb8ef513dcd3241882856d7474962c, type: 3}

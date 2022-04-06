@@ -5,9 +5,11 @@ public class Seat : MonoBehaviour
 {
     [SerializeField] EnumSeatPosition seatPosition = EnumSeatPosition.Bottom;
     [SerializeField] GameObject customerOrderBubble;
+    [SerializeField] GameObject lockedSpritePrefab;
 
     private TileManager tileManager;
     private Vector3Int seatGridPosition;
+    private GameObject lockedSpriteInstance;
 
     private void Start()
     {
@@ -51,7 +53,16 @@ public class Seat : MonoBehaviour
         EnumTileDirection conveyerTileDirection = GetConveyerTileDirection();
         Vector3Int conveyerTilePosition = GetClosestConveyerTilePosition();
 
+        // sets and locks tile
         tileManager.SetTileOnConveyer(conveyerTilePosition, conveyerTileDirection);
+
+        // add lock sprite
+        Vector3 spawnPosition = tileManager.GetWorldPos(conveyerTilePosition) + new Vector3(0.5f, 0.5f, 0);
+        lockedSpriteInstance = 
+                    Instantiate(lockedSpritePrefab,  // what object to instantiate
+                        spawnPosition, // where to spawn the object
+                        Quaternion.identity,
+                        transform); //, // need to specify rotation
     }
 
     public void ResetTileConveyerToOriginalPath()
@@ -59,7 +70,10 @@ public class Seat : MonoBehaviour
         Vector3Int conveyerTilePosition = GetClosestConveyerTilePosition();
 
         // unlock tile
-        tileManager.ResetTileOnConveyer(conveyerTilePosition, lockTile: false);
+        tileManager.ResetTileOnConveyer(conveyerTilePosition);
+
+        // remove lock sprite
+        Destroy(lockedSpriteInstance);
     }
     #endregion
 
