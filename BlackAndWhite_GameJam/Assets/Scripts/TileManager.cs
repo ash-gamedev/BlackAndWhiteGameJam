@@ -10,10 +10,13 @@ public class TileManager : MonoBehaviour
     private Grid grid;
 
     [Header("Tilemaps")]
-    [SerializeField] private Tilemap interactiveMap = null;
+    [SerializeField] private Tilemap interactiveConveyorMap = null;
     [SerializeField] private Tilemap tileConveyorMap = null;
+    [SerializeField] private Tilemap interactiveKitchenMap = null;
+    [SerializeField] private Tilemap tileOrderMap = null;
 
     [Header("Tiles")]
+    [SerializeField] private Tile kitchenHoverTile = null;
     [SerializeField] private Tile defaultTile = null;
     [SerializeField] private Tile upTile = null;
     [SerializeField] private Tile downTile = null;
@@ -22,10 +25,12 @@ public class TileManager : MonoBehaviour
 
     [Header("Other")]
     [SerializeField] private List<TileConveyer> tileConveyers;
+    [SerializeField] private List<TileOrder> tileOrders;
     [SerializeField] public float ConveyerSpeed = 2;
         
     // Stores the tile objects and their scriptable TileConveyer objects
     private Dictionary<TileBase, TileConveyer> tileConveyerFromTileBase;
+    private Dictionary<TileBase, TileOrder> tileOrdersFromTileBase;
 
     // Stores the starting conveyer tile positions and tiles & boolean 
     private Dictionary<Vector3Int, TileBase> baseGridPositionsAndTiles;
@@ -42,15 +47,26 @@ public class TileManager : MonoBehaviour
     ConveyerTilePath currentPath;
     List<ConveyerTilePath> paths = null;
 
+    //Orders
+    OrderManager orderManager;
+
     private void Awake()
     {
         tileConveyerFromTileBase = new Dictionary<TileBase, TileConveyer>();
-
         foreach(var tileConveyer in tileConveyers)
         {
             foreach(var tile in tileConveyer.tiles)
             {
                 tileConveyerFromTileBase.Add(tile, tileConveyer);
+            }
+        }
+
+        tileOrdersFromTileBase = new Dictionary<TileBase, TileOrder>();
+        foreach (var tileOrder in tileOrders)
+        {
+            foreach (var tile in tileOrder.tiles)
+            {
+                tileOrdersFromTileBase.Add(tile, tileOrder);
             }
         }
 
@@ -80,27 +96,51 @@ public class TileManager : MonoBehaviour
     void Start()
     {
         grid = gameObject.GetComponent<Grid>();
-        interactiveMap.CompressBounds();
+        interactiveConveyorMap.CompressBounds();
+        interactiveKitchenMap.CompressBounds();
 
         paths = new List<ConveyerTilePath>();
+
+        orderManager = FindObjectOfType<OrderManager>();
     }
 
     void Update()
     {
         Vector3Int mousePos = GetMousePosition();
 
-        // Mouse over -> highlight tile
-        if (!mousePos.Equals(previousMousePos) && interactiveMap.cellBounds.Contains(mousePos) && tileConveyorMap.GetTile<Tile>(mousePos) == defaultTile)
+        // Mouse over -> highlight tile (interactive tile kitchen)
+        if (!mousePos.Equals(previousMousePos) && interactiveKitchenMap.cellBounds.Contains(mousePos))
+        {
+            interactiveKitchenMap.SetTile(previousMousePos, null); // Remove old hoverTile
+            interactiveKitchenMap.SetTile(mousePos, kitchenHoverTile);
+            previousMousePos = mousePos;
+        }
+        else if (!interactiveKitchenMap.cellBounds.Contains(mousePos))
+        {
+            interactiveKitchenMap.SetTile(previousMousePos, null); // Remove old hoverTile
+        }
+
+        // Mouse over -> highlight tile (interactive tile conveyor)
+        if (!mousePos.Equals(previousMousePos) && interactiveConveyorMap.cellBounds.Contains(mousePos) && tileConveyorMap.GetTile<Tile>(mousePos) == defaultTile)
         {
             SetHoverTile(mousePos);
         }
-        else if (!interactiveMap.cellBounds.Contains(mousePos))
+        else if (!interactiveConveyorMap.cellBounds.Contains(mousePos))
         {
-            interactiveMap.SetTile(previousMousePos, null); // Remove old hoverTile
+            interactiveConveyorMap.SetTile(previousMousePos, null); // Remove old hoverTile
         }
 
         // Left mouse click -> add path tile (if within bounds and on a valid path) && pathMap.GetTile<Tile>(mousePos) == defaultTile
-        if (Input.GetMouseButton(0) && interactiveMap.cellBounds.Contains(mousePos))
+        if (Input.GetMouseButtonDown(0) && interactiveKitchenMap.cellBounds.Contains(mousePos))
+        {
+            EnumOrder? order = GetTileOrder(mousePos);
+            if (order != null)
+                orderManager.SpawnOrder((EnumOrder)order);
+
+        }
+
+        // Left mouse click -> add path tile (if within bounds and on a valid path) && pathMap.GetTile<Tile>(mousePos) == defaultTile
+        if (Input.GetMouseButton(0) && interactiveConveyorMap.cellBounds.Contains(mousePos))
         {
             // if starting to draw a path, save the starting path details and set bool
             if (isDrawingPath == false && currentPath == null)
@@ -138,7 +178,7 @@ public class TileManager : MonoBehaviour
         }
 
         // Right mouse click -> remove path tile (if within bounds)
-        if (Input.GetMouseButton(1) && interactiveMap.cellBounds.Contains(mousePos))
+        if (Input.GetMouseButton(1) && interactiveConveyorMap.cellBounds.Contains(mousePos))
         {
             RemoveConveyorTile(mousePos);
         }
@@ -192,8 +232,8 @@ public class TileManager : MonoBehaviour
         Tile hoverTile = GetConveyorTile(mousePos, neighbourPos);
 
         // Set tile
-        interactiveMap.SetTile(previousMousePos, null); // Remove old hoverTile
-        interactiveMap.SetTile(mousePos, hoverTile);
+        interactiveConveyorMap.SetTile(previousMousePos, null); // Remove old hoverTile
+        interactiveConveyorMap.SetTile(mousePos, hoverTile);
         previousMousePos = mousePos;
     }
 
@@ -287,6 +327,23 @@ public class TileManager : MonoBehaviour
     #endregion
 
     #region Tile Manager
+    public EnumOrder? GetTileOrder(Vector3Int gridPosition)
+    {
+        EnumOrder? order = null;
+
+        TileBase tile = tileOrderMap.GetTile(gridPosition);
+
+        if (tile != null && tileOrdersFromTileBase.ContainsKey(tile))
+        {
+            TileOrder tileOrder = tileOrdersFromTileBase[tile];
+            if (tileOrder != null)
+            {
+                order = tileOrdersFromTileBase[tile].order;
+            }
+        }
+
+        return order;
+    }
     public Vector3 GetTileDirection(Vector2 worldPosition)
     {
         Vector3 direction = Vector3.zero;
