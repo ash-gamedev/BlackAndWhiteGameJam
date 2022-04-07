@@ -124,7 +124,7 @@ public class Customer : MonoBehaviour
         customerWaitingTimer = orderBubbleInstance.GetComponent<CustomerWaitingTimer>();
 
         // spawn order
-        FindObjectOfType<OrderManager>().SpawnOrder(customerOrder);
+        FindObjectOfType<OrderManager>().AddOrderToQueue(customerOrder);
     }
 
     public IEnumerator CompleteOrder(GameObject order)

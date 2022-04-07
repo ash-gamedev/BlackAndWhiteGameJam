@@ -135,7 +135,7 @@ public class TileManager : MonoBehaviour
         {
             EnumOrder? order = GetTileOrder(mousePos);
             if (order != null)
-                orderManager.SpawnOrder((EnumOrder)order);
+                orderManager.AddOrderToQueue((EnumOrder)order);
 
         }
 

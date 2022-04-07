@@ -14,10 +14,12 @@ public class OrderManager : MonoBehaviour
     [SerializeField] Sprite cookieSprite;
     [SerializeField] Sprite sandwichSprite;
 
+    [Header("Other")]
     [SerializeField] GameObject platedOrderPrefab;
-    [SerializeField] float timeBetweenOrderSpawns = 5f;
+    [SerializeField] float timeBetweenOrderSpawns = 0.5f;
 
     System.Random random;
+    private Queue<EnumOrder> OrderQueue;
 
     // Use this for initialization
     void Awake()
@@ -34,27 +36,33 @@ public class OrderManager : MonoBehaviour
 
     private void Start()
     {
-        //StartCoroutine(OrderSpawning());
+        OrderQueue = new Queue<EnumOrder>();
+        StartCoroutine(OrderSpawning());
     }
 
     private IEnumerator OrderSpawning()
     {
         while (true)
         {
-            // create random order
-            Array orders = Enum.GetValues(typeof(EnumOrder));
-            random = new System.Random();
-            EnumOrder order = (EnumOrder)orders.GetValue(random.Next(orders.Length));
+            // wait for items in queue to spawn
+            yield return new WaitUntil(() => OrderQueue.Count > 0);
 
             // spawn order
-            SpawnOrder(order);
+            SpawnOrder();
 
             yield return new WaitForSeconds(timeBetweenOrderSpawns);
         }
     }
 
-    public void SpawnOrder(EnumOrder order)
+    public void AddOrderToQueue(EnumOrder order)
     {
+        OrderQueue.Enqueue(order);
+    }
+
+    public void SpawnOrder()
+    {
+        EnumOrder order = OrderQueue.Dequeue();
+
         GameObject platedOrderInstance = platedOrderPrefab;
         platedOrderInstance.GetComponent<Order>().order = order;
         Instantiate(platedOrderInstance,  // what object to instantiate
