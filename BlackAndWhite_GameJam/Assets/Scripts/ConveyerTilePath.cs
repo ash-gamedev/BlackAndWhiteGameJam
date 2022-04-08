@@ -7,20 +7,10 @@ using UnityEngine.Tilemaps;
 public class ConveyerTilePath 
 {
     public Vector3Int? StartingGridPosition { get; private set; }
-    
-    public bool HasStartingTileBeenReset { get; private set; }
-
     public List<ConveyerTile> ConveyerTiles { get; private set; }
-
     public ConveyerTilePath(Vector3Int? startingGridPosition)
     {
         StartingGridPosition = startingGridPosition;
-
-        if (startingGridPosition != null)
-            HasStartingTileBeenReset = false;
-        else
-            HasStartingTileBeenReset = true;
-
         ConveyerTiles = new List<ConveyerTile>();
     }
 
@@ -44,14 +34,17 @@ public class ConveyerTilePath
 
     public void RemoveStartingTile()
     {
-        if(HasStartingTileBeenReset == false)
+        if (StartingGridPosition != null)
         {
-            HasStartingTileBeenReset = true;
-            ConveyerTile startingTile = ConveyerTiles[0];
+            ConveyerTile startingTile = GetTileAtPosition((Vector3Int)StartingGridPosition);
 
-            ConveyerTiles.Remove(startingTile);
+            if(startingTile != null)
+            {
+                ConveyerTiles.Remove(startingTile);
+            }
         }
     }
+
     public void AddTileToPath(ConveyerTile conveyerTile)
     {
         ConveyerTiles.Add(conveyerTile);
@@ -60,5 +53,25 @@ public class ConveyerTilePath
     public void RemoveTileFromPath(ConveyerTile conveyerTile)
     {
         ConveyerTiles.Remove(conveyerTile);
+    }
+
+    public void RemoveTileFromPath(Vector3Int pathPosition)
+    {
+        ConveyerTile conveyerTile = GetTileAtPosition(pathPosition);
+
+        if(conveyerTile != null && ConveyerTiles.Contains(conveyerTile))
+            ConveyerTiles.Remove(conveyerTile);
+    }
+
+    public bool DoesPathHaveStartingTile()
+    {
+        if (StartingGridPosition == null) return false;
+
+        ConveyerTile conveyerTile = GetTileAtPosition((Vector3Int)StartingGridPosition);
+
+        if (conveyerTile != null)
+            return true;
+        else
+            return false;
     }
 }
