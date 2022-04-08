@@ -159,7 +159,7 @@ public class Customer : MonoBehaviour
         // correct order
         if (wasOrderCorrect)
         {
-            ScoreKeeper.AddToScore(10);
+            ScoreKeeper.AddToScore();
             AudioPlayer.PlaySoundEffect(EnumSoundEffects.CustomerPays);
         }
         // customer waiting too long [order not received] OR wrong order

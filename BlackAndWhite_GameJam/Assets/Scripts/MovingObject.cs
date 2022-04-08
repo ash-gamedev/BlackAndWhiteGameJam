@@ -79,6 +79,9 @@ public class MovingObject : MonoBehaviour
         // animation
         ChangeAnimationState(EnumAnimationState.PlateBreak);
 
+        // score
+        ScoreKeeper.PlateBroken();
+
         // wait & destroy
         yield return new WaitForSeconds(timeBeforeDissappearOnBreak);
         Destroy(gameObject);

@@ -29,16 +29,21 @@ public class UIManager : MonoBehaviour
     public void UpdateLevelCompleteUI()
     {
         int numberOfCustomers = LevelManager.NumberOfCustomers;
+
         int numberOfCorrectOrders = ScoreKeeper.NumberOfCorrectOrders;
-        int numberOfIncorrectOrders = numberOfCustomers - numberOfCorrectOrders;
+        int pointsForCorrectOrder = ScoreKeeper.PointsForCorrectOrder;
+
+        int numberOfPlatesBroken = ScoreKeeper.NumberOfPlatesBroken;
+        int pointsForBrokenPlate = ScoreKeeper.PointsForBrokenPlate;
+
         int totalScore = ScoreKeeper.Score;
 
         // text
         string levelCompleteTextBlock =
-            $"{numberOfCorrectOrders} \n" +
-            $"{numberOfIncorrectOrders} \n" +
+            $"{numberOfCorrectOrders} x ${pointsForCorrectOrder} = ${numberOfCorrectOrders*pointsForCorrectOrder}\n" +
+            $"{numberOfPlatesBroken} x ${pointsForBrokenPlate} = -${numberOfPlatesBroken*pointsForBrokenPlate}\n" +
             "\n" +
-            $"{totalScore}";
+            $"${totalScore}";
 
         levelCompleteText.text = levelCompleteTextBlock;
 

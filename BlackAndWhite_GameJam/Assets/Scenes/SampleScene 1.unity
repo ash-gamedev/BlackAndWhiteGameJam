@@ -9516,6 +9516,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 124643336, guid: 3617129a79b8e614dacb4b9899756925, type: 3}
+      propertyPath: m_Name
+      value: Score Text
+      objectReference: {fileID: 0}
     - target: {fileID: 124643337, guid: 3617129a79b8e614dacb4b9899756925, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -9544,6 +9548,10 @@ PrefabInstance:
       propertyPath: m_Interactable
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 172812064, guid: 3617129a79b8e614dacb4b9899756925, type: 3}
+      propertyPath: m_Name
+      value: Level Results
+      objectReference: {fileID: 0}
     - target: {fileID: 172812065, guid: 3617129a79b8e614dacb4b9899756925, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -9648,6 +9656,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1191168730, guid: 3617129a79b8e614dacb4b9899756925, type: 3}
+      propertyPath: m_Name
+      value: Label Text
+      objectReference: {fileID: 0}
     - target: {fileID: 1191168731, guid: 3617129a79b8e614dacb4b9899756925, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -9671,10 +9683,19 @@ PrefabInstance:
     - target: {fileID: 1191168731, guid: 3617129a79b8e614dacb4b9899756925, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1191168732, guid: 3617129a79b8e614dacb4b9899756925, type: 3}
+      propertyPath: m_text
+      value: 'Correct Orders Delivered
+
+        Plates Broken
+
+
+        Total'
       objectReference: {fileID: 0}
     - target: {fileID: 1557033657, guid: 3617129a79b8e614dacb4b9899756925, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1557033658, guid: 3617129a79b8e614dacb4b9899756925, type: 3}
       propertyPath: m_RootOrder

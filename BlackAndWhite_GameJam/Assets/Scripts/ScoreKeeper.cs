@@ -3,9 +3,12 @@ using UnityEngine;
 
 public class ScoreKeeper : MonoBehaviour
 {
-
+    
     static int score = 0;
+    static int pointsForCorrectOrder = 20;
+    static int pointsForBrokenPlate = 5;
     static int numberOfCorrectOrders = 0;
+    static int numberOfPlatesBroken = 0;
     static ScoreKeeper instance;
 
     // properties
@@ -25,6 +28,29 @@ public class ScoreKeeper : MonoBehaviour
         }
     }
 
+    public static int NumberOfPlatesBroken
+    {
+        get
+        {
+            return numberOfPlatesBroken;
+        }
+    }
+
+    public static int PointsForCorrectOrder
+    {
+        get
+        {
+            return pointsForCorrectOrder;
+        }
+    }
+
+    public static int PointsForBrokenPlate
+    {
+        get
+        {
+            return pointsForBrokenPlate;
+        }
+    }
     #region Awake
 
     private void Awake()
@@ -34,18 +60,25 @@ public class ScoreKeeper : MonoBehaviour
     #endregion
 
     #region public functions
-    public static void AddToScore(int points)
+    public static void AddToScore()
     {
-        score += points;
+        score += pointsForCorrectOrder;
         Mathf.Clamp(score, 0, int.MaxValue);
 
         numberOfCorrectOrders++;
     }
+    public static void PlateBroken()
+    {
+        score -= pointsForBrokenPlate;
+        Mathf.Clamp(score, 0, int.MaxValue);
 
+        numberOfPlatesBroken++;
+    }
     public static void ResetScore()
     {
         score = 0;
         numberOfCorrectOrders = 0;
+        numberOfPlatesBroken = 0;
     }
     #endregion
 
