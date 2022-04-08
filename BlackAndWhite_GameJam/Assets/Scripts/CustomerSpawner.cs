@@ -7,10 +7,9 @@ public class CustomerSpawner : MonoBehaviour
 {
     [Header("Customer Spawner")]
     [SerializeField] GameObject customer = null;
-    [SerializeField] float timeBetweenCustomerSpawns = 10f;
-    [SerializeField] float customerTimeVariance = 1f;
 
     List<Seat> seats = new List<Seat>();
+
 
     // Use this for initialization
     void Start()
@@ -26,7 +25,10 @@ public class CustomerSpawner : MonoBehaviour
 
     IEnumerator SpawnCustomers()
     {
-        while (true)
+        int numberOfCustomers = LevelManager.NumberOfCustomers;
+        int customerCount = 0;
+
+        while (customerCount < numberOfCustomers)
         {
             // find random seat with no customer
             System.Random rnd = new System.Random();
@@ -38,10 +40,18 @@ public class CustomerSpawner : MonoBehaviour
             if(seat != null)
             {
                 seat.SetCustomer(customer);
+                customerCount++;
             }
-            
+
             // wait to spawn next customer
-            yield return new WaitForSeconds(timeBetweenCustomerSpawns * customerTimeVariance);
+            yield return new WaitForSeconds(LevelManager.TimeBetweenCustomerSpawns * LevelManager.CustomerTimeVariance);
         }
+
+        // wait until all customers have left
+        yield return new WaitUntil(() => FindObjectsOfType<Customer>().Length == 0);
+
+        Time.timeScale = 0f; //freezes fame
+
+        FindObjectOfType<UIManager>().UpdateLevelCompleteUI();
     }
 }

@@ -21,7 +21,7 @@ public class MovingObject : MonoBehaviour
         animator = GetComponent<Animator>();
         rigidbody = GetComponent<Rigidbody2D>();
         tileConveyerManager = FindObjectOfType<TileManager>();
-        speed = tileConveyerManager.ConveyerSpeed;
+        speed = LevelManager.ConveyorSpeed;
     }
 
     private void Start()

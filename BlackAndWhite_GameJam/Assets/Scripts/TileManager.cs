@@ -26,7 +26,6 @@ public class TileManager : MonoBehaviour
     [Header("Other")]
     [SerializeField] private List<TileConveyer> tileConveyers;
     [SerializeField] private List<TileOrder> tileOrders;
-    [SerializeField] public float ConveyerSpeed = 2;
         
     // Stores the tile objects and their scriptable TileConveyer objects
     private Dictionary<TileBase, TileConveyer> tileConveyerFromTileBase;
@@ -244,7 +243,7 @@ public class TileManager : MonoBehaviour
 
     Tile GetConveyorTile(Vector3Int mousePos, Vector3Int? neighbourPos)
     {
-        Tile setTile = null;
+        Tile setTile = defaultTile;
 
         // set tile based on direction
         if (neighbourPos == null) setTile = upTile;

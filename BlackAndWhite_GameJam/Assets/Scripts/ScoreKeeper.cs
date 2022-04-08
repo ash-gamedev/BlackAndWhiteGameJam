@@ -5,8 +5,25 @@ public class ScoreKeeper : MonoBehaviour
 {
 
     static int score = 0;
-
+    static int numberOfCorrectOrders = 0;
     static ScoreKeeper instance;
+
+    // properties
+    public static int Score
+    {
+        get
+        {
+            return score;
+        }
+    }
+
+    public static int NumberOfCorrectOrders
+    {
+        get
+        {
+            return numberOfCorrectOrders;
+        }
+    }
 
     #region Awake
 
@@ -17,23 +34,19 @@ public class ScoreKeeper : MonoBehaviour
     #endregion
 
     #region public functions
-
-    public static int GetScore()
-    {
-        return score;
-    }
-
     public static void AddToScore(int points)
     {
         score += points;
         Mathf.Clamp(score, 0, int.MaxValue);
+
+        numberOfCorrectOrders++;
     }
 
     public static void ResetScore()
     {
         score = 0;
+        numberOfCorrectOrders = 0;
     }
-
     #endregion
 
     #region private functions
