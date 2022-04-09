@@ -49,8 +49,7 @@ public class CustomerSpawner : MonoBehaviour
 
         // wait until all customers have left
         yield return new WaitUntil(() => FindObjectsOfType<Customer>().Length == 0);
-
-        Time.timeScale = 0f; //freezes fame
+          
 
         FindObjectOfType<UIManager>().UpdateLevelCompleteUI();
     }

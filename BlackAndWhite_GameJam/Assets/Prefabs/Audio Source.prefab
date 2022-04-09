@@ -142,13 +142,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   plateShatter: {fileID: 8300000, guid: 201203fa615a9b044a0923b1c402e292, type: 3}
-  plateShatterVolume: 1
+  plateShatterVolume: 0.5
   customerOrder: {fileID: 8300000, guid: de1977aad12b32c42a8062d041905d2c, type: 3}
   customerOrderVolume: 1
   correctCustomerOrder: {fileID: 8300000, guid: 6f827902f7a482c47abcd91dde224039, type: 3}
   correctCustomerOrderVolume: 1
   incorrectCustomerOrder: {fileID: 8300000, guid: 143e25326db6dcc448f5c6e1c1283242, type: 3}
-  incorrectCustomerOrderVolume: 1
+  incorrectCustomerOrderVolume: 0.5
   correctPay: {fileID: 8300000, guid: 680b615a314ed4e449d42d7eda182213, type: 3}
   correctPayVolume: 1
   conveyorRemove: {fileID: 8300000, guid: 06ca2d4d667d5de4bbece3b16ef24646, type: 3}

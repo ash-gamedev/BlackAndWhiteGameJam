@@ -5,6 +5,8 @@ public class ScoreKeeper : MonoBehaviour
 {
     
     static int score = 0;
+    static int tips = 0;
+    static int maxTip = 8;
     static int pointsForCorrectOrder = 20;
     static int pointsForBrokenPlate = 5;
     static int numberOfCorrectOrders = 0;
@@ -17,6 +19,22 @@ public class ScoreKeeper : MonoBehaviour
         get
         {
             return score;
+        }
+    }
+
+    public static int Tips
+    {
+        get
+        {
+            return tips;
+        }
+    }
+
+    public static int MaxTip
+    {
+        get
+        {
+            return maxTip;
         }
     }
 
@@ -51,6 +69,9 @@ public class ScoreKeeper : MonoBehaviour
             return pointsForBrokenPlate;
         }
     }
+    
+    
+    
     #region Awake
 
     private void Awake()
@@ -60,7 +81,7 @@ public class ScoreKeeper : MonoBehaviour
     #endregion
 
     #region public functions
-    public static void AddToScore()
+    public static void OrderCompleted()
     {
         score += pointsForCorrectOrder;
         Mathf.Clamp(score, 0, int.MaxValue);
@@ -74,9 +95,37 @@ public class ScoreKeeper : MonoBehaviour
 
         numberOfPlatesBroken++;
     }
+    public static int AddTip(float timeOrderReceived)
+    {
+        float waitTimePercentage = (LevelManager.TimeBeforeCustomerLeaves - timeOrderReceived)/LevelManager.TimeBeforeCustomerLeaves;
+               
+        int tip = 1;
+
+        // waiting less then 60% of time
+        if(waitTimePercentage < 0.6f)
+        {
+            tip = maxTip;
+        }
+        else if(waitTimePercentage >= 0.6f && waitTimePercentage < 0.7f)
+        {
+            tip = (int)(maxTip*0.5);
+        }
+        else if(waitTimePercentage >= 0.7f && waitTimePercentage <= 0.8f)
+        {
+            tip = (int)(maxTip * 0.25);
+        }
+
+        Debug.Log("timeOrderReceived " + timeOrderReceived + " waitPercentage: " + waitTimePercentage + " tip: " + tip);
+
+        score += tip;
+        tips += tip;
+
+        return tip;
+    }
     public static void ResetScore()
     {
         score = 0;
+        tips = 0;
         numberOfCorrectOrders = 0;
         numberOfPlatesBroken = 0;
     }

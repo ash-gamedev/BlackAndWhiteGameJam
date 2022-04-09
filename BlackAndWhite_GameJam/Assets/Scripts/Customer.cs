@@ -1,70 +1,98 @@
 ﻿using System;
 using System.Collections;
+using TMPro;
 using UnityEngine;
 
 public class Customer : MonoBehaviour
 {    
     [SerializeField] float moveSpeed = 2f;
     [SerializeField] public float timeToEatInSeconds = 2f;
-    public float timeBeforeLeaving = LevelManager.TimeBeforeCustomerLeaves;
+    [SerializeField] GameObject tipObject;
+    [SerializeField] GameObject unHappyObject;
+    
+    public float timeBeforeLeaving = 0;
 
     EnumOrder customerOrder;
-    CustomerWaitingTimer customerWaitingTimer;
+    CustomerWaitingTimer customerWaitingTimer = null;
 
-    Seat seatInstance;
-    GameObject orderBubbleInstance;
+    Seat seatInstance = null;
+    GameObject orderBubbleInstance = null;
     bool setOrder = false;
     bool wasOrderCorrect = false;
     bool orderReceived = false;
     bool isLeaving = false;
+    float timeOrderReceived = 0f;
     Vector3 startPosition;
-    Vector3? walkingTarget;
+    Vector3? walkingTarget = null;
 
-    GameObject orderInstance;
-    GameObject orderBubble;
+    GameObject orderInstance = null;
+    GameObject orderBubble = null;
+
+    UIManager uiManager;
 
     private void Start()
     {
-        // set start position
-        startPosition = transform.position;
+        try
+        {
+            // set start position
+            startPosition = transform.position;
 
-        // create random order
-        Array orders = Enum.GetValues(typeof(EnumOrder));
-        System.Random random = new System.Random();
-        customerOrder = (EnumOrder)orders.GetValue(random.Next(orders.Length));
+            // create random order
+            Array orders = Enum.GetValues(typeof(EnumOrder));
+            System.Random random = new System.Random();
+            customerOrder = (EnumOrder)orders.GetValue(random.Next(orders.Length));
 
-        seatInstance = transform.parent.gameObject.GetComponent<Seat>();
+            seatInstance = transform.parent.gameObject.GetComponent<Seat>();
+
+            // time before leaving
+            timeBeforeLeaving = LevelManager.TimeBeforeCustomerLeaves;
+
+            // get ui manager
+            uiManager = FindObjectOfType<UIManager>();
+        }
+        catch(Exception e)
+        {
+            Debug.Log(e.Message);
+        }
     }
 
     private void Update()
     {
-        // move towards seat
-        if(transform.position != walkingTarget)
+        try
         {
-            MoveTowards(walkingTarget);
-        }
-
-        // if seated and order hasn't been placed
-        if(transform.position == walkingTarget && !setOrder)
-        {
-            setOrder = true;
-            SetOrder();
-        }
-
-        // if leaving 
-        else if(transform.position == walkingTarget && isLeaving)
-        {
-            // remove
-            Destroy(gameObject);
-        }
-
-        // if customer waiting for too long, leave
-        if (customerWaitingTimer != null && !isLeaving)
-        {
-            if(customerWaitingTimer.timerSlider.value <= 0)
+            // move towards seat
+            if (transform.position != walkingTarget)
             {
-                Leave();
+                MoveTowards(walkingTarget);
             }
+
+            // if seated and order hasn't been placed
+            if (transform.position == walkingTarget && !setOrder)
+            {
+                setOrder = true;
+                SetOrder();
+            }
+
+            // if leaving 
+            else if (transform.position == walkingTarget && isLeaving)
+            {
+                // remove
+                Destroy(gameObject);
+            }
+
+            // if customer waiting for too long, leave
+            if (customerWaitingTimer != null && !isLeaving)
+            {
+                if (customerWaitingTimer.timerSlider.value <= 0)
+                {
+                    Leave();
+                }
+            }
+
+        }
+        catch (Exception e)
+        {
+            Debug.Log(e.Message);
         }
     }
 
@@ -73,6 +101,8 @@ public class Customer : MonoBehaviour
         if (collision.CompareTag(EnumTags.Order.ToString()) && !orderReceived)
         {
             orderReceived = true;
+            timeOrderReceived = customerWaitingTimer.currentTime;
+
             orderInstance = collision.gameObject;
 
             // replace layer to not collide with others
@@ -82,7 +112,7 @@ public class Customer : MonoBehaviour
             
             if (order == customerOrder)
             {
-                AudioPlayer.PlaySoundEffect(EnumSoundEffects.OrderCorrect);
+                //AudioPlayer.PlaySoundEffect(EnumSoundEffects.OrderCorrect);
                 wasOrderCorrect = true;
                 StartCoroutine(CompleteOrder(collision.gameObject));
             }
@@ -98,25 +128,9 @@ public class Customer : MonoBehaviour
         //sound effect
         AudioPlayer.PlaySoundEffect(EnumSoundEffects.CustomerOrder);
 
-        //first you need the RectTransform component of your canvas
-        Canvas uiCanvas = FindObjectOfType<Canvas>();
-        RectTransform CanvasRect = uiCanvas.GetComponent<RectTransform>();
-
-        //then you calculate the position of the UI element
-        //0,0 for the canvas is at the center of the screen, whereas WorldToViewPortPoint treats the lower left corner as 0,0. Because of this, you need to subtract the height / width of the canvas * 0.5 to get the correct position.
-
-        Vector2 ViewportPosition = Camera.main.WorldToScreenPoint(seatInstance.GetCustomerOrderBubbleSpawnPosition());
-        float h = Screen.height;
-        float w = Screen.width;
-        float x = ViewportPosition.x - (w / 2);
-        float y = ViewportPosition.y - (h / 2);
-        float s = uiCanvas.scaleFactor;
-        Vector2 orderBubbleSpawn = new Vector2(x, y) / s;
-
+        // instantiate object on UI
         orderBubble.GetComponent<CustomerOrder>().order = customerOrder; // set order
-        orderBubbleInstance = Instantiate(orderBubble, orderBubbleSpawn, Quaternion.identity, uiCanvas.transform);
-        orderBubbleInstance.transform.SetAsFirstSibling(); // order in hierarchy to top (so it appears under menus, etc.)
-        orderBubbleInstance.GetComponent<RectTransform>().anchoredPosition = orderBubbleSpawn;
+        orderBubbleInstance = uiManager.InstantiateObjectOnUi(seatInstance.GetCustomerOrderBubbleSpawnPosition(), orderBubble);
 
         // set conveyer to face customer after order is placed
         seatInstance.SetConveyerTileToFaceCustomer();
@@ -133,13 +147,24 @@ public class Customer : MonoBehaviour
         //Remove order
         Destroy(orderBubbleInstance);
 
-        //Set plate order as child
-        order.transform.parent = this.transform;
+        // correct order
+        if (wasOrderCorrect)
+        {
+            ScoreKeeper.OrderCompleted();
 
-        MovingObject movingPlate = order.GetComponent<MovingObject>();
-        movingPlate.canChangeDirection = false;
+            // tip
+            int tip = ScoreKeeper.AddTip(timeOrderReceived);
+            InstantiateTip(tip);
+            AudioPlayer.PlaySoundEffect(EnumSoundEffects.CustomerPays);
 
-        seatInstance.ResetTileConveyerToOriginalPath();
+            //Set plate order as child
+            order.transform.parent = this.transform;
+
+            MovingObject movingPlate = order.GetComponent<MovingObject>();
+            movingPlate.canChangeDirection = false;
+
+            seatInstance.ResetTileConveyerToOriginalPath();
+        }
 
         yield return new WaitForSeconds(timeToEatInSeconds);
         Leave();
@@ -157,17 +182,12 @@ public class Customer : MonoBehaviour
 
     public void Leave()
     {
-        // correct order
-        if (wasOrderCorrect)
-        {
-            ScoreKeeper.AddToScore();
-            AudioPlayer.PlaySoundEffect(EnumSoundEffects.CustomerPays);
-        }
         // customer waiting too long [order not received] OR wrong order
-        else
+        if (!wasOrderCorrect)
         {
             seatInstance.ResetTileConveyerToOriginalPath();
             AudioPlayer.PlaySoundEffect(EnumSoundEffects.OrderIncorrect);
+            InstantiateUnhappyFace();
         }
 
         // destroy plate
@@ -190,5 +210,20 @@ public class Customer : MonoBehaviour
         {
             transform.position = Vector2.MoveTowards(transform.position, (Vector2)target, moveSpeed * Time.deltaTime);
         }
+    }
+
+    private void InstantiateTip(int tip)
+    {
+        GameObject tipObjectInstance = uiManager.InstantiateObjectOnUi(seatInstance.GetCustomerOrderBubbleSpawnPosition(), tipObject);
+
+        // Update tip text
+        string tipText = $"+{tip} Tip";
+
+        tipObjectInstance.GetComponentInChildren<TextMeshProUGUI>().text = tipText;
+    }
+
+    private void InstantiateUnhappyFace()
+    {
+        uiManager.InstantiateObjectOnUi(seatInstance.GetCustomerOrderBubbleSpawnPosition(), unHappyObject);
     }
 }

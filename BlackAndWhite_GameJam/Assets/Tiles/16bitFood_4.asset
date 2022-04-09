@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 13312, guid: 0000000000000000e000000000000000, type: 0}
   m_Name: 16bitFood_4
   m_EditorClassIdentifier: 
-  m_Sprite: {fileID: -1611400080, guid: 20e6242aa777608419fa14993e8b8003, type: 3}
+  m_Sprite: {fileID: 21300000, guid: a8e1ed370e86dd94d9ba4a4399eed417, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Transform:
     e00: 1

@@ -28,6 +28,8 @@ public class UIManager : MonoBehaviour
 
     public void UpdateLevelCompleteUI()
     {
+        Time.timeScale = 0f; //freezes fame
+
         int numberOfCustomers = LevelManager.NumberOfCustomers;
 
         int numberOfCorrectOrders = ScoreKeeper.NumberOfCorrectOrders;
@@ -43,6 +45,7 @@ public class UIManager : MonoBehaviour
             $"{numberOfCorrectOrders} x ${pointsForCorrectOrder} = ${numberOfCorrectOrders*pointsForCorrectOrder}\n" +
             $"{numberOfPlatesBroken} x ${pointsForBrokenPlate} = -${numberOfPlatesBroken*pointsForBrokenPlate}\n" +
             "\n" +
+            $"+ ${ScoreKeeper.Tips} (tips)\n" +
             $"${totalScore}";
 
         levelCompleteText.text = levelCompleteTextBlock;
@@ -50,14 +53,42 @@ public class UIManager : MonoBehaviour
         // stars
         if(starImages?.Count == 3)
         {
-            float levelPercentage = (float)numberOfCorrectOrders / (float)numberOfCustomers;
+            int maxScore = (numberOfCustomers * ScoreKeeper.MaxTip) + (numberOfCorrectOrders * pointsForCorrectOrder);
 
-            starImages[0].sprite = levelPercentage >= 0.25f ? fullStarSprite : emptyStartSprite;
-            starImages[1].sprite = levelPercentage >= 0.5f ? fullStarSprite : emptyStartSprite;
-            starImages[2].sprite = levelPercentage >= 0.75f ? fullStarSprite : emptyStartSprite;
+            float scorePercentage = (float)totalScore / (float)maxScore;
+
+            Debug.Log("maxScore: " + maxScore + " scorePercentage: " + scorePercentage);
+
+            starImages[0].sprite = scorePercentage >= 0.25f ? fullStarSprite : emptyStartSprite;
+            starImages[1].sprite = scorePercentage >= 0.5f ? fullStarSprite : emptyStartSprite;
+            starImages[2].sprite = scorePercentage >= 0.85f ? fullStarSprite : emptyStartSprite;
         }
 
         // show panel
         levelCompletePanel.SetActive(true);
+    }
+
+
+    public GameObject InstantiateObjectOnUi(Vector3 objectSpawnPos, GameObject objectToInstantiate)
+    {
+        //first you need the RectTransform component of your canvas
+        Canvas uiCanvas = FindObjectOfType<Canvas>();
+
+        //then you calculate the position of the UI element
+        //0,0 for the canvas is at the center of the screen, whereas WorldToViewPortPoint treats the lower left corner as 0,0. Because of this, you need to subtract the height / width of the canvas * 0.5 to get the correct position.
+
+        Vector2 ViewportPosition = Camera.main.WorldToScreenPoint(objectSpawnPos);
+        float h = Screen.height;
+        float w = Screen.width;
+        float x = ViewportPosition.x - (w / 2);
+        float y = ViewportPosition.y - (h / 2);
+        float s = uiCanvas.scaleFactor;
+        Vector2 objectSpawnPosUi = new Vector2(x, y) / s;
+
+        GameObject objectInstance = Instantiate(objectToInstantiate, objectSpawnPosUi, Quaternion.identity, uiCanvas.transform);
+        objectInstance.transform.SetAsFirstSibling(); // order in hierarchy to top (so it appears under menus, etc.)
+        objectInstance.GetComponent<RectTransform>().anchoredPosition = objectSpawnPosUi;
+
+        return objectInstance;
     }
 }

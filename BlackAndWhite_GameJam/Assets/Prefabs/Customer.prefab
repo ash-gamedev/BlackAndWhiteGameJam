@@ -126,4 +126,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 2
   timeToEatInSeconds: 4
+  tipObject: {fileID: 8906842228836492060, guid: 853cd072b3e9d3841a2d7de601abf3d1, type: 3}
+  unHappyObject: {fileID: 1514000659164413337, guid: 7bc5c6e07daeec44aa7f01759712372d, type: 3}
   timeBeforeLeaving: 100
