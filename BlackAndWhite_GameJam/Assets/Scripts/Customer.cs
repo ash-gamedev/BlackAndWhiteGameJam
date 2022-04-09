@@ -6,7 +6,7 @@ public class Customer : MonoBehaviour
 {    
     [SerializeField] float moveSpeed = 2f;
     [SerializeField] public float timeToEatInSeconds = 2f;
-    [SerializeField] public float timeBeforeLeaving = 100f;
+    public float timeBeforeLeaving = LevelManager.TimeBeforeCustomerLeaves;
 
     EnumOrder customerOrder;
     CustomerWaitingTimer customerWaitingTimer;

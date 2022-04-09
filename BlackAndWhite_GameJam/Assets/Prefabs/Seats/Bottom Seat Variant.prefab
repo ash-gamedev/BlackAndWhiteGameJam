@@ -63,6 +63,18 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4905626692118019293, guid: 9f0310b0f3dbb194aa5677556d77df46, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4905626692118019293, guid: 9f0310b0f3dbb194aa5677556d77df46, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4905626692118019293, guid: 9f0310b0f3dbb194aa5677556d77df46, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8673306786206643024, guid: 9f0310b0f3dbb194aa5677556d77df46, type: 3}
       propertyPath: m_Name
       value: Bottom Seat Variant

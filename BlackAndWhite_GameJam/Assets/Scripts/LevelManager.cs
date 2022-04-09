@@ -6,6 +6,7 @@ public class LevelManager : MonoBehaviour
     // level customizations
     [SerializeField] int numberOfCustomers = 20;
     [SerializeField] float timeBetweenCustomerSpawns = 5f;
+    [SerializeField] float timeBeforeCustomerLeaves = 30f;
     [SerializeField] float customerTimeVariance = 1f;
     [SerializeField] float conveyorSpeed = 1.5f;
 
@@ -38,7 +39,14 @@ public class LevelManager : MonoBehaviour
             return instance.conveyorSpeed;
         }
     }
-
+    public static float TimeBeforeCustomerLeaves
+    {
+        get
+        {
+            return instance.timeBeforeCustomerLeaves;
+        }
+    }
+    
     // static persists through all instances of a class
     static LevelManager instance;
 

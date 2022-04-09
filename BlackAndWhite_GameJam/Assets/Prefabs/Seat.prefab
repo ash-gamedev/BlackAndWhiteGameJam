@@ -100,7 +100,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   seatPosition: 1
-  tileConveyerPosition: {x: 0, y: 0, z: 0}
+  customerOrderBubble: {fileID: 0}
+  lockedSpritePrefab: {fileID: 0}
 --- !u!61 &4677048746877543186
 BoxCollider2D:
   m_ObjectHideFlags: 0
