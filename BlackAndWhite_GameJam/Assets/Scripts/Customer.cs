@@ -115,6 +115,7 @@ public class Customer : MonoBehaviour
 
         orderBubble.GetComponent<CustomerOrder>().order = customerOrder; // set order
         orderBubbleInstance = Instantiate(orderBubble, orderBubbleSpawn, Quaternion.identity, uiCanvas.transform);
+        orderBubbleInstance.transform.SetAsFirstSibling(); // order in hierarchy to top (so it appears under menus, etc.)
         orderBubbleInstance.GetComponent<RectTransform>().anchoredPosition = orderBubbleSpawn;
 
         // set conveyer to face customer after order is placed

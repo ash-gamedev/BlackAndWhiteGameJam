@@ -120,7 +120,7 @@ public class TileManager : MonoBehaviour
         }
 
         // Mouse over -> highlight tile (interactive tile conveyor)
-        if (!mousePos.Equals(previousMousePos) && interactiveConveyorMap.cellBounds.Contains(mousePos))
+        if (!mousePos.Equals(previousMousePos) && interactiveConveyorMap.cellBounds.Contains(mousePos) && !IsBaseConveryTile(mousePos))
         {
             SetHoverTile(mousePos);
         }
@@ -129,7 +129,7 @@ public class TileManager : MonoBehaviour
             interactiveConveyorMap.SetTile(previousMousePos, null); // Remove old hoverTile
         }
 
-        // Left mouse click -> add path tile (if within bounds and on a valid path) && pathMap.GetTile<Tile>(mousePos) == defaultTile
+        // Left mouse click -> Place kitchen tile
         if (Input.GetMouseButtonDown(0) && interactiveKitchenMap.cellBounds.Contains(mousePos))
         {
             EnumOrder? order = GetTileOrder(mousePos);
@@ -139,7 +139,7 @@ public class TileManager : MonoBehaviour
         }
 
         // Left mouse click -> add path tile (if within bounds and on a valid path) && pathMap.GetTile<Tile>(mousePos) == defaultTile
-        if (Input.GetMouseButton(0) && interactiveConveyorMap.cellBounds.Contains(mousePos))
+        if (Input.GetMouseButton(0) && interactiveConveyorMap.cellBounds.Contains(mousePos) && !IsBaseConveryTile(mousePos))
         {
             // if starting to draw a path, save the starting path details and set bool
             if (isDrawingPath == false && currentPath == null)
@@ -264,37 +264,40 @@ public class TileManager : MonoBehaviour
 
     private void RemoveConveyorTile(Vector3Int mousePosition)
     {
-        if (paths != null && paths?.Count > 0)
+        if (!IsBaseConveryTile(mousePosition))
         {
-            // loop through each path created & search for mousePosition to remove tile
-            foreach (var path in paths)
+            if (paths != null && paths?.Count > 0)
             {
-                ConveyerTile removeTile = path.GetTileAtPosition(mousePosition);
-
-                // if position exists
-                if (removeTile != null)
+                // loop through each path created & search for mousePosition to remove tile
+                foreach (var path in paths)
                 {
-                    // sound effect
-                    AudioPlayer.PlaySoundEffect(EnumSoundEffects.TileRemove);
+                    ConveyerTile removeTile = path.GetTileAtPosition(mousePosition);
 
-                    // if tile is second in the path, & start position hasn't been reset
-                    if (path.ConveyerTiles.IndexOf(removeTile) == 1 && path.DoesPathHaveStartingTile())
+                    // if position exists
+                    if (removeTile != null)
                     {
-                        // reset start tile to default state & remove from path
-                        Vector3Int? startTilePosition = path.StartingGridPosition;
-                        if (startTilePosition != null)
-                            SetTileOnConveyerToDefault((Vector3Int)startTilePosition);
+                        // sound effect
+                        AudioPlayer.PlaySoundEffect(EnumSoundEffects.TileRemove);
 
-                        path.RemoveStartingTile();
+                        // if tile is second in the path, & start position hasn't been reset
+                        if (path.ConveyerTiles.IndexOf(removeTile) == 1 && path.DoesPathHaveStartingTile())
+                        {
+                            // reset start tile to default state & remove from path
+                            Vector3Int? startTilePosition = path.StartingGridPosition;
+                            if (startTilePosition != null)
+                                SetTileOnConveyerToDefault((Vector3Int)startTilePosition);
+
+                            path.RemoveStartingTile();
+                        }
+                        path.RemoveTileFromPath(removeTile);
                     }
-                    path.RemoveTileFromPath(removeTile);
                 }
+                // remove empty paths
+                paths.RemoveAll(x => x.ConveyerTiles?.Count == 0);
             }
-            // remove empty paths
-            paths.RemoveAll(x => x.ConveyerTiles?.Count == 0);
-        }
 
-        SetDefaultTile(mousePosition);
+            SetDefaultTile(mousePosition);
+        }
     }
 
     #endregion
