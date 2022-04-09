@@ -120,7 +120,7 @@ public class TileManager : MonoBehaviour
         }
 
         // Mouse over -> highlight tile (interactive tile conveyor)
-        if (!mousePos.Equals(previousMousePos) && interactiveConveyorMap.cellBounds.Contains(mousePos) && tileConveyorMap.GetTile<Tile>(mousePos) == defaultTile)
+        if (!mousePos.Equals(previousMousePos) && interactiveConveyorMap.cellBounds.Contains(mousePos))
         {
             SetHoverTile(mousePos);
         }
@@ -235,6 +235,7 @@ public class TileManager : MonoBehaviour
         // Get hover tile
         Vector3Int ? neighbourPos = GetStartingNeighbour(mousePos);
         Tile hoverTile = GetConveyorTile(mousePos, neighbourPos);
+        Debug.Log(neighbourPos + " " + hoverTile);
 
         // Set tile
         interactiveConveyorMap.SetTile(previousMousePos, null); // Remove old hoverTile
