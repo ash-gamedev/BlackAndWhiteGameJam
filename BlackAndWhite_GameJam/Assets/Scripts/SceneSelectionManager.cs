@@ -27,6 +27,9 @@ public class SceneSelectionManager : MonoBehaviour
 
     public void LoadNextLevel()
     {
+        // in case returning after pause
+        Time.timeScale = 1f;
+
         int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
         int nextSceneIndex = currentSceneIndex;
 

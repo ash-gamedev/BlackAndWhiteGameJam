@@ -140,6 +140,7 @@ public class ScoreKeeper : MonoBehaviour
     private void Awake()
     {
         instance = this;
+        ResetScore();
     }
     #endregion
 

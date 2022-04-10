@@ -1824,7 +1824,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7805415429871258974, guid: bdc86b75a5913af46a6a11096e2bf9d8, type: 3}
       propertyPath: numberOfCustomers
-      value: 15
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 7805415429871258974, guid: bdc86b75a5913af46a6a11096e2bf9d8, type: 3}
       propertyPath: customerTimeVariance
@@ -15532,7 +15532,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5411830543325923776, guid: 1bd944d598233c844ba494f1b20a6d61, type: 3}
       propertyPath: Mute
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5411830543325923776, guid: 1bd944d598233c844ba494f1b20a6d61, type: 3}
       propertyPath: m_Enabled
@@ -15541,6 +15541,14 @@ PrefabInstance:
     - target: {fileID: 5411830543325923777, guid: 1bd944d598233c844ba494f1b20a6d61, type: 3}
       propertyPath: m_Name
       value: Audio Source
+      objectReference: {fileID: 0}
+    - target: {fileID: 5411830543325923778, guid: 1bd944d598233c844ba494f1b20a6d61, type: 3}
+      propertyPath: orderPlaced
+      value: 
+      objectReference: {fileID: 8300000, guid: d47a4224d814fcc4888b236c54b0840d, type: 3}
+    - target: {fileID: 5411830543325923778, guid: 1bd944d598233c844ba494f1b20a6d61, type: 3}
+      propertyPath: orderPlacedVolume
+      value: 0.8
       objectReference: {fileID: 0}
     - target: {fileID: 5411830543325923779, guid: 1bd944d598233c844ba494f1b20a6d61, type: 3}
       propertyPath: m_RootOrder
