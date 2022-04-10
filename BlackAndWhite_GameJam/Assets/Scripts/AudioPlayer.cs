@@ -15,6 +15,10 @@ public class AudioPlayer : MonoBehaviour
     [SerializeField] float incorrectCustomerOrderVolume;
     [SerializeField] AudioClip correctPay;
     [SerializeField] float correctPayVolume;
+    [SerializeField] AudioClip levelCompleted;
+    [SerializeField] float levelCompletedVolume;
+    [SerializeField] AudioClip orderPlaced;
+    [SerializeField] float orderPlacedVolume;
 
     [Header("Conveyors")]
     [SerializeField] AudioClip conveyorRemove;
@@ -41,7 +45,9 @@ public class AudioPlayer : MonoBehaviour
                 { EnumSoundEffects.OrderIncorrect, (incorrectCustomerOrder, incorrectCustomerOrderVolume) },
                 { EnumSoundEffects.CustomerPays, (correctPay, correctPayVolume) },
                 { EnumSoundEffects.TileRemove, (conveyorRemove, conveyorRemoveVolume) },
-                { EnumSoundEffects.TileSet, (conveyorSet, conveyorSetVolume) }
+                { EnumSoundEffects.TileSet, (conveyorSet, conveyorSetVolume) },
+                { EnumSoundEffects.LevelWinSound, (levelCompleted, levelCompletedVolume) },
+                { EnumSoundEffects.OrderPlaced, (orderPlaced, orderPlacedVolume) }
             };
     }
     void ManageSingleton()

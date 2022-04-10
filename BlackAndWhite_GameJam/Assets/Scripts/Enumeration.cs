@@ -63,5 +63,8 @@ public enum EnumSoundEffects
     CustomerOrder,
     OrderCorrect,
     OrderIncorrect,
-    CustomerPays
+    CustomerPays,
+    LevelWinSound,
+    LevelLostSound,
+    OrderPlaced
 }

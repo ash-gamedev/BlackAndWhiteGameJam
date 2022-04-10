@@ -151,6 +151,10 @@ MonoBehaviour:
   incorrectCustomerOrderVolume: 0.5
   correctPay: {fileID: 8300000, guid: 680b615a314ed4e449d42d7eda182213, type: 3}
   correctPayVolume: 1
+  levelCompleted: {fileID: 8300000, guid: 9f58d769224d2e04d891506b2eddc617, type: 3}
+  levelCompletedVolume: 1
+  orderPlaced: {fileID: 8300000, guid: 6f827902f7a482c47abcd91dde224039, type: 3}
+  orderPlacedVolume: 1
   conveyorRemove: {fileID: 8300000, guid: 06ca2d4d667d5de4bbece3b16ef24646, type: 3}
   conveyorRemoveVolume: 1
   conveyorSet: {fileID: 8300000, guid: 077e9d866e9c52645b248a2feb94632d, type: 3}

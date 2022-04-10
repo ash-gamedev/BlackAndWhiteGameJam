@@ -30,6 +30,8 @@ public class UIManager : MonoBehaviour
     {
         Time.timeScale = 0f; //freezes fame
 
+        AudioPlayer.PlaySoundEffect(EnumSoundEffects.LevelWinSound);
+
         int numberOfCustomers = LevelManager.NumberOfCustomers;
 
         int numberOfCorrectOrders = ScoreKeeper.NumberOfCorrectOrders;

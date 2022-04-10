@@ -23,6 +23,7 @@ public class CustomerOrder : MonoBehaviour
 
     public void SpawnOrder()
     {
+        AudioPlayer.PlaySoundEffect(EnumSoundEffects.OrderPlaced);
         FindObjectOfType<OrderManager>().AddOrderToQueue(order);
     }
 }
