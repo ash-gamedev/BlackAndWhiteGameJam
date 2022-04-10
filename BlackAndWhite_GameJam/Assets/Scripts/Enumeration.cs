@@ -30,7 +30,8 @@ public enum EnumTileDirection
     Down,
     Left,
     Right,
-    None
+    None,
+    Garbage
 }
 
 public enum EnumNeighbour

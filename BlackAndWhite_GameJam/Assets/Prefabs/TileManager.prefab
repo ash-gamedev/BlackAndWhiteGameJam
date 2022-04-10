@@ -44,10 +44,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83500df984d7979408cc1ede4e1af3f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tileConveyerMap: {fileID: 0}
+  interactiveConveyorMap: {fileID: 0}
+  tileConveyorMap: {fileID: 0}
+  defaultTile: {fileID: 0}
+  upTile: {fileID: 0}
+  downTile: {fileID: 0}
+  leftTile: {fileID: 0}
+  rightTile: {fileID: 0}
   tileConveyers:
   - {fileID: 11400000, guid: 4fee7018eafb5ef4f88bac1ede60923e, type: 2}
   - {fileID: 11400000, guid: 8c87c6f3d48c2ca43ab3acc6107cfb69, type: 2}
   - {fileID: 11400000, guid: 1d552db3d9323314385203c7314531af, type: 2}
   - {fileID: 11400000, guid: 9c547cd119a335a40872afb3e449a686, type: 2}
-  ConveyerSpeed: 1.5
+  - {fileID: 11400000, guid: 4018079ea2073b848bd9d232de0fa8be, type: 2}
+  tileOrders: []

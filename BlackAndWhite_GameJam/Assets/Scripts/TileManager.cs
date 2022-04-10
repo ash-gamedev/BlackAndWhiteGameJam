@@ -22,11 +22,9 @@ public class TileManager : MonoBehaviour
 
     [Header("Other")]
     [SerializeField] private List<TileConveyer> tileConveyers;
-    [SerializeField] private List<TileOrder> tileOrders;
         
     // Stores the tile objects and their scriptable TileConveyer objects
     private Dictionary<TileBase, TileConveyer> tileConveyerFromTileBase;
-    private Dictionary<TileBase, TileOrder> tileOrdersFromTileBase;
 
     // Stores the starting conveyer tile positions and tiles & boolean 
     private Dictionary<Vector3Int, TileBase> baseGridPositionsAndTiles;
@@ -57,15 +55,6 @@ public class TileManager : MonoBehaviour
             }
         }
 
-        tileOrdersFromTileBase = new Dictionary<TileBase, TileOrder>();
-        foreach (var tileOrder in tileOrders)
-        {
-            foreach (var tile in tileOrder.tiles)
-            {
-                tileOrdersFromTileBase.Add(tile, tileOrder);
-            }
-        }
-
         // Direction dictionary
         vectorByDirection = new Dictionary<EnumTileDirection, Vector3>()
         {
@@ -84,9 +73,13 @@ public class TileManager : MonoBehaviour
             if (tile != null && tileConveyerFromTileBase.ContainsKey(tile))
             {
                 baseGridPositionsAndTiles[cellPos] = tile;
-                baseGridPositionAndLockStatus[cellPos] = false; // no locked
+                if(IsOnGarbageTile(cellPos))
+                    baseGridPositionAndLockStatus[cellPos] = true; //locked
+                else
+                    baseGridPositionAndLockStatus[cellPos] = false; // no locked
             }
         }
+
     }
 
     void Start()
@@ -470,6 +463,36 @@ public class TileManager : MonoBehaviour
     {
         if (baseGridPositionsAndTiles.ContainsKey(gridPosition)) return true;
         else return false;
+    }
+    
+    public bool IsOnGarbageTile(Vector2 worldPosition)
+    {
+        Vector3Int gridPosition = tileConveyorMap.WorldToCell(worldPosition);
+
+        TileBase tile = tileConveyorMap.GetTile(gridPosition);
+
+        if (tile != null && tileConveyerFromTileBase.ContainsKey(tile))
+        {
+            EnumTileDirection tileDirection = tileConveyerFromTileBase[tile].TileDirection;
+            if (tileDirection == EnumTileDirection.Garbage)
+                return true;
+        }
+
+        return false;
+    }
+
+    public bool IsOnGarbageTile(Vector3Int gridPosition)
+    {
+        TileBase tile = tileConveyorMap.GetTile(gridPosition);
+
+        if (tile != null && tileConveyerFromTileBase.ContainsKey(tile))
+        {
+            EnumTileDirection tileDirection = tileConveyerFromTileBase[tile].TileDirection;
+            if (tileDirection == EnumTileDirection.Garbage)
+                return true;
+        }
+
+        return false;
     }
     #endregion
 

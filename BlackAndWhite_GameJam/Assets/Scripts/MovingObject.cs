@@ -11,7 +11,7 @@ public class MovingObject : MonoBehaviour
     private float speed = 0;
     private Vector3 direction;
     public bool canChangeDirection = true;
-    private bool plateBroken = false;
+    private bool plateFell = false;
 
     private Animator animator;
     private EnumAnimationState animationState;
@@ -52,12 +52,12 @@ public class MovingObject : MonoBehaviour
         Vector3 moveVelocity = direction * speed;
         rigidbody.velocity = moveVelocity;
 
-        // if plate falls of the conveyer (and not eaten)
-        if (!tileConveyerManager.IsOnConveyerTile(transform.position) && gameObject.transform.parent == null && plateBroken == false)
+        // if plate falls off the conveyer (and not eaten)
+        if ((!tileConveyerManager.IsOnConveyerTile(transform.position) || tileConveyerManager.IsOnGarbageTile(transform.position)) && gameObject.transform.parent == null && plateFell == false)
         {
-            plateBroken = true;
+            plateFell = true;
             canChangeDirection = false;
-            StartCoroutine(BreakPlate());            
+            StartCoroutine(PlateFalls());            
         }
     }
 
@@ -68,19 +68,29 @@ public class MovingObject : MonoBehaviour
         return true;
     }
 
-    private IEnumerator BreakPlate()
+    private IEnumerator PlateFalls()
     {
         // todo change sort order for sprite: InteractableConveyerBelt
         yield return new WaitUntil(() => direction == Vector3.zero);
 
-        // sound effect
-        AudioPlayer.PlaySoundEffect(EnumSoundEffects.PlateShatter);
+        // if not garbage tile (break plate)
+        if (!tileConveyerManager.IsOnGarbageTile(transform.position))
+        {
+            // sound effect
+            AudioPlayer.PlaySoundEffect(EnumSoundEffects.PlateShatter);
 
-        // animation
-        ChangeAnimationState(EnumAnimationState.PlateBreak);
+            // animation
+            ChangeAnimationState(EnumAnimationState.PlateBreak);
 
-        // score
-        ScoreKeeper.PlateBroken();
+            // score
+            ScoreKeeper.PlateBroken();
+        }
+        // is garbage tile
+        else
+        {
+            // TODO sound effect
+            // animation
+        }
 
         // wait & destroy
         yield return new WaitForSeconds(timeBeforeDissappearOnBreak);
