@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class OrderManager : MonoBehaviour
 {
@@ -17,6 +18,10 @@ public class OrderManager : MonoBehaviour
     [Header("Other")]
     [SerializeField] GameObject platedOrderPrefab;
     [SerializeField] float timeBetweenOrderSpawns = 0.5f;
+
+    [Header("New Order")]
+    [SerializeField] GameObject newOrderPlacedObject;
+    GameObject newOrderPlaceObjectInstance = null;
 
     System.Random random;
     private Queue<EnumOrder> OrderQueue;
@@ -54,9 +59,12 @@ public class OrderManager : MonoBehaviour
         }
     }
 
-    public void AddOrderToQueue(EnumOrder order)
+    public void AddOrderToQueue(EnumOrder order, bool replacementOrder = false)
     {
         OrderQueue.Enqueue(order);
+
+        if (replacementOrder)
+            NewOrderOnUI(order);
     }
 
     public void SpawnOrder()
@@ -68,5 +76,15 @@ public class OrderManager : MonoBehaviour
         Instantiate(platedOrderInstance,  // what object to instantiate
                         transform.position, // where to spawn the object
                         Quaternion.identity); // need to specify rotation
+    }
+
+    private void NewOrderOnUI(EnumOrder order)
+    {
+        Destroy(newOrderPlaceObjectInstance); // destroy instance if exists
+        Vector2 orderSpawnerPosition = transform.position;
+        newOrderPlaceObjectInstance = FindObjectOfType<UIManager>().InstantiateObjectOnUi(orderSpawnerPosition, newOrderPlacedObject);
+
+        // update sprite
+        newOrderPlaceObjectInstance.GetComponentInChildren<Image>().sprite = OrderSprites[order];
     }
 }

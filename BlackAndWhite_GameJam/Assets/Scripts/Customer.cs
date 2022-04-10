@@ -137,7 +137,8 @@ public class Customer : MonoBehaviour
         AudioPlayer.PlaySoundEffect(EnumSoundEffects.CustomerOrder);
 
         // instantiate object on UI
-        orderBubble.GetComponent<CustomerOrder>().order = customerOrder; // set order
+        CustomerOrder newCustomerOder = orderBubble.GetComponent<CustomerOrder>();
+        newCustomerOder.order = customerOrder; // set order
         orderBubbleInstance = uiManager.InstantiateObjectOnUi(seatInstance.GetCustomerOrderBubbleSpawnPosition(), orderBubble);
 
         // set conveyer to face customer after order is placed

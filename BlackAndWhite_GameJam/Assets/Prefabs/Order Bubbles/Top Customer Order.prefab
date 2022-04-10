@@ -158,7 +158,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   order: 2
+  bubbleSpawnPosition: {x: 0, y: 0, z: 0}
   spriteImage: {fileID: 7544693733029264396}
+  newOrderPlacedObject: {fileID: 4227974976910238959, guid: 84a0925163d09b249b452ce89eadf070, type: 3}
 --- !u!114 &8909339677952585306
 MonoBehaviour:
   m_ObjectHideFlags: 0

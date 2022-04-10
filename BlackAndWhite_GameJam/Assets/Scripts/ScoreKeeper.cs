@@ -4,11 +4,12 @@ using UnityEngine;
 public class ScoreKeeper : MonoBehaviour
 {
     
-    static int score = 0;
     static int tips = 0;
     static int maxTip = 8;
     static int pointsForCorrectOrder = 20;
+    static int pointsForRecplacementOrder = 5;
     static int pointsForBrokenPlate = 5;
+    static int numberOfReplacementOrders = 0;
     static int numberOfCorrectOrders = 0;
     static int numberOfPlatesBroken = 0;
     static ScoreKeeper instance;
@@ -18,6 +19,14 @@ public class ScoreKeeper : MonoBehaviour
     {
         get
         {
+            int score = 0;
+            score += (pointsForCorrectOrder * numberOfCorrectOrders);
+            score += tips;
+            score -= (pointsForBrokenPlate * numberOfPlatesBroken);
+            score -= (pointsForRecplacementOrder * numberOfReplacementOrders); 
+
+            Mathf.Clamp(score, int.MinValue, int.MaxValue);
+
             return score;
         }
     }
@@ -86,6 +95,14 @@ public class ScoreKeeper : MonoBehaviour
         }
     }
 
+    public static int NumberOfReplacementOrders
+    {
+        get
+        {
+            return numberOfReplacementOrders;
+        }
+    }
+
     public static int NumberOfPlatesBroken
     {
         get
@@ -99,6 +116,14 @@ public class ScoreKeeper : MonoBehaviour
         get
         {
             return pointsForCorrectOrder;
+        }
+    }
+
+    public static int PointsForReplacementOrder
+    {
+        get
+        {
+            return pointsForRecplacementOrder;
         }
     }
 
@@ -121,16 +146,14 @@ public class ScoreKeeper : MonoBehaviour
     #region public functions
     public static void OrderCompleted()
     {
-        score += pointsForCorrectOrder;
-        Mathf.Clamp(score, 0, int.MaxValue);
-
         numberOfCorrectOrders++;
+    }
+    public static void OrderReplaced()
+    {
+        numberOfReplacementOrders++;
     }
     public static void PlateBroken()
     {
-        score -= pointsForBrokenPlate;
-        Mathf.Clamp(score, 0, int.MaxValue);
-
         numberOfPlatesBroken++;
     }
     public static int AddTip(float timeOrderReceived)
@@ -153,17 +176,16 @@ public class ScoreKeeper : MonoBehaviour
             tip = (int)(maxTip * 0.25);
         }
 
-        score += tip;
         tips += tip;
 
         return tip;
     }
     public static void ResetScore()
     {
-        score = 0;
         tips = 0;
         numberOfCorrectOrders = 0;
         numberOfPlatesBroken = 0;
+        numberOfReplacementOrders = 0;
     }
     #endregion
 

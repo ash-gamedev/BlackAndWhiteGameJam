@@ -5,9 +5,7 @@ using UnityEngine.UI;
 public class CustomerOrder : MonoBehaviour
 {
     public EnumOrder order;
-    [SerializeField] Image spriteImage;
-
-    Canvas uiCanvas;
+    [SerializeField] Image spriteImage;    
 
     private void Start()
     {
@@ -23,7 +21,10 @@ public class CustomerOrder : MonoBehaviour
 
     public void SpawnOrder()
     {
+        OrderManager orderManager = FindObjectOfType<OrderManager>();
+
         AudioPlayer.PlaySoundEffect(EnumSoundEffects.OrderPlaced);
-        FindObjectOfType<OrderManager>().AddOrderToQueue(order);
+        orderManager.AddOrderToQueue(order, replacementOrder: true);
+        ScoreKeeper.OrderReplaced();
     }
 }

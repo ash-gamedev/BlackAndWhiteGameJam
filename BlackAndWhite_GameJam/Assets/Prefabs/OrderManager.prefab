@@ -44,7 +44,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c22baca37a7e8d14cb9ffaace3662a8d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pearSprite: {fileID: -683585671, guid: d2ad41e7746d0b940b8baf2de5ef366f, type: 3}
-  burgerSprite: {fileID: -204412310, guid: d2ad41e7746d0b940b8baf2de5ef366f, type: 3}
-  hotdogSprite: {fileID: -1642244493, guid: d2ad41e7746d0b940b8baf2de5ef366f, type: 3}
+  coffeeSprite: {fileID: 0}
+  croissantSprite: {fileID: 0}
+  donutSprite: {fileID: 0}
+  cookieSprite: {fileID: 0}
+  sandwichSprite: {fileID: 0}
   platedOrderPrefab: {fileID: 4667470682040111453, guid: db3b744b5188fb14a8db35019ed57f77, type: 3}
+  timeBetweenOrderSpawns: 0.5
+  newOrderPlacedObject: {fileID: 3963648862396828907, guid: 9599ab61fe0d2a84ebed26fb08c97613, type: 3}

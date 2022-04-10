@@ -62,7 +62,8 @@ public class TileManager : MonoBehaviour
             { EnumTileDirection.Down, Vector3.down },
             { EnumTileDirection.Left, Vector3.left },
             { EnumTileDirection.Right, Vector3.right },
-            { EnumTileDirection.None, Vector3.zero }
+            { EnumTileDirection.None, Vector3.zero },
+            { EnumTileDirection.Garbage, Vector3.zero },
         };
 
         baseGridPositionsAndTiles = new Dictionary<Vector3Int, TileBase>();

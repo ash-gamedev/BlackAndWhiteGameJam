@@ -37,7 +37,8 @@ public class UIManager : MonoBehaviour
         // text
         string levelCompleteTextBlock =
             $"{ScoreKeeper.NumberOfCorrectOrders} x ${ScoreKeeper.PointsForCorrectOrder} = ${ScoreKeeper.NumberOfCorrectOrders*ScoreKeeper.PointsForCorrectOrder}\n" +
-            $"{ScoreKeeper.NumberOfPlatesBroken} x ${ScoreKeeper.PointsForBrokenPlate} = -${ScoreKeeper.NumberOfPlatesBroken*ScoreKeeper.PointsForBrokenPlate}\n" +
+            $"{ScoreKeeper.NumberOfReplacementOrders} x (-${ScoreKeeper.PointsForReplacementOrder}) = -${ScoreKeeper.NumberOfReplacementOrders * ScoreKeeper.PointsForReplacementOrder}\n" +
+            $"{ScoreKeeper.NumberOfPlatesBroken} x (-${ScoreKeeper.PointsForBrokenPlate}) = -${ScoreKeeper.NumberOfPlatesBroken*ScoreKeeper.PointsForBrokenPlate}\n" +
             "\n" +
             $"+ ${ScoreKeeper.Tips} (tips)\n" +
             $"${ScoreKeeper.Score}";
@@ -91,6 +92,15 @@ public class UIManager : MonoBehaviour
         GameObject objectInstance = Instantiate(objectToInstantiate, objectSpawnPosUi, Quaternion.identity, uiCanvas.transform);
         objectInstance.transform.SetAsFirstSibling(); // order in hierarchy to top (so it appears under menus, etc.)
         objectInstance.GetComponent<RectTransform>().anchoredPosition = objectSpawnPosUi;
+
+        return objectInstance;
+    }
+
+    public GameObject InstantiateObjectOnUi(RectTransform objectSpawnPos, GameObject objectToInstantiate, Transform parentTransform)
+    {
+        GameObject objectInstance = Instantiate(objectToInstantiate, objectSpawnPos.localPosition, Quaternion.identity, parentTransform);
+        objectInstance.transform.SetAsFirstSibling(); // order in hierarchy to top (so it appears under menus, etc.)
+        //objectInstance.GetComponent<RectTransform>().anchoredPosition = objectSpawnPosUi;
 
         return objectInstance;
     }
