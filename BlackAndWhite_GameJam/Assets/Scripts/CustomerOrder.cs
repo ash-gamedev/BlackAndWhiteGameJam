@@ -20,4 +20,9 @@ public class CustomerOrder : MonoBehaviour
     {
         return order;
     }
+
+    public void SpawnOrder()
+    {
+        FindObjectOfType<OrderManager>().AddOrderToQueue(order);
+    }
 }

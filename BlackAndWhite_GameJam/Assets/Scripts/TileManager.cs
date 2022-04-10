@@ -12,11 +12,8 @@ public class TileManager : MonoBehaviour
     [Header("Tilemaps")]
     [SerializeField] private Tilemap interactiveConveyorMap = null;
     [SerializeField] private Tilemap tileConveyorMap = null;
-    [SerializeField] private Tilemap interactiveKitchenMap = null;
-    [SerializeField] private Tilemap tileOrderMap = null;
 
     [Header("Tiles")]
-    [SerializeField] private Tile kitchenHoverTile = null;
     [SerializeField] private Tile defaultTile = null;
     [SerializeField] private Tile upTile = null;
     [SerializeField] private Tile downTile = null;
@@ -96,7 +93,6 @@ public class TileManager : MonoBehaviour
     {
         grid = gameObject.GetComponent<Grid>();
         interactiveConveyorMap.CompressBounds();
-        interactiveKitchenMap.CompressBounds();
 
         paths = new List<ConveyerTilePath>();
 
@@ -107,18 +103,6 @@ public class TileManager : MonoBehaviour
     {
         Vector3Int mousePos = GetMousePosition();
 
-        // Mouse over -> highlight tile (interactive tile kitchen)
-        if (!mousePos.Equals(previousMousePos) && interactiveKitchenMap.cellBounds.Contains(mousePos))
-        {
-            interactiveKitchenMap.SetTile(previousMousePos, null); // Remove old hoverTile
-            interactiveKitchenMap.SetTile(mousePos, kitchenHoverTile);
-            previousMousePos = mousePos;
-        }
-        else if (!interactiveKitchenMap.cellBounds.Contains(mousePos))
-        {
-            interactiveKitchenMap.SetTile(previousMousePos, null); // Remove old hoverTile
-        }
-
         // Mouse over -> highlight tile (interactive tile conveyor)
         if (!mousePos.Equals(previousMousePos) && interactiveConveyorMap.cellBounds.Contains(mousePos) && !IsBaseConveryTile(mousePos))
         {
@@ -127,15 +111,6 @@ public class TileManager : MonoBehaviour
         else if (!interactiveConveyorMap.cellBounds.Contains(mousePos))
         {
             interactiveConveyorMap.SetTile(previousMousePos, null); // Remove old hoverTile
-        }
-
-        // Left mouse click -> Place kitchen tile
-        if (Input.GetMouseButtonDown(0) && interactiveKitchenMap.cellBounds.Contains(mousePos))
-        {
-            EnumOrder? order = GetTileOrder(mousePos);
-            if (order != null)
-                orderManager.AddOrderToQueue((EnumOrder)order);
-
         }
 
         // Left mouse click -> add path tile (if within bounds and on a valid path) && pathMap.GetTile<Tile>(mousePos) == defaultTile
@@ -334,23 +309,6 @@ public class TileManager : MonoBehaviour
     #endregion
 
     #region Tile Manager
-    public EnumOrder? GetTileOrder(Vector3Int gridPosition)
-    {
-        EnumOrder? order = null;
-
-        TileBase tile = tileOrderMap.GetTile(gridPosition);
-
-        if (tile != null && tileOrdersFromTileBase.ContainsKey(tile))
-        {
-            TileOrder tileOrder = tileOrdersFromTileBase[tile];
-            if (tileOrder != null)
-            {
-                order = tileOrdersFromTileBase[tile].order;
-            }
-        }
-
-        return order;
-    }
     public Vector3 GetTileDirection(Vector2 worldPosition)
     {
         Vector3 direction = Vector3.zero;

@@ -5,17 +5,16 @@ using UnityEngine.UI;
 
 public class CustomerWaitingTimer : MonoBehaviour
 {
-    [SerializeField] float timerStartTime = 10f;
     [SerializeField] public Slider timerSlider;
 
-    //[SerializeField] TextMeshProUGUI timerText;
-
     private bool stopTimer = false;
-    public float currentTime;
+    public float currentTime { get; private set; }
 
     // Use this for initialization
     void Start()
     {
+        float timerStartTime = LevelManager.TimeBeforeCustomerLeaves;
+
         // set values
         timerSlider.maxValue = timerStartTime;
         timerSlider.value = timerSlider.maxValue;
