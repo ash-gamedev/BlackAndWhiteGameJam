@@ -1667,7 +1667,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7805415429871258974, guid: bdc86b75a5913af46a6a11096e2bf9d8, type: 3}
       propertyPath: timeBetweenCustomerSpawns
-      value: 6
+      value: 5.5
       objectReference: {fileID: 0}
     - target: {fileID: 7805415429871258975, guid: bdc86b75a5913af46a6a11096e2bf9d8, type: 3}
       propertyPath: m_RootOrder
@@ -15045,7 +15045,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5411830543325923776, guid: 1bd944d598233c844ba494f1b20a6d61, type: 3}
       propertyPath: Mute
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5411830543325923776, guid: 1bd944d598233c844ba494f1b20a6d61, type: 3}
       propertyPath: m_Enabled

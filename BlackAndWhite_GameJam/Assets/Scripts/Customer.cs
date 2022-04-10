@@ -14,7 +14,7 @@ public class Customer : MonoBehaviour
     [SerializeField] List<Sprite> customerSprites;
     [SerializeField] SpriteRenderer spriteRenderer;
     
-    public float timeBeforeLeaving = 0;
+    [HideInInspector] public float timeBeforeLeaving = 0;
 
     EnumOrder customerOrder;
     CustomerWaitingTimer customerWaitingTimer = null;

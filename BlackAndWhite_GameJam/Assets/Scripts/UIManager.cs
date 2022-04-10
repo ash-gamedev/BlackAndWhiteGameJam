@@ -58,13 +58,11 @@ public class UIManager : MonoBehaviour
         // play sound & update next level button
         if (ScoreKeeper.OneStar)
         {
-            AudioPlayer.PlaySoundEffect(EnumSoundEffects.LevelWinSound);
             levelCompleteTitleText.text = "Level Completed";
             levelCompleteNextLevelButton.text = "Next Level";
         }
         else
         {
-            AudioPlayer.PlaySoundEffect(EnumSoundEffects.LevelLostSound);
             levelCompleteTitleText.text = "Level Failed";
             levelCompleteNextLevelButton.text = "Retry Level";
         }

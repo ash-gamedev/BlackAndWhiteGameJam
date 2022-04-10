@@ -26,10 +26,13 @@ public class CustomerSpawner : MonoBehaviour
     IEnumerator SpawnCustomers()
     {
         int numberOfCustomers = LevelManager.NumberOfCustomers;
+        int customerNumberWhenSpeedIncreases = Mathf.FloorToInt((float)(numberOfCustomers) * 0.7f);
         int customerCount = 0;
 
+        float timeBetweenCustomerSpawns = LevelManager.TimeBetweenCustomerSpawns;
+
         while (customerCount < numberOfCustomers)
-        {
+        {            
             // find random seat with no customer
             System.Random rnd = new System.Random();
             Seat seat = seats.Where(x => x.GetCustomer() == false)
@@ -43,14 +46,22 @@ public class CustomerSpawner : MonoBehaviour
                 customerCount++;
             }
 
+            // increase speed
+            if (customerCount == customerNumberWhenSpeedIncreases)
+            {
+                timeBetweenCustomerSpawns -= (timeBetweenCustomerSpawns * LevelManager.CustomerSpeedIncreasePercentage);
+                Debug.Log("customerCount: " + customerCount);
+                Debug.Log("timeBetweenCustomerSpawns: " + timeBetweenCustomerSpawns);
+            }
+
             // wait to spawn next customer
-            yield return new WaitForSeconds(LevelManager.TimeBetweenCustomerSpawns * LevelManager.CustomerTimeVariance);
+            yield return new WaitForSeconds(timeBetweenCustomerSpawns * LevelManager.CustomerTimeVariance);
         }
 
         // wait until all customers have left
         yield return new WaitUntil(() => FindObjectsOfType<Customer>().Length == 0);
-          
 
-        FindObjectOfType<UIManager>().UpdateLevelCompleteUI();
+
+        LevelManager.OnLevelComplete();
     }
 }

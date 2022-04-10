@@ -50,7 +50,7 @@ public class ScoreKeeper : MonoBehaviour
     {
         get
         {
-            return ScorePercentage > 0.25f;
+            return ScorePercentage > 0.3f;
         }
     }
 
@@ -58,7 +58,7 @@ public class ScoreKeeper : MonoBehaviour
     {
         get
         {
-            return ScorePercentage > 0.5f;
+            return ScorePercentage > 0.6f;
         }
     }
 
@@ -66,7 +66,7 @@ public class ScoreKeeper : MonoBehaviour
     {
         get
         {
-            return ScorePercentage > 0.85f;
+            return ScorePercentage > 0.9f;
         }
     }
 
@@ -74,7 +74,7 @@ public class ScoreKeeper : MonoBehaviour
     {
         get
         {
-            return (LevelManager.NumberOfCustomers * ScoreKeeper.MaxTip) + (numberOfCorrectOrders * pointsForCorrectOrder);
+            return (LevelManager.NumberOfCustomers * ScoreKeeper.MaxTip) + (LevelManager.NumberOfCustomers * pointsForCorrectOrder);
         }
     }
 
@@ -110,13 +110,11 @@ public class ScoreKeeper : MonoBehaviour
         }
     }
     
-    
-    
     #region Awake
 
     private void Awake()
     {
-        ManageSingleton();
+        instance = this;
     }
     #endregion
 
@@ -155,8 +153,6 @@ public class ScoreKeeper : MonoBehaviour
             tip = (int)(maxTip * 0.25);
         }
 
-        Debug.Log("timeOrderReceived " + timeOrderReceived + " waitPercentage: " + waitTimePercentage + " tip: " + tip);
-
         score += tip;
         tips += tip;
 
@@ -171,23 +167,4 @@ public class ScoreKeeper : MonoBehaviour
     }
     #endregion
 
-    #region private functions
-    void ManageSingleton()
-    {
-        if (instance != null)
-        {
-            // need to disable this so other objects don't try to access
-            gameObject.SetActive(false);
-
-            // now destroy
-            Destroy(gameObject);
-        }
-        else
-        {
-            instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-    }
-
-    #endregion
 }

@@ -8,9 +8,19 @@ public class LevelManager : MonoBehaviour
     [SerializeField] float timeBetweenCustomerSpawns = 5f;
     [SerializeField] float timeBeforeCustomerLeaves = 30f;
     [SerializeField] float customerTimeVariance = 1f;
+    [SerializeField] float customerSpeedIncreasePercentage = 0.2f;
     [SerializeField] float conveyorSpeed = 1.5f;
 
+    private bool levelComplete = false;
+
     // properties
+    public static bool LevelComplete
+    {
+        get
+        {
+            return instance.levelComplete;
+        }
+    } 
     public static int NumberOfCustomers
     {
         get
@@ -46,43 +56,34 @@ public class LevelManager : MonoBehaviour
             return instance.timeBeforeCustomerLeaves;
         }
     }
-    
+    public static float CustomerSpeedIncreasePercentage
+    {
+        get
+        {
+            return instance.customerSpeedIncreasePercentage;
+        }
+    }
+
     // static persists through all instances of a class
     static LevelManager instance;
 
     #region Awake, Start, Update
     private void Awake()
     {
-        ManageSingleton();
-    }
-
-    // Use this for initialization
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
+        instance = this;
     }
     #endregion
 
-    void ManageSingleton()
+    public static void OnLevelComplete()
     {
-        if (instance != null)
-        {
-            // need to disable this so other objects don't try to access
-            gameObject.SetActive(false);
+        instance.levelComplete = true;
 
-            // now destroy
-            Destroy(gameObject);
-        }
+        // play sound & update next level button
+        if (ScoreKeeper.OneStar)
+            AudioPlayer.PlaySoundEffect(EnumSoundEffects.LevelWinSound);
         else
-        {
-            instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
+            AudioPlayer.PlaySoundEffect(EnumSoundEffects.LevelLostSound);
+
+        FindObjectOfType<UIManager>().UpdateLevelCompleteUI();
     }
 }

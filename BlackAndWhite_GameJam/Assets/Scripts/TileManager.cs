@@ -101,60 +101,64 @@ public class TileManager : MonoBehaviour
 
     void Update()
     {
-        Vector3Int mousePos = GetMousePosition();
+        // make sure level isn't finished and game isn't paused to place tiles
+        if (!LevelManager.LevelComplete && !PauseMenu.GameIsPaused)
+        {
+            Vector3Int mousePos = GetMousePosition();
 
-        // Mouse over -> highlight tile (interactive tile conveyor)
-        if (!mousePos.Equals(previousMousePos) && interactiveConveyorMap.cellBounds.Contains(mousePos) && !IsBaseConveryTile(mousePos))
-        {
-            SetHoverTile(mousePos);
-        }
-        else if (!interactiveConveyorMap.cellBounds.Contains(mousePos))
-        {
-            interactiveConveyorMap.SetTile(previousMousePos, null); // Remove old hoverTile
-        }
-
-        // Left mouse click -> add path tile (if within bounds and on a valid path) && pathMap.GetTile<Tile>(mousePos) == defaultTile
-        if (Input.GetMouseButton(0) && interactiveConveyorMap.cellBounds.Contains(mousePos) && !IsBaseConveryTile(mousePos))
-        {
-            // if starting to draw a path, save the starting path details and set bool
-            if (isDrawingPath == false && currentPath == null)
+            // Mouse over -> highlight tile (interactive tile conveyor)
+            if (!mousePos.Equals(previousMousePos) && interactiveConveyorMap.cellBounds.Contains(mousePos) && !IsBaseConveryTile(mousePos))
             {
-                isDrawingPath = true;
+                SetHoverTile(mousePos);
+            }
+            else if (!interactiveConveyorMap.cellBounds.Contains(mousePos))
+            {
+                interactiveConveyorMap.SetTile(previousMousePos, null); // Remove old hoverTile
+            }
 
-                // get closest neighbour to mouse position
-                Vector3Int? closestNeighbourPos = GetStartingNeighbour(mousePos);
-
-                // set current path
-                currentPath = new ConveyerTilePath(closestNeighbourPos);
-
-                // add start to path if exists
-                if(closestNeighbourPos != null)
+            // Left mouse click -> add path tile (if within bounds and on a valid path) && pathMap.GetTile<Tile>(mousePos) == defaultTile
+            if (Input.GetMouseButton(0) && interactiveConveyorMap.cellBounds.Contains(mousePos) && !IsBaseConveryTile(mousePos))
+            {
+                // if starting to draw a path, save the starting path details and set bool
+                if (isDrawingPath == false && currentPath == null)
                 {
-                    Vector3Int startTilePosition = (Vector3Int)closestNeighbourPos;
-                    Tile startOriginalTile = tileConveyorMap.GetTile<Tile>(startTilePosition);
-                    ConveyerTile startTile = new ConveyerTile(startTilePosition, startOriginalTile);
-                    currentPath.AddTileToPath(startTile);
+                    isDrawingPath = true;
+
+                    // get closest neighbour to mouse position
+                    Vector3Int? closestNeighbourPos = GetStartingNeighbour(mousePos);
+
+                    // set current path
+                    currentPath = new ConveyerTilePath(closestNeighbourPos);
+
+                    // add start to path if exists
+                    if (closestNeighbourPos != null)
+                    {
+                        Vector3Int startTilePosition = (Vector3Int)closestNeighbourPos;
+                        Tile startOriginalTile = tileConveyorMap.GetTile<Tile>(startTilePosition);
+                        ConveyerTile startTile = new ConveyerTile(startTilePosition, startOriginalTile);
+                        currentPath.AddTileToPath(startTile);
+                    }
+                }
+                else if (isDrawingPath && currentPath != null)
+                {
+                    SetConveyorTiles(mousePos);
                 }
             }
-            else if (isDrawingPath && currentPath != null)
+            else
             {
-                SetConveyorTiles(mousePos);
+                if (isDrawingPath)
+                {
+                    paths.Add(currentPath);
+                    currentPath = null;
+                    isDrawingPath = false;
+                }
             }
-        }
-        else
-        {
-            if (isDrawingPath)
-            {
-                paths.Add(currentPath);
-                currentPath = null;
-                isDrawingPath = false;
-            }
-        }
 
-        // Right mouse click -> remove path tile (if within bounds)
-        if (Input.GetMouseButton(1) && interactiveConveyorMap.cellBounds.Contains(mousePos))
-        {
-            RemoveConveyorTile(mousePos);
+            // Right mouse click -> remove path tile (if within bounds)
+            if (Input.GetMouseButton(1) && interactiveConveyorMap.cellBounds.Contains(mousePos))
+            {
+                RemoveConveyorTile(mousePos);
+            }
         }
     }
 
