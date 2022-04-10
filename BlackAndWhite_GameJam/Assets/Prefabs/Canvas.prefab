@@ -1493,7 +1493,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scoreText: {fileID: 3718788731555130354}
   levelCompletePanel: {fileID: 1557033657}
-  levelCompleteText: {fileID: 124643338}
+  levelCompleteTitleText: {fileID: 203049427}
+  levelCompleteResultsText: {fileID: 124643338}
+  levelCompleteNextLevelButton: {fileID: 1992821138061535034}
   starImages:
   - {fileID: 194362900}
   - {fileID: 1704406539}
@@ -2030,6 +2032,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0fcac32537a612046bd73b7e77c54951, type: 3}
+--- !u!114 &1992821138061535034 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3353267618745086349, guid: 0fcac32537a612046bd73b7e77c54951, type: 3}
+  m_PrefabInstance: {fileID: 3832245963310945975}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &1992821138625165457 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 3353267619275124262, guid: 0fcac32537a612046bd73b7e77c54951, type: 3}

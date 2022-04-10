@@ -17,6 +17,8 @@ public class AudioPlayer : MonoBehaviour
     [SerializeField] float correctPayVolume;
     [SerializeField] AudioClip levelCompleted;
     [SerializeField] float levelCompletedVolume;
+    [SerializeField] AudioClip levelFailed;
+    [SerializeField] float levelFailedVolume;
     [SerializeField] AudioClip orderPlaced;
     [SerializeField] float orderPlacedVolume;
 
@@ -47,6 +49,7 @@ public class AudioPlayer : MonoBehaviour
                 { EnumSoundEffects.TileRemove, (conveyorRemove, conveyorRemoveVolume) },
                 { EnumSoundEffects.TileSet, (conveyorSet, conveyorSetVolume) },
                 { EnumSoundEffects.LevelWinSound, (levelCompleted, levelCompletedVolume) },
+                { EnumSoundEffects.LevelLostSound, (levelFailed, levelFailedVolume) },
                 { EnumSoundEffects.OrderPlaced, (orderPlaced, orderPlacedVolume) }
             };
     }

@@ -153,6 +153,8 @@ MonoBehaviour:
   correctPayVolume: 1
   levelCompleted: {fileID: 8300000, guid: 9f58d769224d2e04d891506b2eddc617, type: 3}
   levelCompletedVolume: 1
+  levelFailed: {fileID: 8300000, guid: 75131b2acef813d4d906fab286d47222, type: 3}
+  levelFailedVolume: 1
   orderPlaced: {fileID: 8300000, guid: 6f827902f7a482c47abcd91dde224039, type: 3}
   orderPlacedVolume: 1
   conveyorRemove: {fileID: 8300000, guid: 06ca2d4d667d5de4bbece3b16ef24646, type: 3}

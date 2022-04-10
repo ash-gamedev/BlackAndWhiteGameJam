@@ -11,10 +11,13 @@ public class UIManager : MonoBehaviour
 
     [Header("Level Complete UI")]
     [SerializeField] GameObject levelCompletePanel;
-    [SerializeField] TextMeshProUGUI levelCompleteText;
+    [SerializeField] TextMeshProUGUI levelCompleteTitleText;
+    [SerializeField] TextMeshProUGUI levelCompleteResultsText;
+    [SerializeField] TextMeshProUGUI levelCompleteNextLevelButton;
     [SerializeField] List<Image> starImages;
     [SerializeField] Sprite emptyStartSprite;
     [SerializeField] Sprite fullStarSprite;
+    
 
     void Update()
     {
@@ -30,42 +33,42 @@ public class UIManager : MonoBehaviour
     {
         Time.timeScale = 0f; //freezes fame
 
-        AudioPlayer.PlaySoundEffect(EnumSoundEffects.LevelWinSound);
-
-        int numberOfCustomers = LevelManager.NumberOfCustomers;
-
-        int numberOfCorrectOrders = ScoreKeeper.NumberOfCorrectOrders;
-        int pointsForCorrectOrder = ScoreKeeper.PointsForCorrectOrder;
-
-        int numberOfPlatesBroken = ScoreKeeper.NumberOfPlatesBroken;
-        int pointsForBrokenPlate = ScoreKeeper.PointsForBrokenPlate;
-
-        int totalScore = ScoreKeeper.Score;
-
+        
         // text
         string levelCompleteTextBlock =
-            $"{numberOfCorrectOrders} x ${pointsForCorrectOrder} = ${numberOfCorrectOrders*pointsForCorrectOrder}\n" +
-            $"{numberOfPlatesBroken} x ${pointsForBrokenPlate} = -${numberOfPlatesBroken*pointsForBrokenPlate}\n" +
+            $"{ScoreKeeper.NumberOfCorrectOrders} x ${ScoreKeeper.PointsForCorrectOrder} = ${ScoreKeeper.NumberOfCorrectOrders*ScoreKeeper.PointsForCorrectOrder}\n" +
+            $"{ScoreKeeper.NumberOfPlatesBroken} x ${ScoreKeeper.PointsForBrokenPlate} = -${ScoreKeeper.NumberOfPlatesBroken*ScoreKeeper.PointsForBrokenPlate}\n" +
             "\n" +
             $"+ ${ScoreKeeper.Tips} (tips)\n" +
-            $"${totalScore}";
+            $"${ScoreKeeper.Score}";
 
-        levelCompleteText.text = levelCompleteTextBlock;
+        levelCompleteResultsText.text = levelCompleteTextBlock;
 
         // stars
-        if(starImages?.Count == 3)
+        float scorePercentage = ScoreKeeper.ScorePercentage;
+        if (starImages?.Count == 3)
         {
-            int maxScore = (numberOfCustomers * ScoreKeeper.MaxTip) + (numberOfCorrectOrders * pointsForCorrectOrder);
+            Debug.Log("scorePercentage: " + scorePercentage);
 
-            float scorePercentage = (float)totalScore / (float)maxScore;
-
-            Debug.Log("maxScore: " + maxScore + " scorePercentage: " + scorePercentage);
-
-            starImages[0].sprite = scorePercentage >= 0.25f ? fullStarSprite : emptyStartSprite;
-            starImages[1].sprite = scorePercentage >= 0.5f ? fullStarSprite : emptyStartSprite;
-            starImages[2].sprite = scorePercentage >= 0.85f ? fullStarSprite : emptyStartSprite;
+            starImages[0].sprite = ScoreKeeper.OneStar ? fullStarSprite : emptyStartSprite;
+            starImages[1].sprite = ScoreKeeper.TwoStar ? fullStarSprite : emptyStartSprite;
+            starImages[2].sprite = ScoreKeeper.ThreeStar ? fullStarSprite : emptyStartSprite;
         }
 
+        // play sound & update next level button
+        if (ScoreKeeper.OneStar)
+        {
+            AudioPlayer.PlaySoundEffect(EnumSoundEffects.LevelWinSound);
+            levelCompleteTitleText.text = "Level Completed";
+            levelCompleteNextLevelButton.text = "Next Level";
+        }
+        else
+        {
+            AudioPlayer.PlaySoundEffect(EnumSoundEffects.LevelLostSound);
+            levelCompleteTitleText.text = "Level Failed";
+            levelCompleteNextLevelButton.text = "Retry Level";
+        }
+            
         // show panel
         levelCompletePanel.SetActive(true);
     }

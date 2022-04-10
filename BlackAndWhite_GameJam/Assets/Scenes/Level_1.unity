@@ -1659,7 +1659,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7805415429871258974, guid: bdc86b75a5913af46a6a11096e2bf9d8, type: 3}
       propertyPath: numberOfCustomers
-      value: 10
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 7805415429871258974, guid: bdc86b75a5913af46a6a11096e2bf9d8, type: 3}
       propertyPath: customerTimeVariance
@@ -15040,12 +15040,16 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 5411830543325923776, guid: 1bd944d598233c844ba494f1b20a6d61, type: 3}
-      propertyPath: Mute
+      propertyPath: Loop
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5411830543325923776, guid: 1bd944d598233c844ba494f1b20a6d61, type: 3}
-      propertyPath: m_Enabled
+      propertyPath: Mute
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5411830543325923776, guid: 1bd944d598233c844ba494f1b20a6d61, type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5411830543325923777, guid: 1bd944d598233c844ba494f1b20a6d61, type: 3}
       propertyPath: m_Name

@@ -22,6 +22,14 @@ public class ScoreKeeper : MonoBehaviour
         }
     }
 
+    public static float ScorePercentage
+    {
+        get
+        {
+            return (float)Score / (float)MaxScore; ;
+        }
+    }
+
     public static int Tips
     {
         get
@@ -35,6 +43,38 @@ public class ScoreKeeper : MonoBehaviour
         get
         {
             return maxTip;
+        }
+    }
+
+    public static bool OneStar
+    {
+        get
+        {
+            return ScorePercentage > 0.25f;
+        }
+    }
+
+    public static bool TwoStar
+    {
+        get
+        {
+            return ScorePercentage > 0.5f;
+        }
+    }
+
+    public static bool ThreeStar
+    {
+        get
+        {
+            return ScorePercentage > 0.85f;
+        }
+    }
+
+    public static int MaxScore
+    {
+        get
+        {
+            return (LevelManager.NumberOfCustomers * ScoreKeeper.MaxTip) + (numberOfCorrectOrders * pointsForCorrectOrder);
         }
     }
 
@@ -101,16 +141,16 @@ public class ScoreKeeper : MonoBehaviour
                
         int tip = 1;
 
-        // waiting less then 60% of time
-        if(waitTimePercentage < 0.6f)
+        // waiting less then 30% of time
+        if(waitTimePercentage < 0.3f)
         {
             tip = maxTip;
         }
-        else if(waitTimePercentage >= 0.6f && waitTimePercentage < 0.7f)
+        else if(waitTimePercentage >= 0.3f && waitTimePercentage < 0.6f)
         {
             tip = (int)(maxTip*0.5);
         }
-        else if(waitTimePercentage >= 0.7f && waitTimePercentage <= 0.8f)
+        else if(waitTimePercentage >= 0.6f && waitTimePercentage <= 0.9f)
         {
             tip = (int)(maxTip * 0.25);
         }

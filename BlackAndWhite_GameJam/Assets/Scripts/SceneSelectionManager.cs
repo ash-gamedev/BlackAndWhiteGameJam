@@ -28,7 +28,11 @@ public class SceneSelectionManager : MonoBehaviour
     public void LoadNextLevel()
     {
         int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
-        int nextSceneIndex = currentSceneIndex + 1;
+        int nextSceneIndex = currentSceneIndex;
+
+        // If they completed the level (at least one star) load next level
+        if (ScoreKeeper.OneStar)
+            nextSceneIndex++;
 
         if (nextSceneIndex == SceneManager.sceneCountInBuildSettings)
             nextSceneIndex = 0;
