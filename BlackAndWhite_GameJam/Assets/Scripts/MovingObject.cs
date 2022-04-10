@@ -88,8 +88,11 @@ public class MovingObject : MonoBehaviour
         // is garbage tile
         else
         {
-            // TODO sound effect
+            // sound effect
+            AudioPlayer.PlaySoundEffect(EnumSoundEffects.Trash);
+
             // animation
+            ChangeAnimationState(EnumAnimationState.PlateTrash);
         }
 
         // wait & destroy

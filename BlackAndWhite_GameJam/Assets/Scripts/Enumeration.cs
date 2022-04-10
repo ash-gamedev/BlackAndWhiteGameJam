@@ -53,7 +53,8 @@ public enum EnumSeatPosition
 public enum EnumAnimationState
 {
     Idle,
-    PlateBreak
+    PlateBreak,
+    PlateTrash
 }
 
 public enum EnumSoundEffects
@@ -67,5 +68,6 @@ public enum EnumSoundEffects
     CustomerPays,
     LevelWinSound,
     LevelLostSound,
-    OrderPlaced
+    OrderPlaced,
+    Trash
 }

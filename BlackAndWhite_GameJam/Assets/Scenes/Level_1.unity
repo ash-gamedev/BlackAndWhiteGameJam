@@ -198,12 +198,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 8c87c6f3d48c2ca43ab3acc6107cfb69, type: 2}
   - {fileID: 11400000, guid: 4fee7018eafb5ef4f88bac1ede60923e, type: 2}
   - {fileID: 11400000, guid: 4018079ea2073b848bd9d232de0fa8be, type: 2}
-  tileOrders:
-  - {fileID: 11400000, guid: d970a47efc1bf3848befc680eabdff64, type: 2}
-  - {fileID: 11400000, guid: 8e182543a39158944a0a02bce0e99a27, type: 2}
-  - {fileID: 11400000, guid: 9cbfb07f977b8bf4ebf15922a7da1e7a, type: 2}
-  - {fileID: 11400000, guid: 33bb2721376f37f41b8be4677d410f4e, type: 2}
-  - {fileID: 11400000, guid: 8c2c88f7819791548818066e6043ba46, type: 2}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -257,7 +251,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 8
+  orthographic size: 7.5
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -281,7 +275,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519420028}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.5, y: -1, z: -10}
+  m_LocalPosition: {x: 0.5, y: -0.5, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -15346,7 +15340,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5411830543325923776, guid: 1bd944d598233c844ba494f1b20a6d61, type: 3}
       propertyPath: Mute
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5411830543325923776, guid: 1bd944d598233c844ba494f1b20a6d61, type: 3}
       propertyPath: m_Enabled

@@ -157,6 +157,8 @@ MonoBehaviour:
   levelFailedVolume: 1
   orderPlaced: {fileID: 8300000, guid: 6f827902f7a482c47abcd91dde224039, type: 3}
   orderPlacedVolume: 1
+  trash: {fileID: 8300000, guid: 0df1a0a8bf8409f4b8c28b019e852120, type: 3}
+  trashVolume: 1
   conveyorRemove: {fileID: 8300000, guid: 06ca2d4d667d5de4bbece3b16ef24646, type: 3}
   conveyorRemoveVolume: 1
   conveyorSet: {fileID: 8300000, guid: 077e9d866e9c52645b248a2feb94632d, type: 3}

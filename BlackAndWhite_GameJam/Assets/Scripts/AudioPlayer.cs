@@ -21,6 +21,8 @@ public class AudioPlayer : MonoBehaviour
     [SerializeField] float levelFailedVolume;
     [SerializeField] AudioClip orderPlaced;
     [SerializeField] float orderPlacedVolume;
+    [SerializeField] AudioClip trash;
+    [SerializeField] float trashVolume;
 
     [Header("Conveyors")]
     [SerializeField] AudioClip conveyorRemove;
@@ -50,7 +52,8 @@ public class AudioPlayer : MonoBehaviour
                 { EnumSoundEffects.TileSet, (conveyorSet, conveyorSetVolume) },
                 { EnumSoundEffects.LevelWinSound, (levelCompleted, levelCompletedVolume) },
                 { EnumSoundEffects.LevelLostSound, (levelFailed, levelFailedVolume) },
-                { EnumSoundEffects.OrderPlaced, (orderPlaced, orderPlacedVolume) }
+                { EnumSoundEffects.OrderPlaced, (orderPlaced, orderPlacedVolume) },
+                { EnumSoundEffects.Trash, (trash, trashVolume) }
             };
     }
     void ManageSingleton()
