@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 
@@ -9,6 +11,8 @@ public class Customer : MonoBehaviour
     [SerializeField] public float timeToEatInSeconds = 2f;
     [SerializeField] GameObject tipObject;
     [SerializeField] GameObject unHappyObject;
+    [SerializeField] List<Sprite> customerSprites;
+    [SerializeField] SpriteRenderer spriteRenderer;
     
     public float timeBeforeLeaving = 0;
 
@@ -37,9 +41,13 @@ public class Customer : MonoBehaviour
             // set start position
             startPosition = transform.position;
 
+            // choose random customer sprite
+            System.Random random = new System.Random();
+            Sprite customerSprite = customerSprites.OrderBy(c => random.Next()).FirstOrDefault();
+            spriteRenderer.sprite = customerSprite;
+
             // create random order
             Array orders = Enum.GetValues(typeof(EnumOrder));
-            System.Random random = new System.Random();
             customerOrder = (EnumOrder)orders.GetValue(random.Next(orders.Length));
 
             seatInstance = transform.parent.gameObject.GetComponent<Seat>();

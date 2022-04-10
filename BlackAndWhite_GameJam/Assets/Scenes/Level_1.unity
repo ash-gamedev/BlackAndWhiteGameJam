@@ -15039,6 +15039,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5411830543325923776, guid: 1bd944d598233c844ba494f1b20a6d61, type: 3}
+      propertyPath: Mute
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5411830543325923776, guid: 1bd944d598233c844ba494f1b20a6d61, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5411830543325923777, guid: 1bd944d598233c844ba494f1b20a6d61, type: 3}
       propertyPath: m_Name
       value: Audio Source
