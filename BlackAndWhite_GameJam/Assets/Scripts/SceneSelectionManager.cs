@@ -16,7 +16,7 @@ public class SceneSelectionManager : MonoBehaviour
 
     public void StartFirstLevel()
     {
-        LoadLevel(1);
+        LoadLevel(0);
     }
 
     public void LoadLevel(int levelNumber)
