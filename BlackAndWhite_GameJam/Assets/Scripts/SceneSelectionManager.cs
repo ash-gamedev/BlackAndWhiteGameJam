@@ -47,9 +47,9 @@ public class SceneSelectionManager : MonoBehaviour
         SceneManager.LoadScene("Controls");
     }
 
-    public void LoadSettings()
+    public void LoadLevels()
     {
-        SceneManager.LoadScene("Settings");
+        SceneManager.LoadScene("Levels");
     }
 
     public void LoadCredits()

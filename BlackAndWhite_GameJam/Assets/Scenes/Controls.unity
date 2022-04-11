@@ -1252,26 +1252,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2142908817}
   m_CullTransparentMesh: 1
---- !u!95 &1393732831612685012
-Animator:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5240221553672139697}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 1f29b00650dda2946a4a5381cb365e7a, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 2
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1001 &2289833611723081584
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1496,7 +1476,6 @@ GameObject:
   - component: {fileID: 5240221553672139698}
   - component: {fileID: 5240221553672139700}
   - component: {fileID: 5240221553672139699}
-  - component: {fileID: 1393732831612685012}
   m_Layer: 5
   m_Name: Level Complete Panel
   m_TagString: Untagged
