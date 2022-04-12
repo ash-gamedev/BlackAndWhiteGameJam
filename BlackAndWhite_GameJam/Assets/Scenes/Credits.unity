@@ -243,11 +243,11 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Game Design & Art\nashleyad\n\nSpecial Thanks\n\nMusic: \r\n- \"Shake
+  m_text: "Game Design & Art:\n\nashleyad\n\n\nSpecial Thanks:\n\nMusic: \r\n- \"Shake
     and Bake\" by Matthew Pablo\n\nSound Effects: \r\n- Multiple sounds by SideArm
-    Studios \n- \u201CBroken Porcelain\u201D by Soundsnap\n\r\nFonts:\r\n\u201CPixelfy\u201D
-    by Stefie Justprince \n\u201CDogica\u201D by  Roberto Mocci\n\r\nColour Palette:
-    \r\n\u201C1 bit Monitor Glow\u201D by Polyducks "
+    Studios \n- \u201CBroken Porcelain\u201D by Soundsnap\n\r\nFonts:\r\n- \u201CPixelfy\u201D
+    by Stefie Justprince \n- \u201CDogica\u201D by  Roberto Mocci\n\r\nColour Palette:
+    \r\n- \u201C1 bit Monitor Glow\u201D by Polyducks "
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 3e17c490bc15ec2479531ffc5c14b4c3, type: 2}
   m_sharedMaterial: {fileID: 1797572272154099070, guid: 3e17c490bc15ec2479531ffc5c14b4c3, type: 2}

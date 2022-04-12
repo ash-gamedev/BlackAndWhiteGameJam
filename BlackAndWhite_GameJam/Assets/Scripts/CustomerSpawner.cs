@@ -29,7 +29,9 @@ public class CustomerSpawner : MonoBehaviour
         int customerNumberWhenSpeedIncreases = Mathf.FloorToInt((float)(numberOfCustomers) * 0.7f);
         int customerCount = 0;
 
-        float timeBetweenCustomerSpawns = LevelManager.TimeBetweenCustomerSpawns;
+        GameController gameController = FindObjectOfType<GameController>();
+        Debug.Log(gameController.DifficultySetting);
+        float timeBetweenCustomerSpawns = LevelManager.TimeBetweenCustomerSpawns * gameController.AdjustmentFromDifficulty;
 
         while (customerCount < numberOfCustomers)
         {            
@@ -47,7 +49,7 @@ public class CustomerSpawner : MonoBehaviour
             }
 
             // increase speed
-            if (customerCount == customerNumberWhenSpeedIncreases)
+            if (customerCount == customerNumberWhenSpeedIncreases && gameController.DifficultySetting != EnumDifficulty.Easy)
             {
                 timeBetweenCustomerSpawns -= (timeBetweenCustomerSpawns * LevelManager.CustomerSpeedIncreasePercentage);
                 Debug.Log("customerCount: " + customerCount);

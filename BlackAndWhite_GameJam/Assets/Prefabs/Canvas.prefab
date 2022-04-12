@@ -1519,7 +1519,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e648c7e8ff208dd4e89b72f1ed8089dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneLoadDelay: 2
 --- !u!114 &1373890890931330476
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1865,7 +1864,7 @@ PrefabInstance:
       objectReference: {fileID: 21300000, guid: 388b1b35e4f02574bbb73d690c24b24e, type: 3}
     - target: {fileID: 3353267618745086349, guid: 0fcac32537a612046bd73b7e77c54951, type: 3}
       propertyPath: m_text
-      value: Next Level
+      value: 'Next '
       objectReference: {fileID: 0}
     - target: {fileID: 3353267618745086349, guid: 0fcac32537a612046bd73b7e77c54951, type: 3}
       propertyPath: m_fontSize

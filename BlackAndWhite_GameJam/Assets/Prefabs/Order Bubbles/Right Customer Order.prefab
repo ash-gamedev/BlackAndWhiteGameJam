@@ -405,7 +405,7 @@ RectTransform:
   m_GameObject: {fileID: 7180983255157664110}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.55, y: 0.55, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6400850206062687304}
@@ -456,10 +456,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c129d0baf2b1dd4428836c76ce210706, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  order: 4
-  bubbleSpawnPosition: {x: 0, y: 0, z: 0}
+  order: 0
   spriteImage: {fileID: 1256345751062401698}
-  newOrderPlacedObject: {fileID: 4227974976910238959, guid: 84a0925163d09b249b452ce89eadf070, type: 3}
 --- !u!114 &179888951696179444
 MonoBehaviour:
   m_ObjectHideFlags: 0

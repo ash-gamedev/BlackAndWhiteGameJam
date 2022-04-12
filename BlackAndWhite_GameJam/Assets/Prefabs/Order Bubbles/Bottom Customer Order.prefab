@@ -405,7 +405,7 @@ RectTransform:
   m_GameObject: {fileID: 4894971246273888083}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.55, y: 0.55, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8691374477588472437}
@@ -458,8 +458,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   order: 1
   spriteImage: {fileID: 3541794810538083487}
-  newOrderPlacedObjectTransform: {fileID: 0}
-  newOrderPlacedObject: {fileID: 4227974976910238959, guid: 84a0925163d09b249b452ce89eadf070, type: 3}
 --- !u!114 &2465312176463337161
 MonoBehaviour:
   m_ObjectHideFlags: 0

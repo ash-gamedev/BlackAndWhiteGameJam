@@ -71,3 +71,10 @@ public enum EnumSoundEffects
     OrderPlaced,
     Trash
 }
+
+public enum EnumDifficulty
+{
+    Easy = 0,
+    Normal = 1,
+    Hard = 2
+}
