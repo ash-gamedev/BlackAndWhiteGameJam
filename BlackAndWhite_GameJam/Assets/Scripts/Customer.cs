@@ -9,6 +9,7 @@ public class Customer : MonoBehaviour
 {    
     [SerializeField] float moveSpeed = 2f;
     [SerializeField] public float timeToEatInSeconds = 2f;
+    float timeToPlaceOrder = 0.65f;
     [SerializeField] GameObject tipObject;
     [SerializeField] GameObject unHappyObject;
     [SerializeField] List<Sprite> customerSprites;
@@ -78,7 +79,7 @@ public class Customer : MonoBehaviour
             if (transform.position == walkingTarget && !setOrder)
             {
                 setOrder = true;
-                SetOrder();
+                StartCoroutine(SetOrder());
             }
 
             // if leaving 
@@ -131,8 +132,11 @@ public class Customer : MonoBehaviour
         }
     }
 
-    public void SetOrder()
+    public IEnumerator SetOrder()
     {
+        // wait to place order
+        yield return new WaitForSeconds(timeToPlaceOrder);
+
         //sound effect
         AudioPlayer.PlaySoundEffect(EnumSoundEffects.CustomerOrder);
 
