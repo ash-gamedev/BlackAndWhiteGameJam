@@ -17,6 +17,14 @@ public class Customer : MonoBehaviour
     
     [HideInInspector] public float timeBeforeLeaving = 0;
 
+    public bool OrderReceived
+    {
+        get
+        {
+            return orderReceived;
+        }
+    }
+
     EnumOrder customerOrder;
     CustomerWaitingTimer customerWaitingTimer = null;
 

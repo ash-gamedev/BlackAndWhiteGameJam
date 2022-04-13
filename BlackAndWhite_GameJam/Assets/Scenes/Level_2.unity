@@ -1807,7 +1807,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7805415429871258974, guid: bdc86b75a5913af46a6a11096e2bf9d8, type: 3}
       propertyPath: conveyorSpeed
-      value: 1.75
+      value: 1.6
       objectReference: {fileID: 0}
     - target: {fileID: 7805415429871258974, guid: bdc86b75a5913af46a6a11096e2bf9d8, type: 3}
       propertyPath: numberOfCustomers
@@ -23006,7 +23006,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1029561651665432016, guid: 553e0358a3135c64bbf6a54363d84cef, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.5
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 1029561651665432016, guid: 553e0358a3135c64bbf6a54363d84cef, type: 3}
       propertyPath: m_LocalPosition.z
@@ -23279,7 +23279,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1029561651665432016, guid: 553e0358a3135c64bbf6a54363d84cef, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -3.5
+      value: -2.5
       objectReference: {fileID: 0}
     - target: {fileID: 1029561651665432016, guid: 553e0358a3135c64bbf6a54363d84cef, type: 3}
       propertyPath: m_LocalPosition.z

@@ -32,6 +32,7 @@ public class CustomerSpawner : MonoBehaviour
         GameController gameController = FindObjectOfType<GameController>();
         Debug.Log(gameController.DifficultySetting);
         float timeBetweenCustomerSpawns = LevelManager.TimeBetweenCustomerSpawns * gameController.AdjustmentFromDifficulty;
+        int maxNumberOfCustomers = gameController.MaxNumberOfCustomers;
 
         while (customerCount < numberOfCustomers)
         {            
@@ -55,6 +56,9 @@ public class CustomerSpawner : MonoBehaviour
                 Debug.Log("customerCount: " + customerCount);
                 Debug.Log("timeBetweenCustomerSpawns: " + timeBetweenCustomerSpawns);
             }
+
+            // wait to spawn customers depending on difficulty
+            yield return new WaitUntil(() => FindObjectsOfType<Customer>().Where(x => x.OrderReceived == false).Count() < maxNumberOfCustomers);
 
             // wait to spawn next customer
             yield return new WaitForSeconds(timeBetweenCustomerSpawns * LevelManager.CustomerTimeVariance);

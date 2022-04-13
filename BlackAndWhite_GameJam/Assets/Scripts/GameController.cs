@@ -8,6 +8,10 @@ public class GameController: MonoBehaviour
     [SerializeField] float normalModifier = 1f;
     [SerializeField] float hardModifier = 0.75f;
 
+    int easyMaxCustomers = 3;
+    int normalMaxCustomers = 4;
+    int hardMaxCustomers = 5;
+
     // static persists through all instances of a class
     static GameController instance;
     public EnumDifficulty DifficultySetting { get; private set; }
@@ -17,6 +21,18 @@ public class GameController: MonoBehaviour
         get
         {
             return AdjustmentsFromDifficulty[DifficultySetting];
+        }
+    }
+    public int MaxNumberOfCustomers
+    {
+        get
+        {
+            if (DifficultySetting == EnumDifficulty.Easy)
+                return easyMaxCustomers;
+            else if (DifficultySetting == EnumDifficulty.Normal)
+                return normalMaxCustomers;
+            else // hard
+                return hardMaxCustomers;
         }
     }
     
