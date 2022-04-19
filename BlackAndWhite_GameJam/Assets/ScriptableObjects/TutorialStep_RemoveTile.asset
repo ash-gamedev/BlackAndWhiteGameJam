@@ -9,9 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5488656656951d74cacba3d63fce370e, type: 3}
-  m_Name: TutorialTrash
+  m_Script: {fileID: 11500000, guid: 2aa200fdb57a6554ca18f27868b75ecc, type: 3}
+  m_Name: TutorialStep_RemoveTile
   m_EditorClassIdentifier: 
-  animation: 3
-  header: Create path to garbage to trash an order
-  description: 
+  EnumTutorialStep: 1
+  StepHeader: Remove Tile
+  StepDescription: Remove Tile Description

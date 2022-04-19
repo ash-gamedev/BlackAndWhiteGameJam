@@ -78,3 +78,17 @@ public enum EnumDifficulty
     Normal = 1,
     Hard = 2
 }
+
+public enum EnumTutorialStep
+{
+    PlaceTile,
+    RemoveTile,
+    CustomerOrder,
+    NewCustomerOrder
+}
+
+public enum EnumTutorialAnimation
+{
+    PlaceTile,
+    RemoveTile
+}
