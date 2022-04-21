@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2aa200fdb57a6554ca18f27868b75ecc, type: 3}
-  m_Name: TutorialStep_CustomerOrder
+  m_Name: RemoveTile
   m_EditorClassIdentifier: 
-  EnumTutorialStep: 2
-  StepHeader: Customer Order
-  StepDescription: Customer Order Description
+  EnumTutorialStep: 1
+  StepHeader: Remove Conveyor
+  StepDescription: Right click to remove conveyors.

@@ -16,6 +16,7 @@ public class TutorialManager : MonoBehaviour
     [SerializeField] GameObject customer = null;
     [SerializeField] Seat seat1;
     [SerializeField] Seat seat2;
+    [SerializeField] Seat seat3;
 
     private int currentTutorialStepIndex = 0;
     private TutorialStep currentTutorialStep
@@ -41,7 +42,7 @@ public class TutorialManager : MonoBehaviour
     public void GetNextTutorialStep()
     {
         // get next tutorial step
-        if (currentTutorialStepIndex < tutorialSteps.Count)
+        if (currentTutorialStepIndex + 1 < tutorialSteps.Count)
         {
             // get next index
             currentTutorialStepIndex++;
@@ -57,14 +58,11 @@ public class TutorialManager : MonoBehaviour
         // custom actions based on the tutorial step
         switch (currentTutorialStep.EnumTutorialStep)
         {
-            case EnumTutorialStep.PlaceTile:
-                //TODO
-                break;
-            case EnumTutorialStep.RemoveTile:
-                //TODO
-                break;
             case EnumTutorialStep.CustomerOrder:
                 SpawnCustomer(seat1);
+                break;
+            case EnumTutorialStep.MultipleCustomerOrder:
+                StartCoroutine(SpawnCustomers());
                 break;
         }
     }
@@ -81,6 +79,8 @@ public class TutorialManager : MonoBehaviour
 
     void ChangeAnimationState(EnumTutorialStep newState)
     {
+        Debug.Log(newState.ToString());
+
         //play the animation
         animator.Play(newState.ToString());
     }
@@ -88,5 +88,12 @@ public class TutorialManager : MonoBehaviour
     void SpawnCustomer(Seat seat)
     {
         seat.SetCustomer(customer);
+    }
+
+    IEnumerator SpawnCustomers()
+    {
+        SpawnCustomer(seat2);
+        yield return new WaitForSeconds(4);
+        SpawnCustomer(seat3);
     }
 }

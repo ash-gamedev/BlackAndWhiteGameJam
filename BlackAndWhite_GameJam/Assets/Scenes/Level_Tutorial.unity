@@ -156,12 +156,16 @@ MonoBehaviour:
   - {fileID: 11400000, guid: abf1dcfcece542044b3ab2e09e57b9b5, type: 2}
   - {fileID: 11400000, guid: a6625bf99e33fa6419155ff0931d9aed, type: 2}
   - {fileID: 11400000, guid: e3004e64a7e505548919294963db5711, type: 2}
+  - {fileID: 11400000, guid: ef3f55e659b4e3d4a97755ef967c1db9, type: 2}
+  - {fileID: 11400000, guid: c5ea4bf421e6a144cb0cd726a8505e92, type: 2}
+  - {fileID: 11400000, guid: fd29283d1d395a549b0b340b7cd48511, type: 2}
   tutorialHeader: {fileID: 898982656}
   tutorialDescription: {fileID: 1539077718}
   animator: {fileID: 1161878243}
   customer: {fileID: 1612893580135824664, guid: 0b757db065f4ae94e99a75480b0df770, type: 3}
   seat1: {fileID: 674017816}
   seat2: {fileID: 1418773703}
+  seat3: {fileID: 1389877781}
 --- !u!4 &186445339
 Transform:
   m_ObjectHideFlags: 0
@@ -305,7 +309,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 8
+  orthographic size: 8.5
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -1713,6 +1717,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6008070352903026361, guid: 073c814ffd526ce4e87e06700bc71b5c, type: 3}
   m_PrefabInstance: {fileID: 1734533171}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1389877781 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6477272574291298343, guid: 073c814ffd526ce4e87e06700bc71b5c, type: 3}
+  m_PrefabInstance: {fileID: 1734533171}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64897c876a4e5164ca9c0dfaab57687e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &1418773700 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1029561651665432016, guid: 553e0358a3135c64bbf6a54363d84cef, type: 3}
@@ -7668,7 +7683,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.21000001, y: 0.022446686}
   m_AnchorMax: {x: 0.87750006, y: 0.641292}
-  m_AnchoredPosition: {x: 2.5, y: -1}
+  m_AnchoredPosition: {x: 2.5, y: -0.9999924}
   m_SizeDelta: {x: -5, y: 2}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1539077718
@@ -13176,7 +13191,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5411830543325923776, guid: 1bd944d598233c844ba494f1b20a6d61, type: 3}
       propertyPath: Mute
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5411830543325923776, guid: 1bd944d598233c844ba494f1b20a6d61, type: 3}
       propertyPath: m_Enabled

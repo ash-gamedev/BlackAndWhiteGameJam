@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2aa200fdb57a6554ca18f27868b75ecc, type: 3}
-  m_Name: TutorialStep_PlaceTile
+  m_Name: PlaceTile
   m_EditorClassIdentifier: 
   EnumTutorialStep: 0
-  StepHeader: Place Tile
-  StepDescription: Place Tile Description
+  StepHeader: Place Conveyors
+  StepDescription: Left click and drag to create a conveyor path.

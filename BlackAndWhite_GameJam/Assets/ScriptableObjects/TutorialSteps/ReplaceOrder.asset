@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2aa200fdb57a6554ca18f27868b75ecc, type: 3}
-  m_Name: TutorialStep_RemoveTile
+  m_Name: ReplaceOrder
   m_EditorClassIdentifier: 
-  EnumTutorialStep: 1
-  StepHeader: Remove Tile
-  StepDescription: Remove Tile Description
+  EnumTutorialStep: 3
+  StepHeader: Re-place order
+  StepDescription: If you need to replace an order, left click the order in the bubble.

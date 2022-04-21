@@ -84,7 +84,9 @@ public enum EnumTutorialStep
     PlaceTile,
     RemoveTile,
     CustomerOrder,
-    NewCustomerOrder
+    ClickToPlaceNewOrder,
+    TrashOrder,
+    MultipleCustomerOrder
 }
 
 public enum EnumTutorialAnimation
