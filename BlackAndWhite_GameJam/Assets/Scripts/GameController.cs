@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class GameController: MonoBehaviour
 {
-    [SerializeField] float easyModifier = 1.25f;
-    [SerializeField] float normalModifier = 1f;
-    [SerializeField] float hardModifier = 0.75f;
+    float easyModifier = 1.25f;
+    float normalModifier = 1f;
+    float hardModifier = 0.85f;
 
     int easyMaxCustomers = 3;
-    int normalMaxCustomers = 4;
-    int hardMaxCustomers = 5;
+    int normalMaxCustomers = 3;
+    int hardMaxCustomers = 4;
 
     // static persists through all instances of a class
     static GameController instance;
