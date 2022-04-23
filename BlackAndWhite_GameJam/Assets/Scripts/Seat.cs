@@ -28,7 +28,7 @@ public class Seat : MonoBehaviour
         return true;
     }
 
-    public void SetCustomer(GameObject customer)
+    public void SetCustomer(GameObject customer, EnumOrder? setOrder = null)
     {
         // if no customer is sitting in chair, instantiate customer
         if (GetCustomer() == false)
@@ -39,6 +39,10 @@ public class Seat : MonoBehaviour
                         spawnPosition, // where to spawn the object
                         Quaternion.identity,
                         transform); //, // need to specify rotation
+
+            // set order if specified
+            if (setOrder != null)
+                customerInstance.GetComponent<Customer>().customerOrder = setOrder;
 
             // rotate to face seat + set seat target
             customerInstance.transform.right = transform.position - new Vector3(customerInstance.transform.position.x, customerInstance.transform.position.y, 0);

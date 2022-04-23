@@ -1820,7 +1820,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7805415429871258974, guid: bdc86b75a5913af46a6a11096e2bf9d8, type: 3}
       propertyPath: conveyorSpeed
-      value: 1.5
+      value: 1.65
       objectReference: {fileID: 0}
     - target: {fileID: 7805415429871258974, guid: bdc86b75a5913af46a6a11096e2bf9d8, type: 3}
       propertyPath: numberOfCustomers

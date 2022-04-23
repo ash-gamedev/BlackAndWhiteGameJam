@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Multiple Customers
   m_EditorClassIdentifier: 
   EnumTutorialStep: 5
-  StepHeader: Multiple Customers
-  StepDescription: When multiple customers show up, you'll need to re-route the food
-    using conveyors to ensure they get delivered to the correct customer.
+  StepHeader: Delivering orders
+  StepDescription: Make sure to deliver the correct order to the correct customer
+    by re-routing food through conveyors.

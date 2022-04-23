@@ -14,4 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   EnumTutorialStep: 1
   StepHeader: Remove Conveyor
-  StepDescription: Right click to remove conveyors.
+  StepDescription: Right click on a placed conveyor to remove. You can only remove
+    conveyors that you placed (ie. can't remove border conveyors).

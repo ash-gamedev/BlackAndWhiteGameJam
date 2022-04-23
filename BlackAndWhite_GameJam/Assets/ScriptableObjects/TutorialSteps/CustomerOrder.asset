@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   EnumTutorialStep: 2
   StepHeader: Customer Order
-  StepDescription: Customers
+  StepDescription: 'Make sure to deliver items '

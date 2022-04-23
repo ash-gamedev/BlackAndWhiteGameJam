@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   EnumTutorialStep: 3
   StepHeader: Re-place order
-  StepDescription: If you need to replace an order, left click the order in the bubble.
+  StepDescription: If you need to replace an order, click on the order in the bubble.

@@ -26,17 +26,52 @@ public class TutorialManager : MonoBehaviour
             return tutorialSteps[currentTutorialStepIndex];
         }
     }
+    private PauseMenu pauseMenu;
+    bool triggerEventHappened = false;
 
     // Use this for initialization
     void Start()
     {
-        UpdateTutorialStepUI();
+        pauseMenu = FindObjectOfType<PauseMenu>();
+        StartCoroutine(StartTutorialLevel());
     }
 
     // Update is called once per frame
     void Update()
     {
 
+    }
+
+    public void OnClickNextTutorialStep()
+    {
+        // check the current step
+        switch (currentTutorialStep.EnumTutorialStep)
+        {
+            case EnumTutorialStep.PlaceTile:
+                Pause();
+                break;
+            case EnumTutorialStep.RemoveTile:
+                StartCoroutine(SpawnCustomers());
+                Resume();
+                break;
+            case EnumTutorialStep.CustomerOrder:
+                Pause();
+                break;
+            case EnumTutorialStep.MultipleCustomerOrder:
+                Pause();
+                break;
+            case EnumTutorialStep.ClickToPlaceNewOrder:
+                Resume();
+                StartCoroutine(FinishTutorial());
+                break;
+        }
+
+        GetNextTutorialStep();
+
+        if (PauseMenu.GameIsPaused)
+        {
+            UpdateTutorialStepUI();
+        }
     }
 
     public void GetNextTutorialStep()
@@ -46,25 +81,18 @@ public class TutorialManager : MonoBehaviour
         {
             // get next index
             currentTutorialStepIndex++;
-
-            UpdateTutorialStepUI();
         }
         else
         {
-            //TODO
-            return;
+            Resume();
         }
+    }
 
-        // custom actions based on the tutorial step
-        switch (currentTutorialStep.EnumTutorialStep)
-        {
-            case EnumTutorialStep.CustomerOrder:
-                SpawnCustomer(seat1);
-                break;
-            case EnumTutorialStep.MultipleCustomerOrder:
-                StartCoroutine(SpawnCustomers());
-                break;
-        }
+    IEnumerator StartTutorialLevel()
+    {
+        yield return new WaitForSeconds(0.5f);
+        Pause();
+        UpdateTutorialStepUI();
     }
 
     void UpdateTutorialStepUI()
@@ -85,15 +113,44 @@ public class TutorialManager : MonoBehaviour
         animator.Play(newState.ToString());
     }
 
-    void SpawnCustomer(Seat seat)
+    void SpawnCustomer(Seat seat, EnumOrder? enumOrder)
     {
-        seat.SetCustomer(customer);
+        seat.SetCustomer(customer, enumOrder);
     }
 
     IEnumerator SpawnCustomers()
     {
-        SpawnCustomer(seat2);
-        yield return new WaitForSeconds(4);
-        SpawnCustomer(seat3);
+        SpawnCustomer(seat2, EnumOrder.Croissant);
+        yield return new WaitForSeconds(5);
+        SpawnCustomer(seat3, EnumOrder.Coffee);
+    }
+
+    void Pause()
+    {
+        if (PauseMenu.GameIsPaused == false)
+            pauseMenu.Pause();
+    }
+
+    void Resume()
+    {
+        pauseMenu.Resume();
+    }
+
+    IEnumerator FinishTutorial()
+    {
+        // wait until all customers have left
+        yield return new WaitUntil(() => FindObjectsOfType<Customer>().Length == 0);
+
+        LevelManager.OnLevelComplete();
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        Debug.Log("Tutorial Treigger");
+        if(triggerEventHappened == false)
+        {
+            triggerEventHappened = true;
+            OnClickNextTutorialStep();
+        }
     }
 }

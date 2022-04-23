@@ -25,7 +25,7 @@ public class Customer : MonoBehaviour
         }
     }
 
-    EnumOrder customerOrder;
+    public EnumOrder? customerOrder = null;
     CustomerWaitingTimer customerWaitingTimer = null;
 
     Seat seatInstance = null;
@@ -56,9 +56,12 @@ public class Customer : MonoBehaviour
             spriteRenderer.sprite = customerSprite;
 
             // create random order
-            Array orders = Enum.GetValues(typeof(EnumOrder));
-            customerOrder = (EnumOrder)orders.GetValue(random.Next(orders.Length));
-
+            if(customerOrder == null)
+            {
+                Array orders = Enum.GetValues(typeof(EnumOrder));
+                customerOrder = (EnumOrder)orders.GetValue(random.Next(orders.Length));
+            }
+            
             seatInstance = transform.parent.gameObject.GetComponent<Seat>();
 
             // time before leaving
@@ -150,7 +153,7 @@ public class Customer : MonoBehaviour
 
         // instantiate object on UI
         CustomerOrder newCustomerOder = orderBubble.GetComponent<CustomerOrder>();
-        newCustomerOder.order = customerOrder; // set order
+        newCustomerOder.order = (EnumOrder)customerOrder; // set order
         orderBubbleInstance = uiManager.InstantiateObjectOnUi(seatInstance.GetCustomerOrderBubbleSpawnPosition(), orderBubble);
 
         // set conveyer to face customer after order is placed
@@ -160,7 +163,7 @@ public class Customer : MonoBehaviour
         customerWaitingTimer = orderBubbleInstance.GetComponent<CustomerWaitingTimer>();
 
         // spawn order
-        FindObjectOfType<OrderManager>().AddOrderToQueue(customerOrder);
+        FindObjectOfType<OrderManager>().AddOrderToQueue((EnumOrder)customerOrder);
     }
 
     public IEnumerator CompleteOrder(GameObject order)
